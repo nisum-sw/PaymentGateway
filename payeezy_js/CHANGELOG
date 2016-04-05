@@ -1,0 +1,22 @@
+
+=== 3.0.0 2015-07-01
+
+# Payeezy_JS version
+Payeezy_v1 and Payeezy_v2.1/Payeezy_v2.2 are deprecated (after 1-Jul-15 ) 
+
+=== 2.0.0 2015-06-20
+
+Support tokenize method for credit card transactions.
+
+# TokenBased Transactions (NEW) - 
+*	Generate Token with ta_token - auth false - GET API
+*	Generate Token with ta_token - auth true - GET API
+*	Generate Token without  ta_token & auth -  - GET API with 0$ Auth
+*	Generate Token - Backward compatible -  GET API call
+
+=== 1.0.0 2014-09-01
+
+* Initial release
+
+Special thanks to: Sachin
+
