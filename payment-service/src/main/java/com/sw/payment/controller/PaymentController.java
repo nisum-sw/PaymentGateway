@@ -14,7 +14,7 @@ import com.sw.payment.domain.TransactionRequest;
 import com.sw.payment.service.gateway.IPaymentGatewayService;
 
 @RestController
-@RequestMapping("/service/payment")
+@RequestMapping("/payment/transaction")
 public class PaymentController {
 
 	@Autowired
@@ -27,7 +27,7 @@ public class PaymentController {
 	}
 	
 	
-	@RequestMapping(value = "/transaction/primary", method = RequestMethod.PUT)
+	@RequestMapping(value = "/purchase", method = RequestMethod.PUT)
 	public String doPrimaryTransaction(
 			@RequestHeader(value="apikey" , required=false) String apiKey,
 			@RequestHeader(value="token" , required=false) String token,
@@ -37,7 +37,7 @@ public class PaymentController {
 		
 			String result=transactionRequest.getAmount() + contentType + apiKey + apiSecret+ token;		
 		//
-			paymentGatewayService.doPrimaryTransaction(transactionRequest);
+			paymentGatewayService.purchaseTransaction(transactionRequest);
 			
 			return result;
 	}

@@ -11,8 +11,11 @@ public interface IPaymentGatewayService {
 	//generate token
 	public TransactionResponse generateToken(TransactionRequest transactionRequest) throws IOException;
 	
-	//for purchase or Authorization
-	public TransactionResponse doPrimaryTransaction(TransactionRequest transactionRequest) throws IOException;
+	//for purchase
+	public TransactionResponse purchaseTransaction(TransactionRequest transactionRequest) throws IOException;
+	
+	//for Authorization
+	public TransactionResponse authorizeTransaction(TransactionRequest transactionRequest) throws IOException;
 	
 	//for Capture , refund , void, and cancel
 	public TransactionResponse doSecondaryTransaction(TransactionRequest transactionRequest) throws IOException;

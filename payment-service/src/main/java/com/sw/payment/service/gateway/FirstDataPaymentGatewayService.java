@@ -62,9 +62,9 @@ import com.sw.payment.repository.TransactionRepository;
 
 
 @Service
-public class PaymentGatewayService  implements IPaymentGatewayService {
+public class FirstDataPaymentGatewayService  implements IPaymentGatewayService {
 
-	private static final Logger log = LoggerFactory.getLogger(PaymentGatewayService.class);
+	private static final Logger log = LoggerFactory.getLogger(FirstDataPaymentGatewayService.class);
 
 	@Autowired
 	RestTemplate restTemplate;
@@ -91,7 +91,7 @@ public class PaymentGatewayService  implements IPaymentGatewayService {
 	private String merchantid;
 	
 
-	public PaymentGatewayService() {
+	public FirstDataPaymentGatewayService() {
 
 		this.setAppId(APIKEY_VALUE);
 		this.setSecuredSecret(APISECRET_VALUE);
@@ -563,20 +563,54 @@ public class PaymentGatewayService  implements IPaymentGatewayService {
 
 	}
 
-	public TransactionResponse purchaseTransaction(TransactionRequest trans) throws Exception {
-		trans.setTransactionType(TransactionType.PURCHASE.name());
-		return doPrimaryTransaction(trans);
+	public TransactionResponse purchaseTransaction(TransactionRequest transactionRequest) throws IOException {
+		transactionRequest.setTransactionType(TransactionType.PURCHASE.name());
+		// TODO Auto-generated method stub
+		log.debug("From log This is service: " +transactionRequest.getAmount() + " : " + propertyConfig.env.getProperty("apikey") );
+		System.out.println("This is service: " +transactionRequest.getAmount() + " : " + propertyConfig.env.getProperty("apikey")  + " : " +propertyConfig.env.getProperty("spring.profile") );
+		Transaction t = new Transaction();
+		t.setTransactionId("E123");
+		t.setAmount("90");
+		t.setCurrency("$");
+		Card c1 = new Card();
+		c1.setId(125L);
+		c1.setNumber("46");
+		c1.setName("VISA");
+		//cardRepository.save(c1);
+		List<Transaction> l = new ArrayList<Transaction>();
+		t.setCard(c1);
+		l.add(t);
+		c1.setTransactions(l);
+		t.setCard(c1);
+		cardRepository.save(c1);
+		
+		return null;
+
 	}
 
 	
 	
-	public TransactionResponse authorizeTransaction(TransactionRequest trans) throws Exception {
-		trans.setTransactionType(TransactionType.AUTHORIZE.name());
-		if ((trans.getToken() != null) && (trans.getToken().getTokenType() != null)
-				&& (trans.getToken().getTokenType().toUpperCase() == "FDTOKEN")) {
-			return doPrimaryTransactionObject(trans);
-		}
-		return doPrimaryTransaction(trans);
+	public TransactionResponse authorizeTransaction(TransactionRequest transactionRequest) throws IOException {
+		transactionRequest.setTransactionType(TransactionType.AUTHORIZE.name());
+		log.debug("From log This is service: " +transactionRequest.getAmount() + " : " + propertyConfig.env.getProperty("apikey") );
+		System.out.println("This is service: " +transactionRequest.getAmount() + " : " + propertyConfig.env.getProperty("apikey")  + " : " +propertyConfig.env.getProperty("spring.profile") );
+		Transaction t = new Transaction();
+		t.setTransactionId("E123");
+		t.setAmount("90");
+		t.setCurrency("$");
+		Card c1 = new Card();
+		c1.setId(125L);
+		c1.setNumber("46");
+		c1.setName("VISA");
+		//cardRepository.save(c1);
+		List<Transaction> l = new ArrayList<Transaction>();
+		t.setCard(c1);
+		l.add(t);
+		c1.setTransactions(l);
+		t.setCard(c1);
+		cardRepository.save(c1);
+		
+		return null;
 	}
 
 	public TransactionResponse captureTransaction(TransactionRequest trans) throws Exception {
@@ -627,48 +661,6 @@ public class PaymentGatewayService  implements IPaymentGatewayService {
 		return doPrimaryTransactionObject(trans);
 	}
 	
-	/*
-	 * German direct debit start
-	 */
-	public TransactionResponse purchaseAVSGermanDirectDebitTransaction(TransactionRequest trans) throws Exception {
-		trans.setTransactionType(TransactionType.PURCHASE.name());
-		return doPrimaryTransaction(trans);
-	}
-	
-	public TransactionResponse purchaseVoidGermanDirectDebitTransaction(TransactionRequest trans) throws Exception {
-		trans.setTransactionType(TransactionType.PURCHASE.name());
-		return doPrimaryTransaction(trans);
-	}
-	
-	public TransactionResponse purchaseRefundGermanDirectDebitTransaction(TransactionRequest trans) throws Exception {
-		trans.setTransactionType(TransactionType.PURCHASE.name());
-		return doPrimaryTransaction(trans);
-	}
-	
-	public TransactionResponse creditAVSGermanDirectDebitTransaction(TransactionRequest trans) throws Exception {
-		trans.setTransactionType(TransactionType.PURCHASE.name());
-		return doPrimaryTransaction(trans);
-	}
-	
-	public TransactionResponse purchaseSoftDescGermanDirectDebitTransaction(TransactionRequest trans) throws Exception {
-		trans.setTransactionType(TransactionType.PURCHASE.name());
-		return doPrimaryTransaction(trans);
-	}
-	
-	public TransactionResponse creditSoftDescGermanDirectDebitTransaction(TransactionRequest trans) throws Exception {
-		trans.setTransactionType(TransactionType.PURCHASE.name());
-		return doPrimaryTransaction(trans);
-	}
-	
-	public TransactionResponse purchaseL2L3GermanDirectDebitTransaction(TransactionRequest trans) throws Exception {
-		trans.setTransactionType(TransactionType.PURCHASE.name());
-		return doPrimaryTransaction(trans);
-	}
-	
-	public TransactionResponse creditL2L3GermanDirectDebitTransaction(TransactionRequest trans) throws Exception {
-		trans.setTransactionType(TransactionType.PURCHASE.name());
-		return doPrimaryTransaction(trans);
-	}
 	
 	/*
 	 * German direct debit end
@@ -810,36 +802,8 @@ public class PaymentGatewayService  implements IPaymentGatewayService {
 		return null;
 	}
 
-	
-	public com.sw.payment.domain.TransactionResponse doPrimaryTransaction(TransactionRequest transactionRequest)
-			throws IOException {
-		// TODO Auto-generated method stub
-		log.debug("From log This is service: " +transactionRequest.getAmount() + " : " + propertyConfig.env.getProperty("apikey") );
-		System.out.println("This is service: " +transactionRequest.getAmount() + " : " + propertyConfig.env.getProperty("apikey")  + " : " +propertyConfig.env.getProperty("spring.profile") );
-		Transaction t = new Transaction();
-		t.setTransactionId("E123");
-		t.setAmount("90");
-		t.setCurrency("$");
-		Card c1 = new Card();
-		c1.setId(125L);
-		c1.setNumber("46");
-		c1.setName("VISA");
-		//cardRepository.save(c1);
-		List<Transaction> l = new ArrayList<Transaction>();
-		t.setCard(c1);
-		l.add(t);
-		c1.setTransactions(l);
-		t.setCard(c1);
-		cardRepository.save(c1);
-		
-		return null;
-	}
-
-	
-	public com.sw.payment.domain.TransactionResponse doSecondaryTransaction(TransactionRequest transactionRequest)
-			throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+	public TransactionResponse doSecondaryTransaction(TransactionRequest transactionRequest) throws IOException{
+	return null;	
 	}
 
 }

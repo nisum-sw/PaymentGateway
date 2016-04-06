@@ -23,7 +23,7 @@ public class PaymentApplicationContextInitializer implements
 							"classpath:configuration//application.properties"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			appEnvironment.addActiveProfile("dev");
+			appEnvironment.addActiveProfile("dev"); //The world is illusion my friend 
 			e.printStackTrace();
 		}
 		// LOG.info("env.properties loaded");
