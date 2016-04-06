@@ -28,7 +28,7 @@ public class PaymentController {
 	
 	
 	@RequestMapping(value = "/purchase", method = RequestMethod.PUT)
-	public String doPrimaryTransaction(
+	public String purchaseTransaction(
 			@RequestHeader(value="apikey" , required=false) String apiKey,
 			@RequestHeader(value="token" , required=false) String token,
 			@RequestHeader(value="apisecret" , required=false) String apiSecret,
@@ -42,6 +42,21 @@ public class PaymentController {
 			return result;
 	}
 	
+	
+	@RequestMapping(value = "/authorize", method = RequestMethod.PUT)
+	public String authorizeTransaction(
+			@RequestHeader(value="apikey" , required=false) String apiKey,
+			@RequestHeader(value="token" , required=false) String token,
+			@RequestHeader(value="apisecret" , required=false) String apiSecret,
+            @RequestHeader(value="Content-Type" , required=true) String contentType,
+            @RequestBody(required = true) TransactionRequest transactionRequest) throws Exception {
+		
+			String result=transactionRequest.getAmount() + contentType + apiKey + apiSecret+ token;		
+		//
+			paymentGatewayService.authorizeTransaction(transactionRequest);
+			
+			return result;
+	}
 	
 
        
