@@ -172,6 +172,26 @@
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
+			<!-- Jetty Configuration -->
+			<plugin>
+  				<groupId>org.eclipse.jetty</groupId>
+  				<artifactId>jetty-maven-plugin</artifactId>
+  				<version>8.1.17.v20150415</version>
+  				<configuration>
+     				<stopKey>STOP</stopKey>
+     				<stopPort>9999</stopPort>
+     				<scanIntervalSeconds>5</scanIntervalSeconds>
+     				<webAppConfig>
+      					<contextPath>/${project.artifactId}</contextPath>
+     				</webAppConfig>
+     				<connectors>
+      					<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+       						<port>8080</port>
+      					</connector>
+     				</connectors>
+    			</configuration>
+			</plugin>
+			<!-- end of Jetty config -->
 		</plugins>
 	</build>
 	<packaging>war</packaging>
