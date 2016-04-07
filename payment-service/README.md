@@ -2,27 +2,18 @@ Java, JPA, Spring profile, Spring Data JPA, Spring Rest, Spring Security.
 
 Rest urls:
 
-http://localhost:8080/payment-service/transaction/{YOURNAME}
-Method : GET
-headers
- 	Authorization: Basic dXNlcjp1c2VyUGFzcw==
-	Content-Type: application/json
+headers</br>
+ 	Authorization: Basic dXNlcjp1c2VyUGFzcw==</br>
+	Content-Type: application/json</br>
 
+<b>http://localhost:8080/payment-service/transaction/{YOURNAME} </b></br>
+Method : GET</br>
 
+<b>http://localhost:8080/payment-service/transaction/purchase</b></br>
+Method : PUT</br>
+Body   : {}</br>
 
-http://localhost:8080/payment-service/transaction/purchase
-Method : PUT
-headers
- 	Authorization: Basic dXNlcjp1c2VyUGFzcw==
-	Content-Type: application/json
-Body 
-	{}
+<b>http://localhost:8080/payment-service/transaction/authorize</b></br>
+Method : PUT</br>
 
-
-http://localhost:8080/payment-service/transaction/authorize
-Method : 
-	PUT
-
-
-
-With H2 Database
+With H2 Database</br>
