@@ -79,17 +79,25 @@
 		<property name="databasePlatform"
 			value="org.hibernate.dialect.MySQLDialect" />
 	</bean>	 -->
+	 <!--  For Hibernate use this one only
 	 <bean id="jpaVendorAdapter"
 		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 		<property name="databasePlatform"
 			value="org.hibernate.dialect.Oracle10gDialect" />
 			<property name="generateDdl" value="true" />
 		<property name="showSql" value="true" />
+	</bean> -->
+	<bean id="jpaVendorAdapter"
+		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+		<property name="databasePlatform"
+			value="H2" />
+			<property name="generateDdl" value="true" />
+		<property name="showSql" value="true" />
 	</bean>	
 	 	<!-- Entity Manager Factory -->
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
-		<property name="persistenceUnitName" value="payment-persistence"></property>
+		<property name="persistenceUnitName" value="h2"></property>
 		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
 	</bean>
 	

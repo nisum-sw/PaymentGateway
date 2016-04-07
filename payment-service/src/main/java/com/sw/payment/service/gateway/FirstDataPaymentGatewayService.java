@@ -563,7 +563,7 @@ public class FirstDataPaymentGatewayService  implements IPaymentGatewayService {
 
 	}
 
-	public TransactionResponse purchaseTransaction(TransactionRequest transactionRequest) throws IOException {
+	public TransactionResponse purchaseTransaction(TransactionRequest transactionRequest) throws Exception {
 		transactionRequest.setTransactionType(TransactionType.PURCHASE.name());
 		// TODO Auto-generated method stub
 		log.debug("From log This is service: " +transactionRequest.getAmount() + " : " + propertyConfig.env.getProperty("apikey") );
@@ -585,8 +585,35 @@ public class FirstDataPaymentGatewayService  implements IPaymentGatewayService {
 		cardRepository.save(c1);
 		
 		return null;
+		
+		
+		/*String url = this.url + "/transactions";
 
-	}
+		if ((transactionRequest.getToken() == null) && (transactionRequest.getType() == "FDToken") && (transactionRequest.getTa_token() == TA_TOKEN_VALUE)
+				&& (transactionRequest.getAuth() == "false")) {
+			url = this.url + "/transactions/tokens";
+		} //9650753810968291 9126647654778291
+		this.urltoken = url;
+		if (!(url.endsWith("tokens"))) {
+			Assert.notNull(transactionRequest.getAmount(), "Amount is not present");
+			Assert.notNull(transactionRequest.getTransactionType(), "Transaction type is not present");
+		}
+		this.url = "https://api-cert.payeezy.com/v1";
+		this.appId ="y6pWAJNyJyjGv66IsVuWnklkKUPFbb0a";//"ZxijOG2M3uJks0KzLpy7MNoPpOeK94Le";
+		this.securedSecret ="86fbae7030253af3cd15faef2a1f4b67353e41fb6799f576b5093ae52901e6f7";
+		
+		this.token ="fdoa-a480ce8951daa73262734cf102641994c1e55e7cdf4c02b6";//"fdoa-106da85113b364f1cd0e6dab43bfb385106da85113b364f1";
+							   
+
+		restTemplate.setErrorHandler(new MyErrorHandling());		
+		String payload = getJSONObject(transactionRequest);
+		HttpEntity<TransactionRequest> request = new HttpEntity<TransactionRequest>(transactionRequest,
+				getHttpHeader(this.appId, this.securedSecret, payload));
+		ResponseEntity<TransactionResponse> response = restTemplate.exchange(url, HttpMethod.POST, request,
+				TransactionResponse.class);
+		return response.getBody();
+
+*/	}
 
 	
 	
