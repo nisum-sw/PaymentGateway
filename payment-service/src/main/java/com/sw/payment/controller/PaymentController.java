@@ -2,6 +2,8 @@ package com.sw.payment.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Role;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sw.payment.domain.TransactionRequest;
+import com.sw.payment.domain.TransactionResponse;
 import com.sw.payment.service.gateway.IPaymentGatewayService;
 
 @RestController
@@ -28,7 +31,7 @@ public class PaymentController {
 	
 	
 	@RequestMapping(value = "/purchase", method = RequestMethod.POST,produces="application/json", consumes="application/json")
-	public String purchaseTransaction(
+	public ResponseEntity<TransactionResponse> purchaseTransaction(
 			@RequestHeader(value="apikey" , required=false) String apiKey,
 			@RequestHeader(value="token" , required=false) String token,
 			@RequestHeader(value="apisecret" , required=false) String apiSecret,
@@ -37,14 +40,14 @@ public class PaymentController {
 		
 			String result=transactionRequest.getAmount() + contentType + apiKey + apiSecret+ token;		
 		//
-			paymentGatewayService.purchaseTransaction(transactionRequest);
+			TransactionResponse transactionResponse = paymentGatewayService.purchaseTransaction(transactionRequest);
 			
-			return "{name:'ashish'}";
+			return new ResponseEntity<TransactionResponse>(transactionResponse, HttpStatus.CREATED); 
 	}
 	
 	
 	@RequestMapping(value = "/authorize", method = RequestMethod.POST,produces="application/json", consumes="application/json")
-	public String authorizeTransaction(
+	public ResponseEntity<TransactionResponse> authorizeTransaction(
 			@RequestHeader(value="apikey" , required=false) String apiKey,
 			@RequestHeader(value="token" , required=false) String token,
 			@RequestHeader(value="apisecret" , required=false) String apiSecret,
@@ -53,9 +56,9 @@ public class PaymentController {
 		
 			String result=transactionRequest.getAmount() + contentType + apiKey + apiSecret+ token;		
 		//
-			paymentGatewayService.authorizeTransaction(transactionRequest);
+			TransactionResponse transactionResponse = paymentGatewayService.authorizeTransaction(transactionRequest);
 			
-			return result;
+			return new ResponseEntity<TransactionResponse>(transactionResponse, HttpStatus.CREATED);
 	}
 	
 

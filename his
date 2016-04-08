@@ -1,0 +1,161 @@
+[1mdiff --git a/payment-service/src/main/java/com/sw/payment/config/PaymentApplicationContextInitializer.java b/payment-service/src/main/java/com/sw/payment/config/PaymentApplicationContextInitializer.java[m
+[1mindex 2f12855..3fb74d0 100644[m
+[1m--- a/payment-service/src/main/java/com/sw/payment/config/PaymentApplicationContextInitializer.java[m
+[1m+++ b/payment-service/src/main/java/com/sw/payment/config/PaymentApplicationContextInitializer.java[m
+[36m@@ -11,9 +11,6 @@[m [mimport org.springframework.core.io.support.ResourcePropertySource;[m
+ public class PaymentApplicationContextInitializer implements[m
+ 		ApplicationContextInitializer<ConfigurableApplicationContext> {[m
+ [m
+[31m-	/*[m
+[31m-	 * @Value( "${spring.active.profile}" ) private String activeProfile;[m
+[31m-	 */[m
+ 	@Override[m
+ 	public void initialize(ConfigurableApplicationContext ac) {[m
+ 		ConfigurableEnvironment appEnvironment = ac.getEnvironment();[m
+[36m@@ -26,8 +23,5 @@[m [mpublic class PaymentApplicationContextInitializer implements[m
+ 			appEnvironment.addActiveProfile("dev"); //The world is illusion my friend [m
+ 			e.printStackTrace();[m
+ 		}[m
+[31m-		// LOG.info("env.properties loaded");[m
+[31m-		// appEnvironment.addActiveProfile(activeProfile);[m
+[31m-[m
+ 	}[m
+ }[m
+\ No newline at end of file[m
+[1mdiff --git a/payment-service/src/main/java/com/sw/payment/config/PropertyConfig.java b/payment-service/src/main/java/com/sw/payment/config/PropertyConfig.java[m
+[1mindex 1360748..b502203 100644[m
+[1m--- a/payment-service/src/main/java/com/sw/payment/config/PropertyConfig.java[m
+[1m+++ b/payment-service/src/main/java/com/sw/payment/config/PropertyConfig.java[m
+[36m@@ -1,10 +1,13 @@[m
+ package com.sw.payment.config;[m
+ [m
+ import org.springframework.beans.factory.annotation.Autowired;[m
+[32m+[m[32mimport org.springframework.context.annotation.Bean;[m
+ import org.springframework.context.annotation.Configuration;[m
+ import org.springframework.context.annotation.Profile;[m
+ import org.springframework.context.annotation.PropertySource;[m
+[32m+[m[32mimport org.springframework.context.support.PropertySourcesPlaceholderConfigurer;[m
+ import org.springframework.core.env.Environment;[m
+[32m+[m[32mimport org.springframework.core.io.ClassPathResource;[m
+ [m
+ @Configuration[m
+ //@PropertySource("classpath:/configuration/application.properties")[m
+[36m@@ -21,7 +24,7 @@[m [mpublic class PropertyConfig {[m
+     @Profile("dev")[m
+     @PropertySource("classpath:/configuration/dev.properties")[m
+     static class Dev[m
+[31m-    { }[m
+[32m+[m[32m    {}[m
+ [m
+     @Configuration[m
+     @Profile("prod")[m
+[36m@@ -36,4 +39,8 @@[m [mpublic class PropertyConfig {[m
+ 	@Autowired[m
+ 	public Environment env;[m
+ [m
+[32m+[m	[32m@Bean[m
+[32m+[m	[32mpublic static PropertySourcesPlaceholderConfigurer propertyPlaceholderConfigurer() {[m
+[32m+[m	[32m    return new PropertySourcesPlaceholderConfigurer();[m
+[32m+[m	[32m}[m
+ }[m
+[1mdiff --git a/payment-service/src/main/java/com/sw/payment/controller/PaymentController.java b/payment-service/src/main/java/com/sw/payment/controller/PaymentController.java[m
+[1mindex d356b17..2e45d87 100644[m
+[1m--- a/payment-service/src/main/java/com/sw/payment/controller/PaymentController.java[m
+[1m+++ b/payment-service/src/main/java/com/sw/payment/controller/PaymentController.java[m
+[36m@@ -2,6 +2,8 @@[m [mpackage com.sw.payment.controller;[m
+ [m
+ import org.springframework.beans.factory.annotation.Autowired;[m
+ import org.springframework.context.annotation.Role;[m
+[32m+[m[32mimport org.springframework.http.HttpStatus;[m
+[32m+[m[32mimport org.springframework.http.ResponseEntity;[m
+ import org.springframework.security.access.prepost.PreAuthorize;[m
+ import org.springframework.web.bind.annotation.PathVariable;[m
+ import org.springframework.web.bind.annotation.RequestBody;[m
+[36m@@ -11,6 +13,7 @@[m [mimport org.springframework.web.bind.annotation.RequestMethod;[m
+ import org.springframework.web.bind.annotation.RestController;[m
+ [m
+ import com.sw.payment.domain.TransactionRequest;[m
+[32m+[m[32mimport com.sw.payment.domain.TransactionResponse;[m
+ import com.sw.payment.service.gateway.IPaymentGatewayService;[m
+ [m
+ @RestController[m
+[36m@@ -28,7 +31,7 @@[m [mpublic class PaymentController {[m
+ 	[m
+ 	[m
+ 	@RequestMapping(value = "/purchase", method = RequestMethod.POST,produces="application/json", consumes="application/json")[m
+[31m-	public String purchaseTransaction([m
+[32m+[m	[32mpublic ResponseEntity<TransactionResponse> purchaseTransaction([m
+ 			@RequestHeader(value="apikey" , required=false) String apiKey,[m
+ 			@RequestHeader(value="token" , required=false) String token,[m
+ 			@RequestHeader(value="apisecret" , required=false) String apiSecret,[m
+[36m@@ -37,14 +40,14 @@[m [mpublic class PaymentController {[m
+ 		[m
+ 			String result=transactionRequest.getAmount() + contentType + apiKey + apiSecret+ token;		[m
+ 		//[m
+[31m-			paymentGatewayService.purchaseTransaction(transactionRequest);[m
+[32m+[m			[32mTransactionResponse transactionResponse = paymentGatewayService.purchaseTransaction(transactionRequest);[m
+ 			[m
+[31m-			return "{name:'ashish'}";[m
+[32m+[m			[32mreturn new ResponseEntity<TransactionResponse>(transactionResponse, HttpStatus.CREATED);[m[41m [m
+ 	}[m
+ 	[m
+ 	[m
+ 	@RequestMapping(value = "/authorize", method = RequestMethod.POST,produces="application/json", consumes="application/json")[m
+[31m-	public String authorizeTransaction([m
+[32m+[m	[32mpublic ResponseEntity<TransactionResponse> authorizeTransaction([m
+ 			@RequestHeader(value="apikey" , required=false) String apiKey,[m
+ 			@RequestHeader(value="token" , required=false) String token,[m
+ 			@RequestHeader(value="apisecret" , required=false) String apiSecret,[m
+[36m@@ -53,9 +56,9 @@[m [mpublic class PaymentController {[m
+ 		[m
+ 			String result=transactionRequest.getAmount() + contentType + apiKey + apiSecret+ token;		[m
+ 		//[m
+[31m-			paymentGatewayService.authorizeTransaction(transactionRequest);[m
+[32m+[m			[32mTransactionResponse transactionResponse = paymentGatewayService.authorizeTransaction(transactionRequest);[m
+ 			[m
+[31m-			return result;[m
+[32m+[m			[32mreturn new ResponseEntity<TransactionResponse>(transactionResponse, HttpStatus.CREATED);[m
+ 	}[m
+ 	[m
+ [m
+[1mdiff --git a/payment-service/src/main/java/com/sw/payment/domain/Card.java b/payment-service/src/main/java/com/sw/payment/domain/Card.java[m
+[1mindex f95bee7..dbb9365 100644[m
+[1m--- a/payment-service/src/main/java/com/sw/payment/domain/Card.java[m
+[1m+++ b/payment-service/src/main/java/com/sw/payment/domain/Card.java[m
+[36m@@ -20,14 +20,12 @@[m [mimport org.codehaus.jackson.annotate.JsonAutoDetect.Visibility;[m
+ [m
+ @lombok.Getter[m
+ @lombok.Setter[m
+[31m-@Entity[m
+[31m-@Table(name = "CARD")[m
+ @JsonAutoDetect(fieldVisibility = Visibility.ANY, getterVisibility = Visibility.NONE, setterVisibility = Visibility.NONE)[m
+ public class Card implements Serializable{[m
+ 	[m
+ 	[m
+[31m-	@Id[m
+[31m-	private Long id;[m
+[32m+[m
+[32m+[m	[32mprivate Long cardId;[m
+ [m
+ 	@JsonProperty("type")[m
+ 	private String type;[m
+[1mdiff --git a/payment-service/src/main/java/com/sw/payment/domain/Error.java b/payment-service/src/main/java/com/sw/payment/domain/Error.java[m
+[1mindex 83d338c..e5e3984 100644[m
+[1m--- a/payment-service/src/main/java/com/sw/payment/domain/Error.java[m
+[1m+++ b/payment-service/src/main/java/com/sw/payment/domain/Error.java[m
+[36m@@ -1,12 +1,34 @@[m
+ package com.sw.payment.domain;[m
+ [m
+ import java.util.ArrayList;[m
+[32m+[m
+[32m+[m[32mimport javax.persistence.Entity;[m
+[32m+[m[32mimport javax.persistence.GeneratedValue;[m
+[32m+[m[32mimport javax.persistence.GenerationType;[m
+[32m+[m[32mimport javax.persistence.Id;[m
+[32m+[m[32mimport javax.persistence.SequenceGenerator;[m
+[32m+[m[32mimport javax.persistence.Table;[m
+[32m+[m
+[32m+[m[32mimport lombok.Getter;[m
+[32m+[m[32mimport lombok.Setter;[m
+[32m+[m
+ import org.codehaus.jackson.

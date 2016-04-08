@@ -12,8 +12,9 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import com.sw.payment.domain.Card;
+import com.sw.payment.domain.Token;
 import com.sw.payment.domain.Transaction;
 @Repository
-public interface CardRepository extends JpaRepository<Card,Long> {
+public interface TokenRepository extends JpaRepository<Token,Long> {
 	
 }

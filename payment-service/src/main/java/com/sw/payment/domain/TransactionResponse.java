@@ -1,22 +1,32 @@
 package com.sw.payment.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import lombok.Getter;
+import lombok.Setter;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.annotate.JsonAutoDetect.Visibility;
 
-
-/*@Entity
-@Table(name="TransactionResponse")*/
+@Getter
+@Setter
+@Entity
+@Table(name="TransactionResponse")
 @JsonAutoDetect(fieldVisibility = Visibility.ANY, getterVisibility = Visibility.NONE, setterVisibility = Visibility.NONE)
-public class TransactionResponse {
+public class TransactionResponse implements Serializable{
 
     /**
      * {"method":"credit_card","amount":"1100","currency":"USD","avs":"Z","cvv2":"I",
@@ -42,8 +52,11 @@ public class TransactionResponse {
 	 * */
 	 
 	 
-	public TransactionResponse() {
-	}
+	
+	@Id
+	@SequenceGenerator( name="EMPLOYEE_SEQ1", initialValue=5,sequenceName="EMPLOYEE_SEQ1", allocationSize=1 )
+	@GeneratedValue( strategy=GenerationType.SEQUENCE, generator="EMPLOYEE_SEQ1")
+	private Long transRespId;
 	
 	@JsonProperty("transaction_status")
 	private String transactionStatus;
@@ -53,7 +66,7 @@ public class TransactionResponse {
 	private String transactionType;
 	
 	
-	@Id
+	
 	@Column(name="transactionId")
 	@JsonProperty("transaction_id")
 	private String transactionId;
@@ -71,10 +84,14 @@ public class TransactionResponse {
 	private String avs;
 	@JsonProperty("cvv2")
 	private String cvv2;
-    @JsonProperty("token")
+	@OneToOne(cascade = {CascadeType.ALL})
+	@JsonProperty("token")
 	private Token token;
+	
     @JsonProperty("card")
     private Card card;
+    
+    @OneToOne(cascade = {CascadeType.ALL})
     @JsonProperty("Error")
     private Error error;
 	@JsonProperty("correlation_id")
@@ -123,10 +140,11 @@ public class TransactionResponse {
 	
 	//end - additional properties
 	
-	
+	@OneToOne
 	@JsonProperty("tele_check")
     private Telecheck teleCheck;
 	
+	@OneToOne
 	@JsonProperty("valuelink")
     private ValueLink valueLink;
 	

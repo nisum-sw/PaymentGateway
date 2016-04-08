@@ -24,6 +24,9 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
 import org.codehaus.jackson.JsonEncoding;
@@ -35,6 +38,7 @@ import org.codehaus.jackson.map.SerializationConfig.Feature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -57,7 +61,7 @@ import com.sw.payment.domain.TransactionRequest;
 import com.sw.payment.domain.TransactionResponse;
 import com.sw.payment.domain.TransactionType;
 import com.sw.payment.domain.Transarmor;
-import com.sw.payment.repository.CardRepository;
+import com.sw.payment.repository.TokenRepository;
 import com.sw.payment.repository.TransactionRepository;
 
 
@@ -76,11 +80,18 @@ public class FirstDataPaymentGatewayService  implements IPaymentGatewayService {
 	private TransactionRepository transactionRepository;
 	
 	@Autowired
-	private CardRepository cardRepository;
+	private TokenRepository cardRepository;
 
+	@Value("${url}")
 	private String url;
+	
+	@Value( "${apiKey}" )
 	private String appId;
+	
+	@Value( "${apiSecret}" )
 	private String securedSecret;
+	
+	@Value( "${merchantToken}" )
 	private String token;
 	
 
@@ -93,14 +104,14 @@ public class FirstDataPaymentGatewayService  implements IPaymentGatewayService {
 
 	public FirstDataPaymentGatewayService() {
 
-		this.setAppId(APIKEY_VALUE);
+		/*this.setAppId(APIKEY_VALUE);
 		this.setSecuredSecret(APISECRET_VALUE);
 		this.setToken(TOKEN_VALUE);
 		this.setMerchantid(MERCHANTID_VALUE);
 		this.setTrToken(TRTOKEN_VALUE);
 		this.setUrl(URL_VALUE);
 		this.setTa_token(TA_TOKEN_VALUE);
-		// OVERRIDE= "overrides";
+		*/// OVERRIDE= "overrides";
 		OVERRIDE = "override";
 
 	}
@@ -565,79 +576,41 @@ public class FirstDataPaymentGatewayService  implements IPaymentGatewayService {
 
 	public TransactionResponse purchaseTransaction(TransactionRequest transactionRequest) throws Exception {
 		transactionRequest.setTransactionType(TransactionType.PURCHASE.name());
-		// TODO Auto-generated method stub
+
 		log.debug("From log This is service: " +transactionRequest.getAmount() + " : " + propertyConfig.env.getProperty("apikey") );
 		System.out.println("This is service: " +transactionRequest.getAmount() + " : " + propertyConfig.env.getProperty("apikey")  + " : " +propertyConfig.env.getProperty("spring.profile") );
-		Transaction t = new Transaction();
-		t.setTransactionId("E123");
-		t.setAmount("90");
-		t.setCurrency("$");
-		Card c1 = new Card();
-		c1.setId(125L);
-		c1.setNumber("46");
-		c1.setName("VISA");
-		//cardRepository.save(c1);
-		List<Transaction> l = new ArrayList<Transaction>();
-		t.setCard(c1);
-		l.add(t);
-		c1.setTransactions(l);
-		t.setCard(c1);
-		cardRepository.save(c1);
 		
-		return null;
-		
-		
-		/*String url = this.url + "/transactions";
-
-		if ((transactionRequest.getToken() == null) && (transactionRequest.getType() == "FDToken") && (transactionRequest.getTa_token() == TA_TOKEN_VALUE)
-				&& (transactionRequest.getAuth() == "false")) {
-			url = this.url + "/transactions/tokens";
-		} //9650753810968291 9126647654778291
-		this.urltoken = url;
-		if (!(url.endsWith("tokens"))) {
-			Assert.notNull(transactionRequest.getAmount(), "Amount is not present");
-			Assert.notNull(transactionRequest.getTransactionType(), "Transaction type is not present");
-		}
-		this.url = "https://api-cert.payeezy.com/v1";
-		this.appId ="y6pWAJNyJyjGv66IsVuWnklkKUPFbb0a";//"ZxijOG2M3uJks0KzLpy7MNoPpOeK94Le";
-		this.securedSecret ="86fbae7030253af3cd15faef2a1f4b67353e41fb6799f576b5093ae52901e6f7";
-		
-		this.token ="fdoa-a480ce8951daa73262734cf102641994c1e55e7cdf4c02b6";//"fdoa-106da85113b364f1cd0e6dab43bfb385106da85113b364f1";
-							   
-
+		String url = this.url + "/transactions";
 		restTemplate.setErrorHandler(new MyErrorHandling());		
 		String payload = getJSONObject(transactionRequest);
 		HttpEntity<TransactionRequest> request = new HttpEntity<TransactionRequest>(transactionRequest,
 				getHttpHeader(this.appId, this.securedSecret, payload));
 		ResponseEntity<TransactionResponse> response = restTemplate.exchange(url, HttpMethod.POST, request,
 				TransactionResponse.class);
-		return response.getBody();
-
-*/	}
+		TransactionResponse transResponse = response.getBody();
+		transactionRepository.save(transResponse);
+		return transResponse;
+ 
+	}
 
 	
 	
-	public TransactionResponse authorizeTransaction(TransactionRequest transactionRequest) throws IOException {
+	public TransactionResponse authorizeTransaction(TransactionRequest transactionRequest) throws Exception {
 		transactionRequest.setTransactionType(TransactionType.AUTHORIZE.name());
+
 		log.debug("From log This is service: " +transactionRequest.getAmount() + " : " + propertyConfig.env.getProperty("apikey") );
 		System.out.println("This is service: " +transactionRequest.getAmount() + " : " + propertyConfig.env.getProperty("apikey")  + " : " +propertyConfig.env.getProperty("spring.profile") );
-		Transaction t = new Transaction();
-		t.setTransactionId("E123");
-		t.setAmount("90");
-		t.setCurrency("$");
-		Card c1 = new Card();
-		c1.setId(125L);
-		c1.setNumber("46");
-		c1.setName("VISA");
-		//cardRepository.save(c1);
-		List<Transaction> l = new ArrayList<Transaction>();
-		t.setCard(c1);
-		l.add(t);
-		c1.setTransactions(l);
-		t.setCard(c1);
-		cardRepository.save(c1);
 		
-		return null;
+		String url = this.url + "/transactions";
+		restTemplate.setErrorHandler(new MyErrorHandling());		
+		String payload = getJSONObject(transactionRequest);
+		HttpEntity<TransactionRequest> request = new HttpEntity<TransactionRequest>(transactionRequest,
+				getHttpHeader(this.appId, this.securedSecret, payload));
+		ResponseEntity<TransactionResponse> response = restTemplate.exchange(url, HttpMethod.POST, request,
+				TransactionResponse.class);
+		TransactionResponse transResponse = response.getBody();
+		transactionRepository.save(transResponse);
+		return transResponse;
 	}
 
 	public TransactionResponse captureTransaction(TransactionRequest trans) throws Exception {

@@ -11,9 +11,6 @@ import org.springframework.core.io.support.ResourcePropertySource;
 public class PaymentApplicationContextInitializer implements
 		ApplicationContextInitializer<ConfigurableApplicationContext> {
 
-	/*
-	 * @Value( "${spring.active.profile}" ) private String activeProfile;
-	 */
 	@Override
 	public void initialize(ConfigurableApplicationContext ac) {
 		ConfigurableEnvironment appEnvironment = ac.getEnvironment();
@@ -26,8 +23,5 @@ public class PaymentApplicationContextInitializer implements
 			appEnvironment.addActiveProfile("dev"); //The world is illusion my friend 
 			e.printStackTrace();
 		}
-		// LOG.info("env.properties loaded");
-		// appEnvironment.addActiveProfile(activeProfile);
-
 	}
 }

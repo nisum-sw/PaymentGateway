@@ -33,7 +33,7 @@ public class Transaction implements Serializable{
 	@Id
 	@SequenceGenerator( name="EMPLOYEE_SEQ1", initialValue=5,sequenceName="EMPLOYEE_SEQ1", allocationSize=1 )
 	@GeneratedValue( strategy=GenerationType.SEQUENCE, generator="EMPLOYEE_SEQ1")
-	private long id;
+	private Long id;
 
 	@Column(name="transactionId")
 	@JsonProperty("transaction_id")
@@ -49,7 +49,7 @@ public class Transaction implements Serializable{
 	@JoinColumn(name = "card_id")
 	@JsonProperty("card")
 */
-	@ManyToOne
+	/*@ManyToOne
 	private Card card;
-	
+	*/
 }

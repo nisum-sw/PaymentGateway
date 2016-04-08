@@ -20,14 +20,12 @@ import org.codehaus.jackson.annotate.JsonAutoDetect.Visibility;
 
 @lombok.Getter
 @lombok.Setter
-@Entity
-@Table(name = "CARD")
 @JsonAutoDetect(fieldVisibility = Visibility.ANY, getterVisibility = Visibility.NONE, setterVisibility = Visibility.NONE)
 public class Card implements Serializable{
 	
 	
-	@Id
-	private Long id;
+
+	private Long cardId;
 
 	@JsonProperty("type")
 	private String type;
