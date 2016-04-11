@@ -25,16 +25,16 @@ import org.codehaus.jackson.annotate.JsonAutoDetect.Visibility;
 
 @lombok.Getter
 @lombok.Setter
-@Entity
-@Table(name="Transaction")
+/*@Entity
+@Table(name="Transaction")*/
 @JsonAutoDetect(fieldVisibility = Visibility.ANY, getterVisibility = Visibility.NONE, setterVisibility = Visibility.NONE)
 public class Transaction implements Serializable{
 
-	@Id
+	/*@Id
 	@SequenceGenerator( name="EMPLOYEE_SEQ1", initialValue=5,sequenceName="EMPLOYEE_SEQ1", allocationSize=1 )
 	@GeneratedValue( strategy=GenerationType.SEQUENCE, generator="EMPLOYEE_SEQ1")
 	private Long id;
-
+*/
 	@Column(name="transactionId")
 	@JsonProperty("transaction_id")
 	private String transactionId;

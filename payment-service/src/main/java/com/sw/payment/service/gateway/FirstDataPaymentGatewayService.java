@@ -5,6 +5,7 @@ import java.io.BufferedOutputStream;
 
 
 
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -21,11 +22,6 @@ import java.util.Map;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import lombok.Getter;
-import lombok.Setter;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
@@ -54,9 +50,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.sw.payment.config.PropertyConfig;
-import com.sw.payment.domain.Card;
 import com.sw.payment.domain.Token;
-import com.sw.payment.domain.Transaction;
 import com.sw.payment.domain.TransactionRequest;
 import com.sw.payment.domain.TransactionResponse;
 import com.sw.payment.domain.TransactionType;
@@ -65,6 +59,10 @@ import com.sw.payment.repository.TokenRepository;
 import com.sw.payment.repository.TransactionRepository;
 
 
+/**
+ * @author Nisum-User
+ *
+ */
 @Service
 public class FirstDataPaymentGatewayService  implements IPaymentGatewayService {
 
@@ -575,7 +573,7 @@ public class FirstDataPaymentGatewayService  implements IPaymentGatewayService {
 	}
 
 	public TransactionResponse purchaseTransaction(TransactionRequest transactionRequest) throws Exception {
-		transactionRequest.setTransactionType(TransactionType.PURCHASE.name());
+		//transactionRequest.setTransactionType(TransactionType.PURCHASE.name());
 
 		log.debug("From log This is service: " +transactionRequest.getAmount() + " : " + propertyConfig.env.getProperty("apikey") );
 		System.out.println("This is service: " +transactionRequest.getAmount() + " : " + propertyConfig.env.getProperty("apikey")  + " : " +propertyConfig.env.getProperty("spring.profile") );
