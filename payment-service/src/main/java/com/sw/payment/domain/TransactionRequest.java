@@ -14,7 +14,7 @@ public class TransactionRequest {
 	public TransactionRequest() {
 	}
 
-	@JsonIgnore
+	@JsonProperty("transaction_id")
 	private String id;
 
 	@JsonProperty("transaction_type")

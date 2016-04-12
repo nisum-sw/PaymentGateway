@@ -17,7 +17,13 @@ public interface IPaymentGatewayService {
 	//for Authorization
 	public TransactionResponse authorizeTransaction(TransactionRequest transactionRequest) throws Exception;
 	
-	//for Capture , refund , void, and cancel
-	public TransactionResponse doSecondaryTransaction(TransactionRequest transactionRequest) throws Exception;
+	//for Capture 
+	public TransactionResponse captureTransaction(TransactionRequest transactionRequest) throws Exception;
+	 
+	//for void
+	public TransactionResponse voidTransaction(TransactionRequest transactionRequest) throws Exception;
+		
+	//for refund
+	public TransactionResponse refundTransaction(TransactionRequest transactionRequest) throws Exception;
 
 }

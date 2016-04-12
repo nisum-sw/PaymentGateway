@@ -45,25 +45,25 @@ public class PaymentController {
 			@RequestHeader(value="token" , required=false) String token,
 			@RequestHeader(value="apisecret" , required=false) String apiSecret,
 			@RequestHeader(value="Content-Type" , required=true) String contentType,
-            @RequestBody(required = true) TransactionRequest transactionRequest) throws Exception {
-		
+			@RequestBody(required = true) TransactionRequest transactionRequest) throws DataValidationException, FirstDataException {
+
 		if (transactionRequest.getAmount() == null
 				|| !TransactionType.PURCHASE.name().equalsIgnoreCase(
 						transactionRequest.getTransactionType())
-				|| transactionRequest.getPaymentMethod() == null
-				|| transactionRequest.getCurrency() == null) {
+						|| transactionRequest.getPaymentMethod() == null
+						|| transactionRequest.getCurrency() == null) {
 			throw new DataValidationException(" Invalid Input data !!");
 		}
-		
+
 		TransactionResponse transactionResponse = null;
 		try{
-		transactionResponse = paymentGatewayService.purchaseTransaction(transactionRequest);
+			transactionResponse = paymentGatewayService.purchaseTransaction(transactionRequest);
 		}catch(Exception e){
 			throw new FirstDataException(e);
 		}
-		
+
 		return new ResponseEntity<TransactionResponse>(transactionResponse, HttpStatus.CREATED);
-	 
+
 	}
 	
 	
@@ -73,7 +73,7 @@ public class PaymentController {
 			@RequestHeader(value="token" , required=false) String token,
 			@RequestHeader(value="apisecret" , required=false) String apiSecret,
             @RequestHeader(value="Content-Type" , required=true) String contentType,
-            @RequestBody(required = true) TransactionRequest transactionRequest) throws DataValidationException,Exception {
+            @RequestBody(required = true) TransactionRequest transactionRequest) throws DataValidationException, FirstDataException {
 		
 		if (transactionRequest.getAmount() == null
 				|| !TransactionType.AUTHORIZE.name().equalsIgnoreCase(
@@ -90,8 +90,96 @@ public class PaymentController {
 			}
 			
 			return new ResponseEntity<TransactionResponse>(transactionResponse, HttpStatus.CREATED);
-		
 	}
+	
+	
+	/*Void : Means Authorization Reversal. Only a payment that is “Authorized” can be voided. 
+	A void cancels the authorization. A payment that has been fully captured cannot be voided, 
+	it must be refunded instead.*/
+	@RequestMapping(value = "/capture", method = RequestMethod.POST,produces="application/json", consumes="application/json")
+	public ResponseEntity<TransactionResponse> captureTransaction(
+			@RequestHeader(value="apikey" , required=false) String apiKey,
+			@RequestHeader(value="token" , required=false) String token,
+			@RequestHeader(value="apisecret" , required=false) String apiSecret,
+            @RequestHeader(value="Content-Type" , required=true) String contentType,
+            @RequestBody(required = true) TransactionRequest transactionRequest) throws DataValidationException, FirstDataException {
+	
+	if ((transactionRequest.getToken() != null)
+			&& (transactionRequest.getToken().getTokenType() != null)
+			&& (transactionRequest.getToken().getTokenType().toUpperCase().equals("FDTOKEN"))
+			&& transactionRequest.getTransactionTag() != null
+			&& transactionRequest.getId() != null
+			&& transactionRequest.getTransactionType() != null) {
+	}else {
+		throw new DataValidationException(" Invalid Input data !! Token Type , Transaction tag , ID  are required fields.");
+	}
+	TransactionResponse transactionResponse = null;
+	try{
+	transactionResponse = paymentGatewayService.captureTransaction(transactionRequest);
+	}catch(Exception e){
+		throw new FirstDataException(e);
+	}
+	
+	return new ResponseEntity<TransactionResponse>(transactionResponse, HttpStatus.CREATED);
+	}
+	/*Capture : capture of a previous authorization. Only payments that are in an “Authorized” state can be captured.
+	The merchant can provide the amount of capture, between 0.01 and the amount of the authorization. 
+	Some processors will allow you to capture more than the authorization. 
+	Once a capture is completed, the authorization is closed.*/
+	@RequestMapping(value = "/void", method = RequestMethod.POST,produces="application/json", consumes="application/json")
+	public ResponseEntity<TransactionResponse> voidTransaction(
+			@RequestHeader(value="apikey" , required=false) String apiKey,
+			@RequestHeader(value="token" , required=false) String token,
+			@RequestHeader(value="apisecret" , required=false) String apiSecret,
+            @RequestHeader(value="Content-Type" , required=true) String contentType,
+            @RequestBody(required = true) TransactionRequest transactionRequest) throws DataValidationException, FirstDataException {
+	
+	if ((transactionRequest.getToken() != null)
+			&& (transactionRequest.getToken().getTokenType() != null)
+			&& (transactionRequest.getToken().getTokenType().toUpperCase().equals("FDTOKEN"))
+			&& transactionRequest.getTransactionTag() != null
+			&& transactionRequest.getId() != null
+			&& transactionRequest.getTransactionType() != null) {
+	}else {
+		throw new DataValidationException(" Invalid Input data !! Token Type , Transaction tag , ID  are required fields.");
+	}
+	TransactionResponse transactionResponse = null;
+	try{
+	transactionResponse = paymentGatewayService.voidTransaction(transactionRequest);
+	}catch(Exception e){
+		throw new FirstDataException(e);
+	}
+	
+	return new ResponseEntity<TransactionResponse>(transactionResponse, HttpStatus.CREATED);
+	}
+	/*Refund : refunding the entire amount of a transaction. Only payments that have been captured can be refunded. */
+	@RequestMapping(value = "/refund", method = RequestMethod.POST,produces="application/json", consumes="application/json")
+	public ResponseEntity<TransactionResponse> refundTransaction(
+			@RequestHeader(value="apikey" , required=false) String apiKey,
+			@RequestHeader(value="token" , required=false) String token,
+			@RequestHeader(value="apisecret" , required=false) String apiSecret,
+            @RequestHeader(value="Content-Type" , required=true) String contentType,
+            @RequestBody(required = true) TransactionRequest transactionRequest) throws DataValidationException, FirstDataException {
+
+		if ((transactionRequest.getToken() != null)
+				&& (transactionRequest.getToken().getTokenType() != null)
+				&& (transactionRequest.getToken().getTokenType().toUpperCase().equals("FDTOKEN"))
+				&& transactionRequest.getTransactionTag() != null
+				&& transactionRequest.getId() != null
+				&& transactionRequest.getTransactionType() != null) {
+		}else {
+			throw new DataValidationException(" Invalid Input data !! Token Type , Transaction tag , ID  are required fields.");
+		}
+		TransactionResponse transactionResponse = null;
+		try{
+			transactionResponse = paymentGatewayService.refundTransaction(transactionRequest);
+		}catch(Exception e){
+			throw new FirstDataException(e);
+		}
+
+		return new ResponseEntity<TransactionResponse>(transactionResponse, HttpStatus.CREATED);
+	}
+	
 	
 
 	
