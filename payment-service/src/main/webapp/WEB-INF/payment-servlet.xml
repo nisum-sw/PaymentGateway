@@ -24,6 +24,7 @@
 	<context:component-scan base-package="com.sw.payment.service.gateway" />
 		<context:component-scan base-package="com.sw.payment.config" />
 		<context:component-scan base-package="com.sw.payment.security" />
+		<context:component-scan base-package="com.sw.payment.exception" />
 	
 	<mvc:annotation-driven />
 	
@@ -108,4 +109,23 @@
 
 	<!-- Detect @Transactional --> 
 	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+	  
+    
+    <!-- <bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/WEB-INF/pages/</value>
+		</property>
+		<property name="suffix">
+			<value>.html</value>
+		</property>
+	</bean>
+	 -->
+     
+    <!-- <mvc:default-servlet-handler/> -->
+    <!-- <context:property-placeholder location="classpath:/swagger.properties" /> -->
+ 
+    <!-- Configuration Bean -->
+    <!-- <bean id="documentationConfig" class="com.mangofactory.swagger.configuration.DocumentationConfig"/> -->
   </beans>
