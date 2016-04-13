@@ -70,6 +70,7 @@ var Payeezy = function() {
                 }
             }
             if (u.length > 0) {
+            
                 s["error"] = {
                     messages: u
                 };
@@ -80,6 +81,7 @@ var Payeezy = function() {
             var f = document.createElement("script");
             f.src = a;
             document.getElementsByTagName("head")[0].appendChild(f)
+            
         },
         setApiKey: function(e) {
             this["apikey"] = e

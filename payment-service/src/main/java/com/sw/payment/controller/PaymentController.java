@@ -1,5 +1,9 @@
 package com.sw.payment.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.codehaus.jackson.map.util.JSONPObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Role;
 import org.springframework.http.HttpStatus;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sw.payment.domain.TransactionRequest;
 import com.sw.payment.domain.TransactionResponse;
 import com.sw.payment.domain.TransactionType;
@@ -24,7 +29,7 @@ import com.sw.payment.exception.FirstDataException;
 import com.sw.payment.service.gateway.IPaymentGatewayService;
 
 @RestController
-@RequestMapping(value="/transaction", produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value="/transaction")
 public class PaymentController {
 
 	@Autowired
@@ -32,9 +37,10 @@ public class PaymentController {
 	
 	
 	@RequestMapping(value = "/{name}", method = RequestMethod.GET)
-	public String getGreeting(@PathVariable String name) {
-		String result="Hello "+name;		
-		return result;
+	public ResponseEntity<Map> getGreeting(@PathVariable String name) {
+				Map<String,String> m = new HashMap<String,String>();
+				m.put("name", name);
+		return new ResponseEntity<Map>(m, HttpStatus.ACCEPTED);
 	}
 
 	
