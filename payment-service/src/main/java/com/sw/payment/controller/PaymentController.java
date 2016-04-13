@@ -93,9 +93,10 @@ public class PaymentController {
 	}
 	
 	
-	/*Void : Means Authorization Reversal. Only a payment that is “Authorized” can be voided. 
-	A void cancels the authorization. A payment that has been fully captured cannot be voided, 
-	it must be refunded instead.*/
+	/*Capture : capture of a previous authorization. Only payments that are in an “Authorized” state can be captured.
+	The merchant can provide the amount of capture, between 0.01 and the amount of the authorization. 
+	Some processors will allow you to capture more than the authorization. 
+	Once a capture is completed, the authorization is closed.*/
 	@RequestMapping(value = "/capture", method = RequestMethod.POST,produces="application/json", consumes="application/json")
 	public ResponseEntity<TransactionResponse> captureTransaction(
 			@RequestHeader(value="apikey" , required=false) String apiKey,
@@ -122,10 +123,10 @@ public class PaymentController {
 	
 	return new ResponseEntity<TransactionResponse>(transactionResponse, HttpStatus.CREATED);
 	}
-	/*Capture : capture of a previous authorization. Only payments that are in an “Authorized” state can be captured.
-	The merchant can provide the amount of capture, between 0.01 and the amount of the authorization. 
-	Some processors will allow you to capture more than the authorization. 
-	Once a capture is completed, the authorization is closed.*/
+	
+	/*Void : Means Authorization Reversal. Only a payment that is “Authorized” can be voided. 
+	A void cancels the authorization. A payment that has been fully captured cannot be voided, 
+	it must be refunded instead.*/
 	@RequestMapping(value = "/void", method = RequestMethod.POST,produces="application/json", consumes="application/json")
 	public ResponseEntity<TransactionResponse> voidTransaction(
 			@RequestHeader(value="apikey" , required=false) String apiKey,
