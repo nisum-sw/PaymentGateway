@@ -116,3 +116,14 @@ Body :
 }
 With H2 Database</br>
 Use Maven 3.2.5 for build
+
+
+FOR QA Purpose: Eclipse setup is not required. Directly Run server from command prompt.
+
+mvn package
+and then 
+java -jar target/dependency/jetty-runner.jar target/*.war
+
+Hit service url without project name like below :
+http://localhost:8080/transaction/Ashish
+
