@@ -1,15 +1,28 @@
 <!DOCTYPE html>
 <html>
+<script>
+function callMe(){
+	if(document.getElementById("firstname").value == "Mickey"  
+			&& document.getElementById("lastname").value == "Mouse" ){
+		document.getElementById("msg").innerText="Sucess login";
+	}else{
+		document.getElementById("msg").innerText="Wrong login";
+	}
+	
+}
+</script>
 <body>
 
-<form action="action_page.php">
+<form  onsubmit="callMe();return false">
+<div id="msg">
+</div>
   <fieldset>
     <legend>Personal information:</legend>
     First name:<br>
-    <input type="text" name="firstname" value="Mickey">
+    <input type="text" name="firstname" value="Mickey" id="firstname" >
     <br>
     Last name:<br>
-    <input type="text" name="lastname" value="Mouse">
+    <input type="text" name="lastname" value="Mouse" id="lastname" >
     <br><br>
     <input type="submit" value="Submit">
   </fieldset>
