@@ -51,16 +51,23 @@ var myParam = $.parseJSON(qs["varid"]);
  
 });
 jQuery(function($) {
-        $('#onSubmitPage').submit(function(e) {
+	
+	$("#goBackBtn").click(function() {
+
+    	window.location.href="sample_v3.2.html";
+         });
+         
+	
+        $('#submitBtn1').click(function() {
 
         	window.location.href="lastPage.html";
              });
-          });   
+       });   
 
 </script>
 
 <body>
-<form method="post" name="onSubmitPage" id="onSubmitPage" action="lastPage.html">
+<form method="post"  action="#">
 <div id="s1" >
 
   <input type="radio" name="authorize"  id="authorize" value="Authorize" > Authorize<br>
@@ -69,7 +76,7 @@ jQuery(function($) {
 			<table>
 				<tr>
 					<td></td>
-					<td><button type="submit" id="submitBtn1">Submit to Next Page</button></td>
+					<td><input type="button" name="submitBtn1" id="submitBtn1" value="Submit to Next Page" ></td>
 				</tr>
 			</table>
 </div>
@@ -82,7 +89,9 @@ jQuery(function($) {
 			<table>
 				<tr>
 					<td></td>
-					<td><button type="submit" id="submitBtn1">Submit to Next Page</button></td>
+					
+					<td>
+					<input type="button" name="goBackBtn" id="goBackBtn" value="Go back"></td>
 				</tr>
 			</table>
 </div>
