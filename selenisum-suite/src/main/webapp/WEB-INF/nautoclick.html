@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html ng-app="nAutomationApp">
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script type="text/javascript"
+	src="https://rawgit.com/dotansimha/angularjs-dropdown-multiselect/master/src/angularjs-dropdown-multiselect.js"></script>
+<script src="app.js"></script>
+
+<body>
+	<label
+		style="padding: 10px 535px; font-family: fantasy; font-size: xx-large;">UI
+		Test Automation</label>
+	<div
+		style="padding: 12px 416px; border: 2px solid #a1a1a1; border-radius: 25px; width: 10%; margin-left: 228px;">
+
+		 
+                                
+		<div ng-controller="nAutomationCtrl" style="width: 434px;">
+		
+		
+			
+			<div id=row1>
+				<label id="pageLabel">WebSite Name</label>
+				<input type="text" name="input" ng-model="url"
+           		ng-trim="false">
+            <span style="margin-left: auto;"><b>You selected:</b>
+					{{selectedPage}}</span>
+			
+			
+			
+			<div id=row1>
+				<label id="pageLabel">PageName</label> <select
+					ng-model="selectedPage" id="pagedropdown" ng-change="dropDownChnaged()">
+					<option ng-repeat="name in pagenames">{{name}}
+				</select> <span style="margin-left: auto;"><b>You selected:</b>
+					{{selectedPage}}</span>
+			</div>
+			
+			<div id="elementDiv" style="margin-top: 20px">
+				<label id="pageelementLabel">PageElement</label> <select multiple
+					ng-multiple="true" ng:model="elementmodel"
+					ng-options="element.name for element in elements">
+				</select> <span style="margin-left: auto;"><b>You selected:</b>
+					{{elementmodel}}</span>
+			</div>
+			
+			<div style="margin-top: 20px">
+				<label id=expectedlabel>ExpectedResult</label> <input type="text"
+					name="expectedresult" required="required" />
+			</div>
+			<div style="margin-top: 14px">
+				<button style="border-color: gainsboro; height: 27px">Submit</button>
+				<button style="border-color: gainsboro; height: 27px">Cancel</button>
+
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
