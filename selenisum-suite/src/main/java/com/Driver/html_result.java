@@ -16,7 +16,7 @@ public class html_result {
 	
 	public String ResFilePath;
 	//1 st
-	public String CreateResultFileAndPath(String vProjectName) throws Throwable 
+	public String CreateResultFileAndPath(String vProjectName,String reportPath) throws Throwable 
 	{
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();		
@@ -25,10 +25,10 @@ public class html_result {
 		String NewFileName2=NewFileName1.replace(" ","_");
 		String NewFileName=NewFileName2.replace(":","_");
 		System.out.println(NewFileName);
-		ResFilePath ="/Results/"+vProjectName+"HtmlResult_"+NewFileName+".html";
-		File f = new File(DriverScript.getPath(ResFilePath));
+		ResFilePath =reportPath + "/"+vProjectName+"HtmlResult_"+NewFileName+".html";
+		File f = new File(ResFilePath);
 		f.createNewFile();
-		return DriverScript.getPath(ResFilePath);
+		return ResFilePath;
 		
 	}
 	// 2nd step

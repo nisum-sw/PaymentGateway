@@ -1,5 +1,7 @@
 var app = angular.module('nAutomationApp', []);
-app.controller('nAutomationCtrl', function($scope,$http) {
+app.controller('nAutomationCtrl', function($scope,$http,$window) {
+	$scope.report="";
+	$scope.reportHref="#";
 	$scope.pagenames = [{
 		"name" : "index"
 	}, {
@@ -40,15 +42,20 @@ app.controller('nAutomationCtrl', function($scope,$http) {
         $http.get('http://localhost:8080/selenisum-suite/executeTest',
         		encodeURIComponent(valData)).success(function(data, status) {
         			//alert("i am" + status);
-        			
-        			$scope.elements = data;
+        			alert(data);
+        			$scope.report = data;
+        			$scope.reportHref = data;
         		})
         		.error(function(data, status) {
         			alert(status);
         			alert( "failure message: " + JSON.stringify(data));
+        			
         		});
         
-
+        $scope.newWindow = function (reportHref) { 
+        	 $window.open(reportHref);
+        };
+        
     };
 
 });

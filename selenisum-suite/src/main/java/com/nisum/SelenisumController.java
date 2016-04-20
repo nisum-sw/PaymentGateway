@@ -4,10 +4,13 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -28,6 +31,8 @@ import com.thoughtworks.selenium.webdriven.commands.Type;
 @Controller
 public class SelenisumController {
 
+	@Autowired
+    private ServletContext context; 
 	
 	@RequestMapping(value = "/getElements", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
@@ -53,17 +58,26 @@ public class SelenisumController {
 
 	
 	
-	@RequestMapping(value = "/executeTest", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/executeTest", method = RequestMethod.GET, produces = "application/text")
 	@ResponseBody
 	public  ResponseEntity<String> executeTest(@RequestBody String input) {
-		
+		String report ="No Report Generated";
 		try {
-			DriverScript.main();
+			String reportPath = context.getRealPath("");
+			
+			
+			report = DriverScript.main(reportPath+"Results");
+			
+			String pathArr[] = report.split("Results");
+			//("../../resources/DriverFiles/ProjectDriver.xlsx");
+			report= context.getContextPath()+"/Results"+ pathArr[1];
+			System.out.println(pathArr[1]);
+			
 		} catch (Throwable e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
-		return new ResponseEntity<String>("", HttpStatus.OK); 
+		return new ResponseEntity<String>(report, HttpStatus.OK); 
 		}
 	
 

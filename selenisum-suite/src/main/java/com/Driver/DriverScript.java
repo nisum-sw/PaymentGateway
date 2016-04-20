@@ -26,7 +26,7 @@ public class DriverScript {
 		return pathArr[0]+str;
 	}
 	
-	public static void main() throws Throwable {
+	public static String main(String reportPath) throws Throwable {
 	    String vProjectRun,vBrowserType,vDBName,vDBuser,vDBpassword,vModulesRun,vModuleFiles,vTestDataFiles,vTCRun,vTDSteps,vKeyword;
 		int ProjectCnt,ModuleCnt,vTCCnt,vTDCnt,flag,vRowNum;
 		
@@ -65,7 +65,7 @@ public class DriverScript {
         		Cntflag=0;
         		actfails=0;
         		html_result hr=new html_result();
-        		ResFilePath=hr.CreateResultFileAndPath(vProjectName);
+        		ResFilePath=hr.CreateResultFileAndPath(vProjectName,reportPath);
         		hr.fg_OpenResultsFile(ResFilePath, vProjectName);
         		
         		for(int j=2;j<=ModuleCnt;j++)
@@ -145,6 +145,8 @@ public class DriverScript {
         		hr.fgInsertSummary(ResFilePath, Cntflag, passval, failval, Cntflag-actfails,actfails, ProjectexectionTime);
         	}
         }
+        
+        return ResFilePath;
 	}
 
 }
