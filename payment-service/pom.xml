@@ -234,6 +234,14 @@
             </executions>
         </plugin>
 			<!-- end of Jetty config -->
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat8-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<path>/</path>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 	<packaging>war</packaging>
