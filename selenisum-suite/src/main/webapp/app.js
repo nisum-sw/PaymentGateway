@@ -19,7 +19,9 @@ app.controller('nAutomationCtrl', function($scope,$http,$window,$location) {
 		//alert(url.name);
 			var valData = $scope.domainName + url.name + "." + $scope.extension;
 			alert(valData);
-			var path = $location.absUrl().substr(0, $location.absUrl().lastIndexOf("/"))
+			var path = $location.absUrl().substr(0, $location.absUrl().lastIndexOf("/"));
+			
+			alert(path);
         //$scope.selectedPage=$scope.selectedPage;
         $http.get(path+'/getElements?input='+
         		encodeURIComponent(valData)).success(function(data, status) {
