@@ -1,5 +1,5 @@
 var app = angular.module('nAutomationApp', []);
-app.controller('nAutomationCtrl', function($scope,$http,$window) {
+app.controller('nAutomationCtrl', function($scope,$http,$window,$location) {
 	$scope.report="";
 	$scope.reportHref="#";
 	$scope.pagenames = [{
@@ -19,8 +19,9 @@ app.controller('nAutomationCtrl', function($scope,$http,$window) {
 		//alert(url.name);
 			var valData = $scope.domainName + url.name + "." + $scope.extension;
 			alert(valData);
+			var path = $location.absUrl().substr(0, $location.absUrl().lastIndexOf("/"))
         //$scope.selectedPage=$scope.selectedPage;
-        $http.post('http://localhost:8080/selenisum-suite/getElements',
+        $http.post(path+'/getElements',
         		encodeURIComponent(valData)).success(function(data, status) {
         			//alert("i am" + status);
         			
@@ -36,10 +37,11 @@ app.controller('nAutomationCtrl', function($scope,$http,$window) {
     
     $scope.executeTest = function () {
 		//alert(url.name);
+    	var path = $location.absUrl().substr(0, $location.absUrl().lastIndexOf("/"))
 			
 			var valData ={};
         //$scope.selectedPage=$scope.selectedPage;
-        $http.get('http://localhost:8080/selenisum-suite/executeTest',
+        $http.get(path+'/executeTest',
         		encodeURIComponent(valData)).success(function(data, status) {
         			//alert("i am" + status);
         			alert(data);
