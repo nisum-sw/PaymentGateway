@@ -1,0 +1,10 @@
+merchant_ref=Astonishing-Sale
+transaction_type=purchase
+method=token
+amount=200
+currency_code=USD
+token_type=FDToken
+type=visa
+value=2537446225198291
+cardholder_name=JohnSmith
+exp_date=1030
