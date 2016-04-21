@@ -151,6 +151,7 @@
 				<artifactId>tomcat8-maven-plugin</artifactId>
 				<version>2.2</version>
 				<configuration>
+					<port>8088</port>
 					<path>/selenisum-suite</path>
 				</configuration>
 			</plugin>
