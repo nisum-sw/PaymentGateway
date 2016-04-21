@@ -21,7 +21,7 @@ app.controller('nAutomationCtrl', function($scope,$http,$window,$location) {
 			alert(valData);
 			var path = $location.absUrl().substr(0, $location.absUrl().lastIndexOf("/"))
         //$scope.selectedPage=$scope.selectedPage;
-        $http.post(path+'/getElements',
+        $http.get(path+'/getElements?input='+
         		encodeURIComponent(valData)).success(function(data, status) {
         			//alert("i am" + status);
         			

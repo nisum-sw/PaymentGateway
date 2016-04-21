@@ -14,9 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.Driver.DriverScript;
@@ -34,9 +36,9 @@ public class SelenisumController {
 	@Autowired
     private ServletContext context; 
 	
-	@RequestMapping(value = "/getElements", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/getElements", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public  ResponseEntity<String> get(@RequestBody String input) {
+	public  ResponseEntity<String> getElements( @RequestParam("input") String input) {
 		input = URLDecoder.decode(input);
 		WebDriver browser = new FirefoxDriver();
 		browser.get(input);
