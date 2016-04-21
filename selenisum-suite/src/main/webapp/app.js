@@ -39,10 +39,9 @@ app.controller('nAutomationCtrl', function($scope,$http,$window,$location) {
 		//alert(url.name);
     	var path = $location.absUrl().substr(0, $location.absUrl().lastIndexOf("/"))
 			
-			var valData ={};
         //$scope.selectedPage=$scope.selectedPage;
-        $http.get(path+'/executeTest',
-        		encodeURIComponent(valData)).success(function(data, status) {
+        $http.post(path+'/executeTest',
+        		encodeURIComponent($scope.domainName)).success(function(data, status) {
         			//alert("i am" + status);
         			alert(data);
         			$scope.report = data;

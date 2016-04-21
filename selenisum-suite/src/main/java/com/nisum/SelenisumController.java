@@ -58,10 +58,11 @@ public class SelenisumController {
 
 	
 	
-	@RequestMapping(value = "/executeTest", method = RequestMethod.GET, produces = "application/text")
+	@RequestMapping(value = "/executeTest", method = RequestMethod.POST, produces = "application/text")
 	@ResponseBody
 	public  ResponseEntity<String> executeTest(@RequestBody String input) {
 		String report ="No Report Generated";
+		input = URLDecoder.decode(input);
 		try {
 			String reportPath = context.getRealPath("");
 			
