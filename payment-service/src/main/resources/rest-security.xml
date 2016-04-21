@@ -18,7 +18,7 @@
     </http> -->
     
      <http create-session="stateless" pattern="/transaction/**">
-        <intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/transaction/**" access="hasRole('ROLE_USER')"/>
         <csrf disabled="true"/>
         <http-basic/>
     </http>
