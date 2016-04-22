@@ -4,26 +4,36 @@
 
 var testAutomationControllers = angular.module('testAutomationControllers', []);
 
+testAutomationControllers.controller('populateDomainNames', ['$scope', '$http',
+  function ($scope, $http) {
+    $http.get('config/domain-names.json').success(function(data) {
+      $scope.domainNames = data;
+      $scope.selectedDName = data[0].url;
+    });
+
+    $http.get('config/file-extensions.json').success(function(data) {
+      $scope.fileExtensions = data;
+      $scope.selectedFileExtension = data[0].ext;
+    });
+    
+    $http.get('config/page-names.json').success(function(data) {
+        $scope.pageNames = data;
+        $scope.selectedPageName = "Select Page";
+      });
+    
+  }]);
+
 
 testAutomationControllers.controller('nAutomationCtrl', ['$scope', '$http', '$window', '$location',
   function($scope,$http,$window,$location) {
     $scope.report="";
     $scope.reportHref="#";
-    $scope.pagenames = [{
-      "name" : "index"
-    }, {
-      "name" : "sample_v3.2"
-    }, {
-      "name" : "transaction"
-    }, {
-      "name" : "lastPage"
-    }];
 
     $scope.elements = [  ];
       
-    $scope.dropDownChnaged = function (url) {
+    $scope.dropDownChnaged = function () {
       //alert(url.name);
-        var valData = $scope.domainName + url.name + "." + $scope.extension;
+        var valData = $scope.selectedDName + $scope.selectedPageName + "." + $scope.selectedFileExtension;
         alert(valData);
         var path = $location.absUrl().substr(0, $location.absUrl().lastIndexOf("/"));
         
