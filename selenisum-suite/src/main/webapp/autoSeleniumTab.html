@@ -1,0 +1,130 @@
+<!doctype html>
+<html ng-app="nAutomationApp">
+
+<head>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
+	<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.4.js"></script>
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+	<script src="js/tab.js"></script>
+
+<style type="text/css">
+	.nav-tabs, li.ng-isolate-scope a:ACTIVE {
+		background: aliceblue;
+		color: #fff;
+		text-shadow: none;
+	}
+	.tab-content{
+		padding-top: 23px;
+		padding-left: 40px;
+	}
+	
+	.form-control{
+		width: inherit;
+	}
+	 .custom-border{
+		border: 2px ridge aliceblue;
+    border-left-style: ridge;
+    border-radius: 3px;
+    margin-top: 43px;
+    margin-left: 70px;
+    width: 90%;
+	} 
+</style>
+
+</head>
+<body>
+	<div ng-controller="nAutomationCtrl"  class="custom-border" >
+		<form name="campaignForm" class="form-horizontal" novalidate >
+        <tabset>
+          <tab heading="InputData">
+            <div ng-form="inputForm">
+              <div id=row1 class="btn-group" >
+				<label id="pageLabel">PageName</label> 
+				<select ng-model="selectedPage" id="pagedropdown" ng-change="DropDownChnaged()">
+					<option ng-repeat="name in pagenames">{{name}}
+				</select> <span style="margin-left: auto;"><b>You selected:</b>
+					{{selectedPage}}</span>
+			  </div>
+			
+			 <div id="elementDiv" style="margin-top: 30px">
+				<label id="pageelementLabel">PageElement</label> <select multiple
+					ng-multiple="true" ng:model="elementmodel"
+					ng-options="element.name for element in elements">
+				</select> <span style="margin-left: auto;"><b>You selected:</b>
+					{{elementmodel}}</span>
+			</div>
+			
+			<div style="margin-top: 30px;">
+				<label id=expectedlabel>ExpectedResult
+				 <input type="text" name="expectedresult" required="required" placeholder="ExpectedResult" />
+			</div>
+			
+			<div style="margin-top: 14px">
+				<button class="btn btn-primary">Submit</button>
+				<button class="btn btn-primary">Cancel</button>
+
+			</div> 
+              
+            </div>
+          </tab>
+
+          <tab heading="TestExecution">
+            <div ng-form="executionForm">
+              <!-- <input type="text" name="emailSubject" class="input-xxlarge" ng-model="campaign.info.emailSubject" placeholder="Execute Tests" required/>
+              <span ng-show="subjectForm.emailSubject.$dirty && subjectForm.emailSubject.$error.required" class="help-inline">
+                Required
+              </span> -->
+              
+                 <div id=row1 class="btn-group" >
+				<label id="pageLabel">PageName</label> 
+				<select ng-model="selectedPage" id="pagedropdown" ng-change="DropDownChnaged()">
+					<option ng-repeat="name in pagenames">{{name}}
+				</select> <span style="margin-left: auto;"><b>You selected:</b>
+					{{selectedPage}}</span>
+			  </div></br>
+			  
+			  <div id=row2 class="btn-group" >
+				<label id="pageLabel">Domain</label> 
+				<select ng-model="selectedDomain" id="pagedropdown" ng-change="DropDownDomains()">
+					<option ng-repeat="name in domains">{{name}}
+				</select> <span style="margin-left: auto;"><b>You selected:</b>
+					{{selectedDomain}}</span>
+			  </div> 
+			
+			<!--  <div id="elementDiv" style="margin-top: 30px">
+				<label id="pageelementLabel">Domain</label> <select multiple
+					ng-multiple="true" ng:model="domainmodel"
+					ng-options="domain.name for domain in domains">
+				</select> <span style="margin-left: auto;"><b>You selected:</b>
+					{{domainmodel}}</span>
+			</div> -->
+			
+			<div style="margin-top: 30px;">
+				<label id=expectedlabel>ExpectedResult
+				 <input type="text" name="expectedresult" required="required" placeholder="ExpectedResult" />
+			</div>
+			
+             <button class="btn btn-success">Execute</button>
+            </div>
+          </tab>
+          
+           <tab heading="ExecutionReport">
+            <div ng-form="reportForm">
+              <input type="text" name="emailSubject" class="input-xxlarge" ng-model="campaign.info.emailSubject" placeholder="Reports" required/>
+              <span ng-show="subjectForm.emailSubject.$dirty && subjectForm.emailSubject.$error.required" class="help-inline">
+                Required
+              </span>
+            </div>
+          </tab>
+          
+        </tabset>
+      </form>
+      
+      <hr/>
+
+
+
+	</div>
+</body>
+</html>
