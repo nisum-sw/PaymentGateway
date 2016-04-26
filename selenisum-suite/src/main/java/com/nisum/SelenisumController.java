@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.Driver.DriverScript;
+import com.Driver.TestScenarios;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -57,8 +58,14 @@ public class SelenisumController {
 	
 		return new ResponseEntity<String>(jArray.toString(), HttpStatus.OK); 
 		}
-
 	
+	
+	@RequestMapping(value = "/getTestScenario", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public  ResponseEntity<String> getTestScenario( @RequestParam("input") String input) throws Exception {
+		return new ResponseEntity<String>(TestScenarios.getTestSuite(), HttpStatus.OK); 
+	}
+
 	
 	@RequestMapping(value = "/executeTest", method = RequestMethod.POST, produces = "application/text")
 	@ResponseBody

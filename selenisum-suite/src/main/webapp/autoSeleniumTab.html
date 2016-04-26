@@ -38,7 +38,22 @@
 		<form name="campaignForm" class="form-horizontal" novalidate >
         <tabset>
           <tab heading="InputData">
-            <div ng-form="inputForm">
+
+ 		<div id=row0 style="margin-top: 10px">
+            <label id="pageLabel">Test Suite : </label>
+				<select ng-model="selectedSuite" ng-change="changeSuite(selectedSuite)">
+		        	<option ng-repeat="suite in testSuits">{{suite}}</option>
+		        </select>
+			</div>
+		
+		<div id=row01 style="margin-top: 10px">
+            <label id="pageLabel">Test Cases : </label>
+				<select ng-model="selectedCase">
+		        	<option ng-repeat="case in testCases">{{case.test_case}}</option>
+		        </select>
+			</div>
+
+            <div ng-form="inputForm" style="margin-top: 10px">
               <div id=row1 class="btn-group" >
 				<label id="pageLabel">PageName</label> 
 				<select ng-model="selectedPage" id="pagedropdown" ng-change="DropDownChnaged()">
@@ -50,7 +65,7 @@
 			 <div id="elementDiv" style="margin-top: 30px">
 				<label id="pageelementLabel">PageElement</label> <select multiple
 					ng-multiple="true" ng:model="elementmodel"
-					ng-options="element.name for element in elements">
+					ng-options="element.name for element in elements"  >
 				</select> <span style="margin-left: auto;"><b>You selected:</b>
 					{{elementmodel}}</span>
 			</div>
