@@ -1,6 +1,13 @@
 package com.Driver;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
+
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 public class TestScenarios {
@@ -74,4 +81,20 @@ public class TestScenarios {
 		return jObjectMain.toString();
 	}
 
+
+	public static String  getReports(String reportPath) throws Exception {
+		JsonArray  reports = new JsonArray();
+		Files.walk(Paths.get(reportPath)).forEach(filePath -> {
+		    if (Files.isRegularFile(filePath)) {
+		        System.out.println(filePath);
+		        JsonObject  jObject = new JsonObject();
+		        jObject.addProperty("report_name" , filePath.getFileName().toString());
+		        reports.add(jObject);
+		    }
+		});
+		
+		return reports.toString();
+	}
+	
+	
 }

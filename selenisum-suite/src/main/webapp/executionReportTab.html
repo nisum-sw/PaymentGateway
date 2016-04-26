@@ -1,6 +1,6 @@
             <div ng-form="reportForm">
-              <input type="text" name="emailSubject" class="input-xxlarge" ng-model="campaign.info.emailSubject" placeholder="Reports" required/>
-              <span ng-show="subjectForm.emailSubject.$dirty && subjectForm.emailSubject.$error.required" class="help-inline">
-                Required
-              </span>
+              
+               <div ng-repeat="report in reports">
+              <a href="" ng-click="newWindow(report.report_name)" target="_blank">{{report.report_name}}</a>
+              </div>
             </div>

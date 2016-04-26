@@ -33,10 +33,29 @@ app.controller('nAutomationCtrl', function($scope, $window,$location,$http) {
                 alert(1);
                 alert( "failure message: " + JSON.stringify(data));
           });
+	
+	$scope.reports =[];
+	$http.get(path+"/getReports?input=s").success(function(data, status) {
+        console.log(data);
+        
+        
+        data.forEach(function(suite){
+        	$scope.reports.push(suite);
+        });
+      })
+      .error(function(data, status) {
+        alert(1);
+        alert( "failure message: " + JSON.stringify(data));
+  });
+
+
           
 	$scope.changeSuite = function(selectedSuite){
 		$scope.testCases = $scope.testSuitsPerm[selectedSuite];
 	};
+	
+	
+		
 	
 //	$scope.domains = [ {
 //		"name" : "safeway"
@@ -70,5 +89,10 @@ app.controller('nAutomationCtrl', function($scope, $window,$location,$http) {
 	                alert( "failure message: " + JSON.stringify(data));
 	              });
 	      };
+	      
+          $scope.newWindow = function (reportHref) { 
+              $window.open("Results/"+reportHref);
+           };
+
 	
 });

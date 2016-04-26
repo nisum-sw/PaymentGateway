@@ -89,6 +89,15 @@ public class SelenisumController {
 		}	
 		return new ResponseEntity<String>(report, HttpStatus.OK); 
 		}
+
+	
+	@RequestMapping(value = "/getReports", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public  ResponseEntity<String> getReports(@RequestParam("input") String input) throws Exception {
+		String reportPath = context.getRealPath("") + "Results";
+		//return new ResponseEntity<String>("{'name': 'ashish' }", HttpStatus.OK);
+			return new ResponseEntity<String>(TestScenarios.getReports(reportPath), HttpStatus.OK); 
+	}
 	
 
 }
