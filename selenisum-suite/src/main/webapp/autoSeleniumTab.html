@@ -56,7 +56,7 @@
             <div ng-form="inputForm" style="margin-top: 10px">
               <div id=row1 class="btn-group" >
 				<label id="pageLabel">PageName</label> 
-				<select ng-model="selectedPage" id="pagedropdown" ng-change="DropDownChnaged()">
+				<select ng-model="selectedPage" id="pagedropdown" ng-change="dropDownChnaged()">
 					<option ng-repeat="name in pagenames">{{name}}
 				</select> <span style="margin-left: auto;"><b>You selected:</b>
 					{{selectedPage}}</span>

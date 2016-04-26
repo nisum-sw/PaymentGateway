@@ -50,8 +50,25 @@ app.controller('nAutomationCtrl', function($scope, $window,$location,$http) {
 	
 	
 	$scope.domains = [ "safeway","Walmart","Gap","Target"];
-	$scope.DropDownDomains = function() {
-		$scope.selectedDomain = $scope.DropDownDomains;
-};
+	
+	$scope.dropDownChnaged = function () {
+	      //alert(url.name);
+	        var valData = $scope.selectedDName + $scope.selectedPageName + "." + $scope.selectedFileExtension;
+	        alert(valData);
+	        var path = $location.absUrl().substr(0, $location.absUrl().lastIndexOf("/"));
+	        
+	        alert(path);
+	          //$scope.selectedPage=$scope.selectedPage;
+	          $http.get(path+'/getElements?input='+
+	              encodeURIComponent(valData)).success(function(data, status) {
+	                //alert("i am" + status);
+	                
+	                $scope.elements = data;
+	              })
+	              .error(function(data, status) {
+	                alert(status);
+	                alert( "failure message: " + JSON.stringify(data));
+	              });
+	      };
 	
 });
