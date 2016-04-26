@@ -37,101 +37,17 @@
 	<div ng-controller="nAutomationCtrl"  class="custom-border" >
 		<form name="campaignForm" class="form-horizontal" novalidate >
         <tabset>
-          <tab heading="InputData">
-
- 		<div id=row0 style="margin-top: 10px">
-            <label id="pageLabel">Test Suite : </label>
-				<select ng-model="selectedSuite" ng-change="changeSuite(selectedSuite)">
-		        	<option ng-repeat="suite in testSuits">{{suite}}</option>
-		        </select>
-			</div>
-		
-		<div id=row01 style="margin-top: 10px">
-            <label id="pageLabel">Test Cases : </label>
-				<select ng-model="selectedCase">
-		        	<option ng-repeat="case in testCases">{{case.test_case}}</option>
-		        </select>
-			</div>
-
-            <div ng-form="inputForm" style="margin-top: 10px">
-              <div id=row1 class="btn-group" >
-				<label id="pageLabel">PageName</label> 
-				<select ng-model="selectedPage" id="pagedropdown" ng-change="dropDownChnaged()">
-					<option ng-repeat="name in pagenames">{{name}}
-				</select> <span style="margin-left: auto;"><b>You selected:</b>
-					{{selectedPage}}</span>
-			  </div>
-			
-			 <div id="elementDiv" style="margin-top: 30px">
-				<label id="pageelementLabel">PageElement</label> <select multiple
-					ng-multiple="true" ng:model="elementmodel"
-					ng-options="element.name for element in elements"  >
-				</select> <span style="margin-left: auto;"><b>You selected:</b>
-					{{elementmodel}}</span>
-			</div>
-			
-			<div style="margin-top: 30px;">
-				<label id=expectedlabel>ExpectedResult
-				 <input type="text" name="expectedresult" required="required" placeholder="ExpectedResult" />
-			</div>
-			
-			<div style="margin-top: 14px">
-				<button class="btn btn-primary">Submit</button>
-				<button class="btn btn-primary">Cancel</button>
-
-			</div> 
-              
-            </div>
+          <tab heading="Input Data">
+            <div ng-include="'inputDataTab.html'"></div>
           </tab>
 
-          <tab heading="TestExecution">
-            <div ng-form="executionForm">
-              <!-- <input type="text" name="emailSubject" class="input-xxlarge" ng-model="campaign.info.emailSubject" placeholder="Execute Tests" required/>
-              <span ng-show="subjectForm.emailSubject.$dirty && subjectForm.emailSubject.$error.required" class="help-inline">
-                Required
-              </span> -->
-              
-                 <div id=row1 class="btn-group" >
-				<label id="pageLabel">PageName</label> 
-				<select ng-model="selectedPage" id="pagedropdown" ng-change="DropDownChnaged()">
-					<option ng-repeat="name in pagenames">{{name}}
-				</select> <span style="margin-left: auto;"><b>You selected:</b>
-					{{selectedPage}}</span>
-			  </div></br>
-			  
-			  <div id=row2 class="btn-group" >
-				<label id="pageLabel">Domain</label> 
-				<select ng-model="selectedDomain" id="pagedropdown" ng-change="DropDownDomains()">
-					<option ng-repeat="name in domains">{{name}}
-				</select> <span style="margin-left: auto;"><b>You selected:</b>
-					{{selectedDomain}}</span>
-			  </div> 
-			
-			<!--  <div id="elementDiv" style="margin-top: 30px">
-				<label id="pageelementLabel">Domain</label> <select multiple
-					ng-multiple="true" ng:model="domainmodel"
-					ng-options="domain.name for domain in domains">
-				</select> <span style="margin-left: auto;"><b>You selected:</b>
-					{{domainmodel}}</span>
-			</div> -->
-			
-			<div style="margin-top: 30px;">
-				<label id=expectedlabel>ExpectedResult
-				 <input type="text" name="expectedresult" required="required" placeholder="ExpectedResult" />
-			</div>
-			
-             <button class="btn btn-success">Execute</button>
-            </div>
+          <tab heading="Test Execution">
+              <div ng-include="'testExecutionTab.html'"></div>
           </tab>
           
            <tab heading="ExecutionReport">
-            <div ng-form="reportForm">
-              <input type="text" name="emailSubject" class="input-xxlarge" ng-model="campaign.info.emailSubject" placeholder="Reports" required/>
-              <span ng-show="subjectForm.emailSubject.$dirty && subjectForm.emailSubject.$error.required" class="help-inline">
-                Required
-              </span>
-            </div>
-          </tab>
+             <div ng-include="'executionReportTab.html'"></div>
+           </tab>
           
         </tabset>
       </form>

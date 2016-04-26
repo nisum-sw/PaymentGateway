@@ -1,0 +1,43 @@
+ 		<div id=row0 style="margin-top: 10px">
+            <label id="pageLabel">Test Suite : </label>
+				<select ng-model="selectedSuite" ng-change="changeSuite(selectedSuite)">
+		        	<option ng-repeat="suite in testSuits">{{suite}}</option>
+		        </select>
+			</div>
+		
+		<div id=row01 style="margin-top: 10px">
+            <label id="pageLabel">Test Cases : </label>
+				<select ng-model="selectedCase">
+		        	<option ng-repeat="case in testCases">{{case.test_case}}</option>
+		        </select>
+			</div>
+
+            <div ng-form="inputForm" style="margin-top: 10px">
+              <div id=row1 class="btn-group" >
+				<label id="pageLabel">PageName</label> 
+				<select ng-model="selectedPage" id="pagedropdown" ng-change="dropDownChnaged()">
+					<option ng-repeat="name in pagenames">{{name}}
+				</select> <span style="margin-left: auto;"><b>You selected:</b>
+					{{selectedPage}}</span>
+			  </div>
+			
+			 <div id="elementDiv" style="margin-top: 30px">
+				<label id="pageelementLabel">PageElement</label> <select multiple
+					ng-multiple="true" ng:model="elementmodel"
+					ng-options="element.name for element in elements"  >
+				</select> <span style="margin-left: auto;"><b>You selected:</b>
+					{{elementmodel}}</span>
+			</div>
+			
+			<div style="margin-top: 30px;">
+				<label id=expectedlabel>ExpectedResult
+				 <input type="text" name="expectedresult" required="required" placeholder="ExpectedResult" />
+			</div>
+			
+			<div style="margin-top: 14px">
+				<button class="btn btn-primary">Submit</button>
+				<button class="btn btn-primary">Cancel</button>
+
+			</div> 
+              
+            </div>
