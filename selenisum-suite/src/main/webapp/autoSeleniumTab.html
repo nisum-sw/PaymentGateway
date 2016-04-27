@@ -36,26 +36,27 @@
 <body>
 	<div ng-controller="nAutomationCtrl"  class="custom-border" >
 		<form name="campaignForm" class="form-horizontal" novalidate >
-        <tabset>
-          <tab heading="Input Data">
-            <div ng-include="'inputDataTab.html'"></div>
-          </tab>
+        	<tabset>
 
-          <tab heading="Test Execution">
-              <div ng-include="'testExecutionTab.html'"></div>
-          </tab>
-          
-           <tab heading="Execution Report">
-             <div ng-include="'executionReportTab.html'"></div>
-           </tab>
-          
-        </tabset>
+	        	<tab heading="Add Tests">
+	            	<h2>Coming Soon...</h2>
+	          	</tab>
+
+	        	<tab heading="Input Data">
+	            	<div ng-include="'inputDataTab.html'"></div>
+	          	</tab>
+
+	          	<tab heading="Test Execution">
+	              	<div ng-include="'testExecutionTab.html'"></div>
+	          	</tab>
+	          
+	           	<tab heading="ExecutionReport">
+	             	<div ng-include="'executionReportTab.html'"></div>
+	           	</tab>
+
+	        </tabset>
       </form>
-      
       <hr/>
-
-
-
 	</div>
 </body>
 </html>
