@@ -99,6 +99,11 @@ app.controller('nAutomationCtrl', function($scope, $window,$location,$http) {
 	
 	$scope.domains = [ "safeway","Walmart","Gap","Target"];
 	
+	$scope.browsers = [ "Chrome","Firefox","Safari","Explorer"];
+	
+	$scope.projecturls = [ "www.safeway.com"];
+
+
 	$scope.dropDownChnaged = function () {
 	      //alert(url.name);
 	        var valData = $scope.selectedDName + $scope.selectedPageName + "." + $scope.selectedFileExtension;
