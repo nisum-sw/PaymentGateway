@@ -101,7 +101,6 @@ app.controller('nAutomationCtrl', function($scope, $window,$location,$http) {
 	
 	$scope.browsers = [ "Chrome","Firefox","Safari","Explorer"];
 	
-	$scope.projecturls = [ "www.safeway.com"];
 
 
 	$scope.dropDownChnaged = function () {
@@ -123,7 +122,63 @@ app.controller('nAutomationCtrl', function($scope, $window,$location,$http) {
 	                alert( "failure message: " + JSON.stringify(data));
 	              });
 	      };
+
+	      $scope.saveAlert= function () {
+		      alert("foo Mukarram");
+		  };
+		      
+
+	      $scope.jsonData =
+	      {  
+	    		     "Pid":"NisumJsonDataStatis P000001",
+	    		    "pageURL" : "Nisum MongoDB is no sql database",
+	    		    "pageName" : [ "Nisum mpn1", "database1", "muksJsonDataStatis NoSQL1"],
+	    		    "brwType" : [ "Nisum mpn12", "database12", "muksJsonDataStatis NoSQL12"]   
+	      };
 	      
+	      $scope.jsonDomainName= "http://192.168.7.85:8080/projects/";
+	      
+	      $scope.saveFooJsonTest = function () {
+	    	  var pathToMongo="http://192.168.7.85:8080/projects/";
+	            
+	              //$scope.selectedPage=$scope.selectedPage;
+	              $http.post(pathToMongo,
+	                  encodeURIComponent($scope.jsonData)).success(function(data, status) {
+	                    alert(data);
+	                    $scope.report = data;
+	                    $scope.reportHref = data;
+	                  })
+	                  .error(function(data, status) {
+	                    alert(status);
+	                    alert( "failure message: " + JSON.stringify(data));
+	                  });
+	              
+	              $scope.newWindow = function (reportHref) { 
+	                 $window.open(reportHref);
+	              };
+	          };
+	          
+	      $scope.executeTest = function () {
+		          //alert(url.name);
+		            var path = $location.absUrl().substr(0, $location.absUrl().lastIndexOf("/"))
+		            
+		              //$scope.selectedPage=$scope.selectedPage;
+		              $http.post(path+'/executeTest',
+		                  encodeURIComponent($scope.domainName)).success(function(data, status) {
+		                    //alert("i am" + status);
+		                    alert(data);
+		                    $scope.report = data;
+		                    $scope.reportHref = data;
+		                  })
+		                  .error(function(data, status) {
+		                    alert(status);
+		                    alert( "failure message: " + JSON.stringify(data));
+		                  });
+		              
+		              $scope.newWindow = function (reportHref) { 
+		                 $window.open(reportHref);
+		              };
+		          };
           $scope.newWindow = function (reportHref) { 
               $window.open("Results/"+reportHref);
            };
