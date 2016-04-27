@@ -1,4 +1,33 @@
 var app = angular.module('nAutomationApp', [ 'ngAnimate', 'ui.bootstrap' ]);
+
+app.controller('testSuiteCtrl', ['$scope', '$http',
+   function ($scope, $http) {
+ 	var counter=0;
+     $scope.testsuiteelemnt = [ {'id':'counter', 'question' : 'TEST-SUITE', 'answer' : '','inline':'true'} ];
+
+     $scope.newItem = function($event){
+         counter++;
+         $scope.testsuiteelemnt.push({'id':'counter', 'question' : 'TEST-SUITE', 'answer' : '','inline':'true'});
+         $event.preventDefault();
+     }
+     
+     $scope.inlinef= function($event,inlinecontrol){
+         var checkbox = $event.target;
+         if(checkbox.checked){
+             //$('#'+ inlinecontrol).css('display','inline');
+         }else{
+             //$('#'+ inlinecontrol).css('display','');
+         }
+     }
+     
+     $scope.showitems = function($event){
+     	//console.log($event);
+        // $('#displayitems').css('visibility','none');
+     }
+     
+}]);
+
+
 app.controller('nAutomationCtrl', function($scope, $window,$location,$http) {
 	$scope.pagenames = [ "login", "checkout", "payment" ];
 	$scope.DropDownChnaged = function() {
