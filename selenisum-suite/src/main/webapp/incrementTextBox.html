@@ -1,7 +1,20 @@
+<style>
+sup {
+	font-size: 100%;
+}
+pre {
+	width: 660px;
+	border: 0px;
+	font-size: 10px;
+	padding: 3px;
+}
+</style>
+
 <div ng-controller="testSuiteCtrl" style="">
 	<div id="right" style="">
 		<span>Test Suite:</span>
-		<input type="text" id="newSuiteName" ng-readonly="hideTxtBox" ng-dblclick="setSuiteName()" ng-model="newSuiteName" ng-blur="makeSuiteNameStatic()" ng-keyup="$event.keyCode == 13 && makeSuiteNameStatic()" />
+		<input ng-class="{'alert-success' : hideTxtBox}" type="text" id="newSuiteName" ng-readonly="hideTxtBox" ng-dblclick="setSuiteName()" ng-model="newSuiteName" ng-blur="makeSuiteNameStatic()" ng-keyup="$event.keyCode == 13 && makeSuiteNameStatic()" />
+        <span ng-show="hideTxtBox"><sup>*</sup></span>
 	</div>
 	</br></br>
 	<div id="left" style="">
@@ -41,4 +54,7 @@
             {{testsuiteelemnt}}
         </div> 
         -->
+        </br></br>
+<span ng-show="hideTxtBox" ><pre><i>Note: <sup>*</sup> denotes that the Test Suite name is read-only. Please double click on it to edit the Test Suite name.</i></pre></span>
 </div>
+
