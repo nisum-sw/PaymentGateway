@@ -11,18 +11,14 @@ app.controller('testSuiteCtrl', ['$scope', '$http',
          $event.preventDefault();
      }
      
-     $scope.inlinef= function($event,inlinecontrol){
-         var checkbox = $event.target;
-         if(checkbox.checked){
-             //$('#'+ inlinecontrol).css('display','inline');
-         }else{
-             //$('#'+ inlinecontrol).css('display','');
-         }
+     $scope.setSuiteName = function($event) {
+    	 $scope.hideTxtBox = false;
+    	 //$event.preventDefault();
      }
      
-     $scope.showitems = function($event){
-     	//console.log($event);
-        // $('#displayitems').css('visibility','none');
+     $scope.makeSuiteNameStatic = function($event) {
+    	 $scope.hideTxtBox = true;
+    	 //$event.preventDefault();
      }
      
 }]);
