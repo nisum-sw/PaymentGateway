@@ -21,6 +21,15 @@ app.controller('testSuiteCtrl', ['$scope', '$http',
     	 //$event.preventDefault();
      }
      
+     $scope.addNewTestCase = function($event) {
+    	 $scope.testCases.push({'name':$scope.newTestCaseName, 'selected':false});
+    	 $scope.newTestCaseName = "";
+     }
+     
+     $scope.removeTestCase = function(removeSelectedTestCase) {
+    	 $scope.testCases.splice(removeSelectedTestCase, 1);
+     }
+     
 }]);
 
 
