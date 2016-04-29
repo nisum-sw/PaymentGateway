@@ -63,39 +63,6 @@ Please double click on it to edit the Test Suite name.</i></pre></span>
 	<div style="visibility: hidden; float:left;">
 		<button class="btn btn-danger" ng-disabled="true" ng-click="alert('coming soon')">Save</button>
 	</div>
-        
-        <!--  
-        <div>
-            <ul>
-                <li ng-repeat="elemnt in testsuiteelemnt">
 
-                    <div>
-                        <div id={{elemnt.id}} style="display:inline" >
-                            <span  ng-model="elemnt.question" ng-hide="editorEnabled" ng-click="editorEnabled=true">
-                                Test Suite: 
-                            </span>
-                            <div  ng-show="editorEnabled">
-                                <input  ng-model="elemnt.question" ng-show="editorEnabled" >
-                                <button href="#" ng-click="editorEnabled=false">Done editing</button>
-                            </div>
-                        </div>
-                        <div style="display:inline">
-                            <span>
-                                <input type="text" ng-model="elemnt.answer" required/>
-                            </span>
-                        </div>
-                        <span ng-hide="elemnt.length == 1">
-                            <a href ng-click="testsuiteelemnt.splice($index, 1)">remove</a>
-                        </span>
-                    </div>
-                    <hr/>
-                </li>
-            </ul>
-            <button href ng-click="newItem($event)">+ Test Case</button>
-        </div>
-        <div id="displayitems" style="visibility:hidden;">
-            {{testsuiteelemnt}}
-        </div> 
-        -->
 </div>
 
