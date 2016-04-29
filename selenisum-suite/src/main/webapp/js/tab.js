@@ -26,8 +26,8 @@ app.controller('testSuiteCtrl', ['$scope', '$http', '$window', '$location',
     	 $scope.newTestCaseName = "";
      }
      
-     $scope.removeTestCase = function(removeSelectedTestCase) {
-    	 $scope.testCases.splice(removeSelectedTestCase, 1);
+     $scope.removeTestCase = function(index,testCase) {
+    	 $scope.testCases.splice(index, 1);
      }
      
 }]);
@@ -64,8 +64,6 @@ app.controller('nAutomationCtrl', function($scope, $window,$location,$http) {
                 });
               })
               .error(function(data, status) {
-                alert(1);
-                alert( "failure message: " + JSON.stringify(data));
           });
 	
 	$scope.reports =[];
@@ -78,8 +76,8 @@ app.controller('nAutomationCtrl', function($scope, $window,$location,$http) {
         });
       })
       .error(function(data, status) {
-        alert(1);
-        alert( "failure message: " + JSON.stringify(data));
+       // alert(1);
+        //alert( "failure message: " + JSON.stringify(data));
   });
 
 

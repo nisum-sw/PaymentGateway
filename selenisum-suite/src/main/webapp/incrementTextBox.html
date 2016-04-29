@@ -52,7 +52,7 @@ Please double click on it to edit the Test Suite name.</i></pre></span>
 		<ol class="unstyled">
 	        <li ng-class="{ 'alert-warning': hideTxtBox, 'alert-danger': !hideTxtBox }" style="padding: 5px;" ng-repeat="testCase in testCases">
 	            <span>{{testCase.name}}</span>
-	            <button ng-disabled="!hideTxtBox" class="close" ng-click="removeTestCase(testCase.name)" role="alert" type="button">
+	            <button ng-disabled="!hideTxtBox" class="close" ng-click="removeTestCase($index,testCase.name)" role="alert" type="button">
 					<span aria-hidden="true">×</span>
 					<span class="sr-only">Close</span>
 				</button>
