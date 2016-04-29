@@ -1,10 +1,10 @@
 var app = angular.module('nAutomationApp', [ 'ngAnimate', 'ui.bootstrap' ]);
 
-app.controller('testSuiteCtrl', ['$scope', '$http',
-   function ($scope, $http) {
+app.controller('testSuiteCtrl', ['$scope', '$http', '$window', '$location',
+                                 function($scope,$http,$window,$location) {
  	var counter=0;
      $scope.testsuiteelemnt = [ {'id':'counter', 'question' : 'TEST-SUITE', 'answer' : '','inline':'true'} ];
-
+     
      $scope.newItem = function($event){
          counter++;
          $scope.testsuiteelemnt.push({'id':'counter', 'question' : 'TEST-SUITE', 'answer' : '','inline':'true'});
@@ -135,20 +135,31 @@ app.controller('nAutomationCtrl', function($scope, $window,$location,$http) {
 
 	      $scope.jsonData =
 	      {  
-	    		     "Pid":"NisumJsonDataStatis P000001",
-	    		    "pageURL" : "Nisum MongoDB is no sql database",
-	    		    "pageName" : [ "Nisum mpn1", "database1", "muksJsonDataStatis NoSQL1"],
-	    		    "brwType" : [ "Nisum mpn12", "database12", "muksJsonDataStatis NoSQL12"]   
+	    		     "April281030":"foo000001"  
 	      };
 	      
 	      $scope.jsonDomainName= "http://192.168.7.85:8080/projects/";
 	      
-	      $scope.saveFooJsonTest = function () {
-	    	  var pathToMongo="http://192.168.7.85:8080/projects/";
-	            
-	              //$scope.selectedPage=$scope.selectedPage;
+	        
+	      $scope.project = {};
+	      
+	      $scope.saveToDatabase = function () {
+	    	  
+	    	alert("tab.js::saveToDatabase");
+	        
+	        console.log(" $scope.project = " + JSON.stringify( $scope.project) );
+	        
+	        
+
+	    	  var config = {
+	    		        'Content-Type': 'application/json'
+	    	    };
+	    	  
+	    	  
+	    	  var pathToMongo =  "http://localhost:8080/projects"
+	    		  
 	              $http.post(pathToMongo,
-	                  encodeURIComponent($scope.jsonData)).success(function(data, status) {
+	                  $scope.project).success(function(data, status) {
 	                    alert(data);
 	                    $scope.report = data;
 	                    $scope.reportHref = data;

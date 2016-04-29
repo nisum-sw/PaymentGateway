@@ -1,36 +1,33 @@
 
 			  <div id=row22 class="btn-group" >
 				<label id="pageLabel">Domain</label> 
-				<select ng-model="selectedDomain" id="pagedropdown" ng-change="DropDownDomains()">
+				<select ng-model="project.selectedDomain" id="pagedropdown" ng-change="DropDownDomains()">
 					<option ng-repeat="name in domains">{{name}}
-				</select> <span style="margin-left: auto;"><b>You selected:</b>
-					{{selectedDomain}}</span>
+				</select>
 			  </div> 
+			  
+			  <br/>
 			  	
 			<div id=row22 class="btn-group" >
 				<label id="pageLabel">Browser Type</label> 
-				<select ng-model="selectedBroswer" id="pagedropdown" ng-change="DropDownBroswers()">
+				<select ng-model="project.selectedBrowser" id="pagedropdown" ng-change="DropDownBrowsers()">
 					<option ng-repeat="name in browsers">{{name}}
-				</select> <span style="margin-left: auto;"><b>You selected:</b>
-					{{selectedBroswer}}</span>
+				</select> 
 			 </div> 
 			  
-			  <br/>
-		
-			  
+					  
 			  <br/>	  		  
 			  		
-		 <div id=row11 class="btn-group" >
+			 <div id=row11 class="btn-group" >
 				<label id="pageLabel">PageName</label> 
-				<select ng-model="selectedPage" id="pagedropdown" ng-change="DropDownChnaged()">
+				<select ng-model="project.selectedPage" id="pagedropdown" ng-change="DropDownChnaged()">
 					<option ng-repeat="name in pagenames">{{name}}
-				</select> <span style="margin-left: auto;"><b>You selected:</b>
-					{{selectedPage}}</span>
+				</select> 
 			  </div></br>
 			  
  		<div id=row0 style="margin-top: 10px">
             <label id="pageLabel">Test Suite : </label>
-				<select ng-model="selectedSuite" ng-change="changeSuite(selectedSuite)">
+				<select ng-model="project.selectedSuite" ng-change="changeSuite(project.selectedSuite)">
 		        	<option ng-repeat="suite in testSuits">{{suite}}</option>
 		        </select>
 			</div>
@@ -38,7 +35,7 @@
 			  
 		<div id=row01 style="margin-top: 10px">
             <label id="pageLabel">Test Cases : </label>
-				<select ng-model="selectedCase">
+				<select ng-model="project.selectedCase">
 		        	<option ng-repeat="case in testCases">{{case.test_case}}</option>
 		        </select>
 			</div>
@@ -48,24 +45,25 @@
 			
 			 <div id="elementDiv" style="margin-top: 30px">
 				<label id="pageelementLabel">PageElement</label> <select multiple
-					ng-multiple="true" ng:model="elementmodel"
+					ng-multiple="true" ng:model="project.elementmodel"
 					ng-options="element.name for element in elements"  >
 				</select> 
 			</div>
 	
 	    
-			<div  ng-repeat="newelement in elementmodel">
+			<div  ng-repeat="newelement in project.elementmodel">
             		{{newelement}} <input type="text"   ng-model="newelement.userinput"  />
                     <br/>
             </div>
                         		
 			<div style="margin-top: 30px;">
 				<label id=expectedlabel>ExpectedResult
-				 <input type="text" name="expectedresult" required="required" placeholder="ExpectedResult" />
+				 <input type="text" name="project.expectedresult" required="required" placeholder="ExpectedResult" />
 			</div>
 			
 			<div style="margin-top: 14px">
-				<button class="btn btn-primary"  ng-click="saveFooJsonTest()">Save</button>				
+				<button class="btn btn-primary"  ng-click="saveFooJsonTest()">Save</button>		
+				<button class="btn btn-primary"  ng-click="testGet()">testGet</button>		
 				<button class="btn btn-primary">Cancel</button>
 
 			</div> 
