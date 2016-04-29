@@ -147,8 +147,7 @@ app.controller('nAutomationCtrl', function($scope, $window,$location,$http) {
 	        
 	        console.log(" $scope.project = " + JSON.stringify( $scope.project) );
 	        
-	        
-
+	    
 	    	  var config = {
 	    		        'Content-Type': 'application/json'
 	    	    };
