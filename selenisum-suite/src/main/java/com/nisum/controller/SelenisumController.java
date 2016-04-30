@@ -21,12 +21,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.Driver.DriverScript;
-import com.Driver.TestScenarios;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.nisum.domain.Report;
+import com.nisum.service.DriverScript;
+import com.nisum.util.TestScenarios;
 import com.thoughtworks.selenium.webdriven.commands.Type;
 
 
@@ -36,6 +37,9 @@ public class SelenisumController {
 
 	@Autowired
     private ServletContext context; 
+	
+	@Autowired
+    private DriverScript driverScript; 
 	
 	@RequestMapping(value = "/getElements", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
@@ -76,12 +80,12 @@ public class SelenisumController {
 			String reportPath = context.getRealPath("");
 			
 			
-			report = DriverScript.main(reportPath+"Results");
+			report = driverScript.main(reportPath+"Results");
 			
-			String pathArr[] = report.split("Results");
+			//String pathArr[] = report.split("Results");
 			//("../../resources/DriverFiles/ProjectDriver.xlsx");
-			report= context.getContextPath()+"/Results"+ pathArr[1];
-			System.out.println(pathArr[1]);
+			//report= context.getContextPath()+"/Results"+ pathArr[1];
+			//System.out.println(pathArr[1]);
 			
 		} catch (Throwable e) {
 			// TODO Auto-generated catch block
@@ -91,13 +95,15 @@ public class SelenisumController {
 		}
 
 	
-	@RequestMapping(value = "/getReports", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/report", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public  ResponseEntity<String> getReports(@RequestParam("input") String input) throws Exception {
-		String reportPath = context.getRealPath("") + "Results";
-		//return new ResponseEntity<String>("{'name': 'ashish' }", HttpStatus.OK);
-			return new ResponseEntity<String>(TestScenarios.getReports(reportPath), HttpStatus.OK); 
+	public  ResponseEntity<List<Report>> getReports(@RequestParam("input") String input) throws Exception {
+		Iterable<Report> reportItr =  driverScript.getReports();
+		List<Report> reports = new ArrayList<Report>();
+		reportItr.forEach(report -> reports.add(report));
+			return new ResponseEntity<List<Report>>(reports, HttpStatus.OK); 
 	}
 	
 
+	
 }

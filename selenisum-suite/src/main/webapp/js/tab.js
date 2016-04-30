@@ -1,3 +1,4 @@
+'use strict';
 var app = angular.module('nAutomationApp', [ 'ngAnimate', 'ui.bootstrap' ]);
 
 app.controller('testSuiteCtrl', ['$scope', '$http', '$window', '$location',
@@ -67,17 +68,17 @@ app.controller('nAutomationCtrl', function($scope, $window,$location,$http) {
           });
 	
 	$scope.reports =[];
-	$http.get(path+"/getReports?input=s").success(function(data, status) {
+	$http.get(path+"/report?input=s").success(function(data, status) {
         console.log(data);
         
-        
-        data.forEach(function(suite){
-        	$scope.reports.push(suite);
-        });
+        $scope.reports = data;
+   //     data.forEach(function(suite){
+        	//$scope.reports.push(suite);
+     //   });
       })
       .error(function(data, status) {
-       // alert(1);
-        //alert( "failure message: " + JSON.stringify(data));
+        alert(1);
+        alert( "failure message: " + JSON.stringify(data));
   });
 
 

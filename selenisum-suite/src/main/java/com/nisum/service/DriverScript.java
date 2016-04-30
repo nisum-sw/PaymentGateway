@@ -1,4 +1,4 @@
-package com.Driver;
+package com.nisum.service;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -11,18 +11,30 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+
+import com.nisum.domain.Report;
+import com.nisum.repositories.ReportRepository;
+import com.nisum.util.Generic_Functions;
+import com.nisum.util.HtmlResult;
+import com.nisum.util.Xls_Reader;
+@Service
 public class DriverScript {
 
 	private final static Logger logger = LoggerFactory.getLogger(DriverScript.class);
-
-	public static WebDriver driver;
-	public static String vProjectUrl,ResFilePath,vProjectName,vModuleName,vTCName,vTCDesc;
-	public static int failval,Cntflag,passval,failcnt,actfails;
+	@Autowired
+	private ReportRepository reportRepository;
+	
+	public WebDriver driver;
+	public String vProjectUrl,ResFilePath,vProjectName,vModuleName,vTCName,vTCDesc;
+	public int failval,Cntflag,passval,failcnt,actfails;
 	
 	public static String getPath(String str) throws UnsupportedEncodingException{
 		String path = DriverScript.class.getResource("").getPath();
 		String fullPath = URLDecoder.decode(path, "UTF-8");
-		String pathArr[] = fullPath.split("/com/Driver/");
+		String pathArr[] = fullPath.split("/com/nisum/service/");
 		//("../../resources/DriverFiles/ProjectDriver.xlsx");
 		logger.info(fullPath);
 		logger.info(pathArr[0]);
@@ -30,7 +42,7 @@ public class DriverScript {
 		return pathArr[0]+str;
 	}
 	
-	public static String main(String reportPath) throws Throwable {
+	public String main(String reportPath) throws Throwable {
 	    String vProjectRun,vBrowserType,vDBName,vDBuser,vDBpassword,vModulesRun,vModuleFiles,vTestDataFiles,vTCRun,vTDSteps,vKeyword;
 		int ProjectCnt,ModuleCnt,vTCCnt,vTDCnt,flag,vRowNum;
 		
@@ -68,9 +80,9 @@ public class DriverScript {
         		Xls_Reader xres=new Xls_Reader(getPath("/Results/ExcelResult.xlsx"));
         		Cntflag=0;
         		actfails=0;
-        		html_result hr=new html_result();
-        		ResFilePath=hr.CreateResultFileAndPath(vProjectName,reportPath);
-        		hr.fg_OpenResultsFile(ResFilePath, vProjectName);
+        		HtmlResult hr=new HtmlResult(reportRepository,this);
+        		ResFilePath=hr.createReport(vProjectName,reportPath);
+        		//hr.fg_OpenResultsFile(ResFilePath, vProjectName);
         		
         		for(int j=2;j<=ModuleCnt;j++)
         		{
@@ -80,6 +92,8 @@ public class DriverScript {
         				vModuleName=xr.getCellData(vProjectName, "ModuleName", j);
         				logger.info(vModuleName);
         				vTCCnt=xm.getRowCount(vModuleName);
+        				hr.setTestSuite(vModuleName);
+        				String testSuiteStartTime=dateFormat.format(new Date());
         				for(int k=2;k<=vTCCnt;k++)
         				{
         					vTCRun=xm.getCellData(vModuleName, "Run", k).trim();        					
@@ -124,12 +138,8 @@ public class DriverScript {
         						if(failcnt>0)
         						{
         							actfails=actfails+1;
-        							hr.ExcelResult(xres, "FAIL");
         						}
-        						else
-        						{
-        							hr.ExcelResult(xres, "PASS");	
-        						}
+
         						Date t2 = new Date();		
         		        		String TCStopTime=dateFormat.format(t2);
         		        		long TCTimediff=hr.timeDiffernce(TCStartTime, TCStopTime, dateFormat);
@@ -137,6 +147,10 @@ public class DriverScript {
         					}					
         					
         				}
+        				
+        				String testSuiteStopTime=dateFormat.format(new Date());
+		        		long tsTimediff=hr.timeDiffernce(testSuiteStartTime, testSuiteStopTime, dateFormat);
+		        		hr.writeTestSuiteTime(tsTimediff);
         			}
         			
         		}
@@ -144,13 +158,19 @@ public class DriverScript {
         		Date date1 = new Date();		
         		String ProjectStopTime=dateFormat.format(date1);
         		long ProjectexectionTime=hr.timeDiffernce(ProjectStartTime, ProjectStopTime, dateFormat);
-        		hr.fgCreateSummary(ResFilePath);
+        		//hr.fgCreateSummary(ResFilePath);
+        			hr.saveReport();
         		//hr.fgInsertSummary(ResFilePath, Cntflag, Cntflag-actfails,actfails, passval, failval, "2  min");
-        		hr.fgInsertSummary(ResFilePath, Cntflag, passval, failval, Cntflag-actfails,actfails, ProjectexectionTime);
+        		//hr.fgInsertSummary(ResFilePath, Cntflag, passval, failval, Cntflag-actfails,actfails, ProjectexectionTime);
         	}
         }
         
         return ResFilePath;
 	}
 
+	public Iterable<Report> getReports(){
+		return reportRepository.findAll(new Sort(Sort.Direction.DESC, "reportDate"));
+	}
+	
+	
 }
