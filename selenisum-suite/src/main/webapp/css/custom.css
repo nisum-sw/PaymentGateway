@@ -63,7 +63,7 @@ input, select {
 	border: 2px ridge aliceblue;
 	border-left-style: ridge;
 	border-radius: 3px;
-	margin-top: 43px;
+	margin-top: 23px;
 	margin-left: 70px;
 	width: 90%;
 	float: left;
@@ -72,3 +72,10 @@ input, select {
 .custom-border {
 	background-color: aliceblue;
 }
+
+	.top-header-label{
+	padding-left: 540px;
+    font-family: cursive;
+    font-size: 32px;
+    margin-top: 34px;
+	}

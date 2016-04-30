@@ -9,37 +9,10 @@
 	<script src="js/tab.js"></script>
 	<head>
 <link rel="stylesheet" type="text/css" href="css/custom.css">
-</head>
-
-
-<style type="text/css">
-	.nav-tabs, li.ng-isolate-scope a:ACTIVE {
-		background: aliceblue;
-		color: #fff;
-		text-shadow: none;
-	}
-	.tab-content{
-		padding-top: 23px;
-		padding-left: 40px;
-	}
-	
-	.form-control{
-		width: inherit;
-	}
-	 .custom-border{
-		border: 2px ridge aliceblue;
-    border-left-style: ridge;
-    border-radius: 3px;
-    margin-top: 43px;
-    margin-left: 70px;
-    width: 90%;
-    float: left;
-
-	} 
-</style>
-
-</head>
 <body>
+<div>
+		<label class="top-header-label">Selenisum Automation</label>
+
 	<div ng-controller="nAutomationCtrl"  class="custom-border" >
 		<form name="campaignForm" class="form-horizontal" novalidate >
         	<uib-tabset>
@@ -63,6 +36,7 @@
 	        </uib-tabset>
       </form>
       <hr/>
+	</div>
 	</div>
 </body>
 </html>

@@ -77,8 +77,7 @@ app.controller('nAutomationCtrl', function($scope, $window,$location,$http) {
      //   });
       })
       .error(function(data, status) {
-        alert(1);
-        alert( "failure message: " + JSON.stringify(data));
+        console.log( "failure message: " + JSON.stringify(data));
   });
 
 
@@ -110,10 +109,8 @@ app.controller('nAutomationCtrl', function($scope, $window,$location,$http) {
 	$scope.dropDownChnaged = function () {
 	      //alert(url.name);
 	        var valData = $scope.selectedDName + $scope.selectedPageName + "." + $scope.selectedFileExtension;
-	        alert(valData);
 	        var path = $location.absUrl().substr(0, $location.absUrl().lastIndexOf("/"));
 	        
-	        alert(path);
 	          //$scope.selectedPage=$scope.selectedPage;
 	          $http.get(path+'/getElements?input='+
 	              encodeURIComponent(valData)).success(function(data, status) {
@@ -122,13 +119,12 @@ app.controller('nAutomationCtrl', function($scope, $window,$location,$http) {
 	                $scope.elements = data;
 	              })
 	              .error(function(data, status) {
-	                alert(status);
-	                alert( "failure message: " + JSON.stringify(data));
+	                console.log( "failure message: " + JSON.stringify(data));
 	              });
 	      };
 
 	      $scope.saveAlert= function () {
-		      alert("foo Mukarram");
+		      console.log("foo Mukarram");
 		  };
 		      
 
@@ -144,7 +140,7 @@ app.controller('nAutomationCtrl', function($scope, $window,$location,$http) {
 	      
 	      $scope.saveToDatabase = function () {
 	    	  
-	    	alert("tab.js::saveToDatabase");
+	    	console.log("tab.js::saveToDatabase");
 	        
 	        console.log(" $scope.project = " + JSON.stringify( $scope.project) );
 	        
@@ -159,7 +155,7 @@ app.controller('nAutomationCtrl', function($scope, $window,$location,$http) {
 	    		  
 	              $http.post(pathToMongo,
 	                  $scope.project).success(function(data, status) {
-	                    alert(data);
+	                    console.log(data);
 	                    $scope.report = data;
 	                    $scope.reportHref = data;
 	                  })
@@ -181,7 +177,7 @@ app.controller('nAutomationCtrl', function($scope, $window,$location,$http) {
 		              $http.post(path+'/executeTest',
 		                  encodeURIComponent($scope.domainName)).success(function(data, status) {
 		                    //alert("i am" + status);
-		                    alert(data);
+		                    console.log(data);
 		                    $scope.report = data;
 		                    $scope.reportHref = data;
 		                  })
