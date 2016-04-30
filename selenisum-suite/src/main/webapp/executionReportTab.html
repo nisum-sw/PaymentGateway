@@ -1,6 +1,81 @@
-            <div ng-form="reportForm">
-              
-               <div ng-repeat="report in reports">
-              <a href="" ng-click="newWindow(report.report_name)" target="_blank">{{report.report_name}}</a>
-              </div>
-            </div>
+<style type='text/css'>
+.boldLabel {
+	display: block;
+	text-align: center;
+	width: 100%;
+}
+
+.editor-label {
+	padding-left: .4em;
+	width: 90%;
+}
+
+.reportTime {
+	font-family: Helvetica;
+	font-size: 14px;
+	border: none;
+}
+.reportTime2 {
+padding-left: 5%;
+}
+
+.testSuite-label {
+	padding-left: 30px;
+}
+
+
+</style>
+
+<div class="editor-label">
+
+
+	<!-- Search by color: <input type="text" ng-model="reports"> -->
+
+
+
+	<ui>
+	<div ng-repeat="report in reports | filter:report.reportDate">
+
+		<li><uib-accordion close-others="oneAtATime"> <uib-accordion-group is-open="report.reportStatus.open">
+			<uib-accordion-heading> <span
+				class="reportTime"> <b>Project : </b>{{report.projectName}} <span class="reportTime2"><b> Report Generated at
+				: </b>{{report.reportDate | date:'yyyy-MM-dd HH:mm:ss Z'}}</span> </span> <i
+				class="pull-right glyphicon"
+				ng-class="{'glyphicon-chevron-down': report.reportStatus.open, 'glyphicon-chevron-right': !report.reportStatus.open}"></i>
+			</uib-accordion-heading>
+
+
+			<div ng-repeat="testSuite in report.testSuites"
+				class="testSuite-label">
+
+				<uib-accordion close-others="oneAtATime"> <uib-accordion-group is-open="testSuite.open">
+				<uib-accordion-heading>
+				{{testSuite.testSuiteName}} <i class="pull-right glyphicon"
+					ng-class="{'glyphicon-chevron-down': testSuite.open, 'glyphicon-chevron-right': !testSuite.open}"></i>
+				</uib-accordion-heading>
+
+				<div ng-repeat="testCase in testSuite.testCases">
+					<uib-accordion close-others="oneAtATime"> <uib-accordion-group
+						is-open="status.open"> <uib-accordion-heading>
+					{{testCase.testCaseName}} <i class="pull-right glyphicon"
+						ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+					</uib-accordion-heading>{{testCase.testCaseDesc}}
+					<div ng-repeat="testStep in testCase.testSteps" class="boldLabel">
+						{{testStep.testStepName}} {{testStep.action}}
+						{{testStep.expected}} {{testStep.actual}} {{testStep.status}}</div>
+					</uib-accordion-group> </uib-accordion>
+				</div>
+
+
+
+
+				</uib-accordion-group> </uib-accordion>
+
+
+
+
+			</div>
+			</uib-accordion-group> </uib-accordion></li>
+	</div>
+	</ui>
+</div>
