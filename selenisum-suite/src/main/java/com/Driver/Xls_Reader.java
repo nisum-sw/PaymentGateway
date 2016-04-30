@@ -2,21 +2,33 @@ package com.Driver;
 
 
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Calendar;
+
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.IndexedColors;
-import org.apache.poi.xssf.usermodel.*;
-
-
-import java.io.*;
-import java.util.Calendar;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFCreationHelper;
+import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.xssf.usermodel.XSSFHyperlink;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class Xls_Reader {
 	
+	private final static Logger logger = LoggerFactory.getLogger(Xls_Reader.class);
+
 	public  String path;
 	public  FileInputStream fis = null;
 	public  FileOutputStream fileOut =null;
@@ -70,7 +82,7 @@ public class Xls_Reader {
 		sheet = workbook.getSheetAt(index);
 		row=sheet.getRow(0);
 		for(int i=0;i<row.getLastCellNum();i++){
-			//System.out.println(row.getCell(i).getStringCellValue().trim());
+			//logger.info(row.getCell(i).getStringCellValue().trim());
 			if(row.getCell(i).getStringCellValue().trim().equals(colName.trim()))
 				col_Num=i;
 		}
@@ -204,7 +216,7 @@ public class Xls_Reader {
 
 		row=sheet.getRow(0);
 		for(int i=0;i<row.getLastCellNum();i++){
-			//System.out.println(row.getCell(i).getStringCellValue().trim());
+			//logger.info(row.getCell(i).getStringCellValue().trim());
 			if(row.getCell(i).getStringCellValue().trim().equals(colName))
 				colNum=i;
 		}
@@ -501,7 +513,7 @@ public class Xls_Reader {
 
 			 //datatable = new Xls_Reader("C:\\CM3.0\\app\\test\\Framework\\AutomationBvt\\src\\config\\xlfiles\\Controller.xlsx");
 				for(int col=0 ;col< datatable.getColumnCount("TC5"); col++){
-					System.out.println(datatable.getCellData("TC5", col, 1));
+					logger.info(datatable.getCellData("TC5", col, 1));
 				}
 	}
 	

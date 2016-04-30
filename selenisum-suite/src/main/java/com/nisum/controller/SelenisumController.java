@@ -1,4 +1,4 @@
-package com.nisum;
+package com.nisum.controller;
 
 import java.net.URLDecoder;
 import java.util.ArrayList;

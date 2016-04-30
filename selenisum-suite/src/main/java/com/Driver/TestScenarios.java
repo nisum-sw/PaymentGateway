@@ -2,12 +2,11 @@ package com.Driver;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 public class TestScenarios {
@@ -15,9 +14,12 @@ public class TestScenarios {
 	public static String vProjectUrl, ResFilePath, vProjectName, vModuleName,
 			vTCName, vTCDesc;
 	public static int failval, Cntflag, passval, failcnt, actfails;
+	
+	private final static Logger logger = LoggerFactory.getLogger(TestScenarios.class);
+
 
 	public static void main(String[] arg) throws Exception {
-		System.out.println(getTestSuite());
+		logger.info(getTestSuite());
 	}
 
 	public static String getTestSuite() throws Exception {
@@ -49,7 +51,7 @@ public class TestScenarios {
 					if (vModulesRun.equalsIgnoreCase("ON")) {
 						vModuleName = xr.getCellData(vProjectName,
 								"ModuleName", j);
-						System.out.println(vModuleName);
+						logger.info(vModuleName);
 						JsonArray jArray = new JsonArray();
 						jObjectMain.add(vModuleName, jArray);
 						vTCCnt = xm.getRowCount(vModuleName);
@@ -68,7 +70,7 @@ public class TestScenarios {
 										jObj.addProperty("test_case", vTCName);
 										jArray.add(jObj);
 
-										System.out.println(" I know : "
+										logger.info(" I know : "
 												+ vTCName);
 									}
 								}
@@ -86,7 +88,7 @@ public class TestScenarios {
 		JsonArray  reports = new JsonArray();
 		Files.walk(Paths.get(reportPath)).forEach(filePath -> {
 		    if (Files.isRegularFile(filePath)) {
-		        System.out.println(filePath);
+		        logger.info(filePath.toString());
 		        JsonObject  jObject = new JsonObject();
 		        jObject.addProperty("report_name" , filePath.getFileName().toString());
 		        reports.add(jObject);

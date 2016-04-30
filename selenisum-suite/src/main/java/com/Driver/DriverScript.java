@@ -8,8 +8,12 @@ import java.util.Date;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DriverScript {
+
+	private final static Logger logger = LoggerFactory.getLogger(DriverScript.class);
 
 	public static WebDriver driver;
 	public static String vProjectUrl,ResFilePath,vProjectName,vModuleName,vTCName,vTCDesc;
@@ -20,8 +24,8 @@ public class DriverScript {
 		String fullPath = URLDecoder.decode(path, "UTF-8");
 		String pathArr[] = fullPath.split("/com/Driver/");
 		//("../../resources/DriverFiles/ProjectDriver.xlsx");
-		System.out.println(fullPath);
-		System.out.println(pathArr[0]);
+		logger.info(fullPath);
+		logger.info(pathArr[0]);
 		
 		return pathArr[0]+str;
 	}
@@ -50,7 +54,7 @@ public class DriverScript {
         		vDBuser=xr.getCellData("Projects", "DBUser", i);
         		vDBpassword=xr.getCellData("Projects", "DBPassword", i);
         		vBrowserType=xr.getCellData("Projects", "BrowerType", i);
-        		System.out.println(vProjectName+"||"+vProjectUrl+"||"+vBrowserType+"||"+vModuleFiles+"||"+vTestDataFiles);
+        		logger.info(vProjectName+"||"+vProjectUrl+"||"+vBrowserType+"||"+vModuleFiles+"||"+vTestDataFiles);
         		
         		Xls_Reader xm=new Xls_Reader(getPath("/DriverFiles/ModuleDriver/"+vModuleFiles));
         		Xls_Reader xtd=new Xls_Reader(getPath("/TestDataFiles/"+vTestDataFiles));
@@ -74,7 +78,7 @@ public class DriverScript {
         			if(vModulesRun.equalsIgnoreCase("ON"))
         			{
         				vModuleName=xr.getCellData(vProjectName, "ModuleName", j);
-        				System.out.println(vModuleName);
+        				logger.info(vModuleName);
         				vTCCnt=xm.getRowCount(vModuleName);
         				for(int k=2;k<=vTCCnt;k++)
         				{
@@ -82,7 +86,7 @@ public class DriverScript {
         					if(vTCRun.equalsIgnoreCase("ON"))
         					{
         						vTCName=xm.getCellData(vModuleName, "TCName", k).trim();
-        						System.out.println(vTCName);
+        						logger.info(vTCName);
         						Date t1 = new Date();		
         		        		String TCStartTime=dateFormat.format(t1);
         						Cntflag=Cntflag+1;
@@ -98,7 +102,7 @@ public class DriverScript {
         								flag=1;
         								vRowNum=m;
         								vTCDesc=xtd.getCellData(vModuleName, "TC_Steps_Description", m-1).replaceAll("//", "");
-        								System.out.println(vTCDesc);
+        								logger.info(vTCDesc);
         								hr.fgInsertStep(ResFilePath);
         							}
         							if((flag==1) && (m>vRowNum))
@@ -110,7 +114,7 @@ public class DriverScript {
         								else
         								{
         									vKeyword=vTDSteps.trim();
-        									System.out.println(vKeyword);
+        									logger.info(vKeyword);
         									Generic_Functions GF=new Generic_Functions();
         									GF.keywordDriver(vKeyword,xtd,vModuleName,m,hr);
         								}

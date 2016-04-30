@@ -3,16 +3,20 @@ package com.Driver;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 
 
 public class html_result {
+	
+	private final static Logger logger = LoggerFactory.getLogger(html_result.class);
+
 	
 	public String ResFilePath;
 	//1 st
@@ -24,7 +28,7 @@ public class html_result {
 		String NewFileName1=TempFileName.replace("/","_");
 		String NewFileName2=NewFileName1.replace(" ","_");
 		String NewFileName=NewFileName2.replace(":","_");
-		System.out.println(NewFileName);
+		logger.info(NewFileName);
 		ResFilePath =reportPath + "/"+vProjectName+"HtmlResult_"+NewFileName+".html";
 		File f = new File(ResFilePath);
 		f.createNewFile();

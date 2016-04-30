@@ -8,12 +8,12 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.Select;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 public class Generic_Functions {
 	
-	
-	
+	private final static Logger logger = LoggerFactory.getLogger(Generic_Functions.class);
+
 	public static void keywordDriver(String vKeyword,Xls_Reader xtd,String vModuleName,int m,html_result hr) throws Throwable
 	{
 		String vObjExclValue,ObjString,vExp,vVal;
@@ -76,14 +76,14 @@ public class Generic_Functions {
 			 Fn_MouseMove(vObjAct,vObjCnt,hr);	
 			break;
 		default:
-			System.out.println("Wrong Keyword");
+			logger.info("Wrong Keyword");
 		}
 	}
 	public static void Fn_LaunchApp()
 	{
 		DriverScript.driver.get(DriverScript.vProjectUrl);
 		DriverScript.driver.manage().window().maximize();
-		System.out.println(DriverScript.vProjectUrl);
+		logger.info(DriverScript.vProjectUrl);
 		//DriverScript.driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 	}
 	
@@ -97,12 +97,12 @@ public class Generic_Functions {
 		String actTitle=DriverScript.driver.getTitle();
 		if(actTitle.equals(vExp))
 		{
-			System.out.println("PASS");
+			logger.info("PASS");
 			hr.fgInsertResult(DriverScript.ResFilePath, "Fn_VerifyTitle", "Title should be :"+vExp, "Title matched successfully :"+actTitle, "PASS");
 		}
 		else
 		{
-			System.out.println("FAIL");
+			logger.info("FAIL");
 			hr.fgInsertResult(DriverScript.ResFilePath, "Fn_VerifyTitle", "Title should be :"+vExp, "Title not matched :"+actTitle, "FAIL");
 		}
 	}
@@ -111,12 +111,12 @@ public class Generic_Functions {
 	{
 		if(vObjCnt==1)
 		{
-			System.out.println("PASS");
+			logger.info("PASS");
 			hr.fgInsertResult(DriverScript.ResFilePath, "Fn_ObjectExist", "Object should be exist", "Object exist", "PASS");
 		}
 		else
 		{
-			System.out.println("FAIL");
+			logger.info("FAIL");
 			hr.fgInsertResult(DriverScript.ResFilePath, "Fn_ObjectExist", "Object should be exist", "Object does not exist", "FAIL");
 		}
 	}
@@ -127,12 +127,12 @@ public class Generic_Functions {
 		{
 			vObj.get(vObjIndex).clear();
 			vObj.get(vObjIndex).sendKeys(vVal);
-			System.out.println("PASS");
+			logger.info("PASS");
 			hr.fgInsertResult(DriverScript.ResFilePath, "Fn_SetValue", vVal+": should be entered successfully", "Value entered successfully", "PASS");
 		}
 		else
 		{
-			System.out.println("FAIL");
+			logger.info("FAIL");
 			hr.fgInsertResult(DriverScript.ResFilePath, "Fn_SetValue", vVal+": should be entered successfully", "Object does not found", "FAIL");
 		}
 		
@@ -144,12 +144,12 @@ public class Generic_Functions {
 		{
 			
 			vObj.get(vObjIndex).sendKeys(vVal);
-			System.out.println("PASS");
+			logger.info("PASS");
 			hr.fgInsertResult(DriverScript.ResFilePath, "Fn_SelectValue", vVal+": should be selected successfully", "Value selected successfully", "PASS");
 		}
 		else
 		{
-			System.out.println("FAIL");
+			logger.info("FAIL");
 			hr.fgInsertResult(DriverScript.ResFilePath, "Fn_SelectValue", vVal+": should be selected successfully", "Object does not found", "FAIL");
 		}
 		
@@ -161,12 +161,12 @@ public class Generic_Functions {
 		{
 			
 			vObj.get(objIndex).click();
-			System.out.println("PASS");
+			logger.info("PASS");
 			hr.fgInsertResult(DriverScript.ResFilePath, "Fn_Click", "object should be clickable", "Object selected successfully", "PASS");
 		}
 		else
 		{
-			System.out.println("FAIL");
+			logger.info("FAIL");
 			hr.fgInsertResult(DriverScript.ResFilePath, "Fn_Click", "object should be clickable", "Object does not found", "FAIL");
 
 		}
@@ -179,12 +179,12 @@ public class Generic_Functions {
 			Actions act=new Actions(DriverScript.driver);
 			act.moveToElement((WebElement) vObj).perform();			
 			Thread.sleep(3000);
-			System.out.println("Pass");
+			logger.info("Pass");
 			hr.fgInsertResult(DriverScript.ResFilePath, "Move Mouse", "Expected", "Actual", "PASS");
 		}
 		else
 		{
-			System.out.println("Fail");
+			logger.info("Fail");
 			hr.fgInsertResult(DriverScript.ResFilePath, "Move Mouse", "Expected", "Actual", "FAIL");
 		}			
 	}
