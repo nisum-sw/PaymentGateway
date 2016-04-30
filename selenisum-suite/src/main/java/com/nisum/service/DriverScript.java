@@ -129,7 +129,7 @@ public class DriverScript {
         								{
         									vKeyword=vTDSteps.trim();
         									logger.info(vKeyword);
-        									Generic_Functions GF=new Generic_Functions();
+        									Generic_Functions GF=new Generic_Functions(this);
         									GF.keywordDriver(vKeyword,xtd,vModuleName,m,hr);
         								}
         							}
