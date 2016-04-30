@@ -1,0 +1,74 @@
+.align-domain-label  {
+	padding-right: 52px;
+	padding-bottom:13px
+}
+
+.align-browser-label {
+	padding-right: 12px;
+	padding-bottom:13px
+}
+
+.align-pagename-label {
+	padding-right: 29px;
+	padding-bottom:13px
+}
+
+.align-testsuite-label {
+	padding-right: 36px;
+	padding-bottom:13px
+}
+
+.align-testcase-label {
+	padding-right: 28px;
+	padding-bottom:13px
+}
+
+.align-pageelement-label {
+	padding-right: 15px;
+	padding-bottom:13px
+}
+
+.align-expectedresult-label {
+	padding-bottom:13px
+}
+
+.btn-padding{
+	padding-bottom:13px
+}
+
+input, button, select, textarea{
+width: 95px;
+}
+
+input, select{
+height:22px;
+
+}
+
+
+
+.nav-tabs, li.ng-isolate-scope a:ACTIVE {
+		background: aliceblue;
+		color: #fff;
+		text-shadow: none;
+	}
+	.tab-content{
+		padding-top: 23px;
+		padding-left: 40px;
+	}
+	
+	.form-control{
+		width: inherit;
+	}
+	 .custom-border{
+		border: 2px ridge aliceblue;
+    border-left-style: ridge;
+    border-radius: 3px;
+    margin-top: 43px;
+    margin-left: 70px;
+    width: 90%;
+    float: left;
+	} 
+	.tab-content{
+	background-color: aliceblue;
+	}

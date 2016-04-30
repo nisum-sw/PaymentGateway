@@ -1,43 +1,75 @@
+<head>
+<link rel="stylesheet" type="text/css" href="css/custom.css">
+
+</head>
+
+<div id=row22 class="btn-group" >
+				<label id="pageLabel" class="align-domain-label">Domain</label> 
+				<select ng-model="project.selectedDomain" id="pagedropdown" ng-change="DropDownDomains()">
+					<option ng-repeat="name in domains">{{name}}
+				</select>
+			  </div> 
+			  
+			  <br/>
+			  	
+			<div id=row22 class="btn-group" >
+				<label id="pageLabel" class="align-browser-label">Browser Type</label> 
+				<select ng-model="project.selectedBrowser" id="pagedropdown" ng-change="DropDownBrowsers()">
+					<option ng-repeat="name in browsers">{{name}}
+				</select> 
+			 </div> 
+			  
+					  
+			  <br/>	  		  
+			  		
+			 <div id=row11 class="btn-group" >
+				<label id="pageLabel" class="align-pagename-label">PageName</label> 
+				<select ng-model="project.selectedPage" id="pagedropdown" ng-change="DropDownChnaged()">
+					<option ng-repeat="name in pagenames">{{name}}
+				</select> 
+			  </div></br>
+			  
  		<div id=row0 style="margin-top: 10px">
-            <label id="pageLabel">Test Suite : </label>
-				<select ng-model="selectedSuite" ng-change="changeSuite(selectedSuite)">
+            <label id="pageLabel" class="align-testsuite-label">Test Suite  </label>
+				<select ng-model="project.selectedSuite" ng-change="changeSuite(project.selectedSuite)">
 		        	<option ng-repeat="suite in testSuits">{{suite}}</option>
 		        </select>
 			</div>
-		
+			  
+			  
 		<div id=row01 style="margin-top: 10px">
-            <label id="pageLabel">Test Cases : </label>
-				<select ng-model="selectedCase">
+            <label id="pageLabel" class="align-testcase-label">Test Cases  </label>
+				<select ng-model="project.selectedCase">
 		        	<option ng-repeat="case in testCases">{{case.test_case}}</option>
 		        </select>
 			</div>
 
             <div ng-form="inputForm" style="margin-top: 10px">
-              <div id=row1 class="btn-group" >
-				<label id="pageLabel">PageName</label> 
-				<select ng-model="selectedPage" id="pagedropdown" ng-change="dropDownChnaged()">
-					<option ng-repeat="name in pagenames">{{name}}
-				</select> <span style="margin-left: auto;"><b>You selected:</b>
-					{{selectedPage}}</span>
-			  </div>
+ 
 			
 			 <div id="elementDiv" style="margin-top: 30px">
-				<label id="pageelementLabel">PageElement</label> <select multiple
-					ng-multiple="true" ng:model="elementmodel"
+				<label id="pageelementLabel" class="align-pageelement-label">PageElement</label> <select multiple
+					ng-multiple="true" ng:model="project.elementmodel"
 					ng-options="element.name for element in elements"  >
-				</select> <span style="margin-left: auto;"><b>You selected:</b>
-					{{elementmodel}}</span>
+				</select> 
 			</div>
-			
+	
+	    
+			<div  ng-repeat="newelement in project.elementmodel">
+            		{{newelement}} <input type="text"   ng-model="newelement.userinput"  />
+                    <br/>
+            </div>
+                        		
 			<div style="margin-top: 30px;">
-				<label id=expectedlabel>ExpectedResult
-				 <input type="text" name="expectedresult" required="required" placeholder="ExpectedResult" />
+				<label id=expectedlabel class="align-expectedresult-label">ExpectedResult
+				 <input type="text" name="project.expectedresult" required="required" placeholder="ExpectedResult" />
 			</div>
 			
-			<div style="margin-top: 14px">
-				<button class="btn btn-primary">Submit</button>
+			<div class="btn-padding">
+				<button class="btn btn-primary"  ng-click="saveToDatabase()">Save</button>		
+				<button class="btn btn-primary"  ng-click="testGet()">testGet</button>		
 				<button class="btn btn-primary">Cancel</button>
 
 			</div> 
-              
+
             </div>
