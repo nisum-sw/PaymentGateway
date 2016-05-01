@@ -267,7 +267,10 @@ app.controller('nAutomationCtrl', function($scope, $window,$location,$http) {
 });
 
 function parseDate(date) {
+	
 	date = new Date(date);
+	var str = date.toISOString().slice(0, 10);
+	date = new Date(str);
 	return date;
 }
 
@@ -285,11 +288,11 @@ app.filter('FilterByDate', function () {
             var f = parseDate(dateFrom);
             var t = parseDate(dateTo);
             
-            if ( r.getTime()  > f.getTime()  && r.getTime()  < t.getTime()) { 
+            if ( r.getTime()  >= f.getTime()  && r.getTime()  <= t.getTime()) { 
                 filtered.push(item);
             }
         }
-        console.log(JSON.stringify(filtered));
+        
         return filtered;
     };
 });
