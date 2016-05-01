@@ -37,7 +37,7 @@
 }
 
 input, button, select, textarea {
-	width: 95px;
+	width: intial;
 }
 
 input, select {
