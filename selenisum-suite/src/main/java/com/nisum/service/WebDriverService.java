@@ -21,9 +21,9 @@ import com.nisum.util.Generic_Functions;
 import com.nisum.util.HtmlResult;
 import com.nisum.util.Xls_Reader;
 @Service
-public class DriverScript {
+public class WebDriverService {
 
-	private final static Logger logger = LoggerFactory.getLogger(DriverScript.class);
+	private final static Logger logger = LoggerFactory.getLogger(WebDriverService.class);
 	@Autowired
 	private ReportRepository reportRepository;
 	
@@ -32,7 +32,7 @@ public class DriverScript {
 	public int failval,Cntflag,passval,failcnt,actfails;
 	
 	public static String getPath(String str) throws UnsupportedEncodingException{
-		String path = DriverScript.class.getResource("").getPath();
+		String path = WebDriverService.class.getResource("").getPath();
 		String fullPath = URLDecoder.decode(path, "UTF-8");
 		String pathArr[] = fullPath.split("/com/nisum/service/");
 		//("../../resources/DriverFiles/ProjectDriver.xlsx");

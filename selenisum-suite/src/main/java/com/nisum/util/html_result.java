@@ -10,16 +10,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.nisum.repositories.ReportRepository;
-import com.nisum.service.DriverScript;
+import com.nisum.service.WebDriverService;
 
 
 
 
 public class html_result {
-	private DriverScript driverScript;
+	private WebDriverService driverScript;
 	public String ResFilePath;
 	
-	public html_result(DriverScript driverScript){
+	public html_result(WebDriverService driverScript){
 		this.driverScript = driverScript;
 	}
 

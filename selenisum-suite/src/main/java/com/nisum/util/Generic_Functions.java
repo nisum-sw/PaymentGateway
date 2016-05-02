@@ -11,13 +11,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
-import com.nisum.service.DriverScript;
+import com.nisum.service.WebDriverService;
 
 public class Generic_Functions {
 	
-	private DriverScript driverScript;
+	private WebDriverService driverScript;
 	
-	public Generic_Functions(DriverScript driverScript){
+	public Generic_Functions(WebDriverService driverScript){
 		this.driverScript = driverScript;
 	}
 	
@@ -27,7 +27,7 @@ public class Generic_Functions {
 		int vObjCnt,vObjIndex;
 		List<WebElement> vObjAct;
 		Properties prop=new Properties();
-		FileInputStream fis=new FileInputStream(DriverScript.getPath("/Objects/Objects.properties"));
+		FileInputStream fis=new FileInputStream(WebDriverService.getPath("/Objects/Objects.properties"));
 		prop.load(fis);
 		switch (vKeyword)
 		{
@@ -91,7 +91,7 @@ public class Generic_Functions {
 		driverScript.driver.get(driverScript.vProjectUrl);
 		driverScript.driver.manage().window().maximize();
 		System.out.println(driverScript.vProjectUrl);
-		//DriverScript.driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		//WebDriverService.driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 	}
 	
 	public  void Fn_Wait()

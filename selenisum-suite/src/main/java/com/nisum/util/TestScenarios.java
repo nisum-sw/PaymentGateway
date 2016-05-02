@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.nisum.service.DriverScript;
+import com.nisum.service.WebDriverService;
 
 public class TestScenarios {
 
@@ -31,7 +31,7 @@ public class TestScenarios {
 		JsonObject jObjectMain = new JsonObject();
 
 		Xls_Reader xr = new Xls_Reader(
-				DriverScript.getPath("/DriverFiles/ProjectDriver.xlsx"));
+				WebDriverService.getPath("/DriverFiles/ProjectDriver.xlsx"));
 		ProjectCnt = xr.getRowCount("Projects");
 		for (int i = 2; i <= ProjectCnt; i++) {
 			vProjectRun = xr.getCellData("Projects", "Run", i);
@@ -42,10 +42,10 @@ public class TestScenarios {
 				vTestDataFiles = xr.getCellData("Projects", "TestDataFiles", i);
 
 				Xls_Reader xm = new Xls_Reader(
-						DriverScript.getPath("/DriverFiles/ModuleDriver/"
+						WebDriverService.getPath("/DriverFiles/ModuleDriver/"
 								+ vModuleFiles));
 				Xls_Reader xtd = new Xls_Reader(
-						DriverScript
+						WebDriverService
 								.getPath("/TestDataFiles/" + vTestDataFiles));
 				ModuleCnt = xr.getRowCount(vProjectName);
 

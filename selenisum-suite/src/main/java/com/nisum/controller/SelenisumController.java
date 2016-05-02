@@ -26,7 +26,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.nisum.domain.Report;
-import com.nisum.service.DriverScript;
+import com.nisum.service.WebDriverService;
 import com.nisum.util.TestScenarios;
 import com.thoughtworks.selenium.webdriven.commands.Type;
 
@@ -37,7 +37,7 @@ public class SelenisumController {
 	private ServletContext context;
 
 	@Autowired
-	private DriverScript driverScript;
+	private WebDriverService driverScript;
 
 	@RequestMapping(value = "/getElements", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody

@@ -9,7 +9,7 @@ import com.nisum.domain.TestCase;
 import com.nisum.domain.TestStep;
 import com.nisum.domain.TestSuite;
 import com.nisum.repositories.ReportRepository;
-import com.nisum.service.DriverScript;
+import com.nisum.service.WebDriverService;
 
 
 
@@ -18,9 +18,9 @@ public class HtmlResult {
 	
 	private ReportRepository reportRepository;
 	
-	private DriverScript driverScript;
+	private WebDriverService driverScript;
 
-	public HtmlResult(ReportRepository reportRepository,DriverScript driverScript){
+	public HtmlResult(ReportRepository reportRepository,WebDriverService driverScript){
 		this.reportRepository = reportRepository;
 		this.driverScript = driverScript;
 	}
