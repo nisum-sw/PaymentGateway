@@ -3,8 +3,13 @@ package com.nisum.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.annotation.Id;
+
 public class TestCase {
 
+	@Id
+	private String id;
+	
 	private String testCaseId;
 	private String testCaseName;
 	private String testCaseDesc;

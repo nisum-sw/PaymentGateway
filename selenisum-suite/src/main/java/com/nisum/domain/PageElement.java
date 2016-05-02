@@ -1,4 +1,4 @@
-package com.nisum.services.dto;
+package com.nisum.domain;
 
 import java.util.List;
 

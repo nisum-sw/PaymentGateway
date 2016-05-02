@@ -1,4 +1,4 @@
-package com.nisum.services.dto;
+package com.nisum.domain;
 
 import java.util.List;
 
@@ -17,8 +17,7 @@ public class Project {
 	public Project() {
 	}
 
-	public Project(List<TestSuite> testSuite, String pageURL,
-			List<String> pageName, List<String> brwType) {
+	public Project(List<TestSuite> testSuite, String pageURL, List<String> pageName, List<String> brwType) {
 		this.testSuite = testSuite;
 		this.pageURL = pageURL;
 		this.pageName = pageName;
