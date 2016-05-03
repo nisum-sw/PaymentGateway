@@ -26,14 +26,18 @@
 				</div>
 				<input type="text" class="form-control" placeholder="Search Report"		ng-model="searchReport">
 			</div>
-		</div>
-    </div>
-
 			
-
+			
+					
+		</div>
+		
+		
+    </div>
+	<dir-pagination-controls max-size="5" direction-links="true" boundary-links="true" > </dir-pagination-controls>		 
 	<ui>
+	
 	<div
-		ng-repeat="report in reports  | filter:searchReport | FilterByDate:dateFrom:dateTo">
+		dir-paginate="report in reports  | filter:searchReport | FilterByDate:dateFrom:dateTo | itemsPerPage:5">
 
 		<li><uib-accordion close-others="oneAtATime"> <uib-accordion-group
 				is-open="report.reportStatus.open"> <uib-accordion-heading>
@@ -111,6 +115,7 @@
 			</uib-accordion-group> </uib-accordion></li>
 	</div>
 	</ui>
+		<dir-pagination-controls max-size="5" direction-links="true" boundary-links="true" > </dir-pagination-controls>
 </div>
 
 
