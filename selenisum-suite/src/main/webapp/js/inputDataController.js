@@ -27,7 +27,7 @@ app.controller('inputDataCtrl',
 					$location.absUrl().lastIndexOf("/"));
 			$http.get(path + '/getTestScenario?input=abc').success(
 					function(data, status) {
-						console.log(JSON.stringify(data));
+						
 						$scope.testSuitsPerm = data;
 						var tSuites = Object.keys(data);
 						$scope.testSuits.push("Please Select");

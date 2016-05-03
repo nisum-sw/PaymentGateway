@@ -164,6 +164,29 @@ button.close {
 
 <!-- Report Tab End-->
 
+<!-- Test Suite Tab Start -->
+/* Glyph, by Harry Roberts */
 
+hr.style-one {
+    border: 10;
+    height: 5px;
+    
+    background-image: linear-gradient(to right, #ccc, #333, #ccc);
+    
+	color: #123455;
+	
+ 
+}
+.sort-icon {
+    font-size: 9px;
+    margin-left: 5px;
+}
+
+th {
+    cursor:pointer;
+}
+
+<!-- Test Suite Tab End -->
+  
 
 </style>

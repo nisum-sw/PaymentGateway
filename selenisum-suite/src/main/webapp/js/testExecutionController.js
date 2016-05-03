@@ -17,7 +17,7 @@ app.controller('testExecutionCtrl',
 					$location.absUrl().lastIndexOf("/"));
 			$http.get(path + '/getTestScenario?input=abc').success(
 					function(data, status) {
-						console.log(JSON.stringify(data));
+						
 						$scope.testSuitsPerm = data;
 						var tSuites = Object.keys(data);
 						$scope.testSuits.push("Please Select");
@@ -51,7 +51,7 @@ app.controller('testExecutionCtrl',
 						encodeURIComponent($scope.domainName)).success(
 						function(data, status) {
 							//alert("i am" + status);
-							console.log(data);
+							
 							$scope.report = data;
 							$scope.reportHref = data;
 						}).error(function(data, status) {
