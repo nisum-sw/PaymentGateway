@@ -7,49 +7,54 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nisum.domain.PageElement;
 import com.nisum.repositories.PageElementRepository;
 
 @RestController
-@RequestMapping("/pageelements")
+@RequestMapping("/pagelements")
 public class PageElementController {
-	private PageElementRepository PageElementRepository;
+	private PageElementRepository PageElementRespository;
 
 	@Autowired
-	public PageElementController(PageElementRepository PageElementRepository) {
-		this.PageElementRepository = PageElementRepository;
+	public PageElementController(PageElementRepository PageElementRespository) {
+		this.PageElementRespository = PageElementRespository;
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
-	public PageElement create(@RequestBody @Valid PageElement PageElement) {
-		return this.PageElementRepository.save(PageElement);
+	@RequestMapping(value = "/save", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+	public ResponseEntity<PageElement> create(@RequestBody PageElement PageElement) {
+		PageElement pageElement = PageElementRespository.save(PageElement);
+		return new ResponseEntity<PageElement>(pageElement, HttpStatus.CREATED);
 	}
 
-	@RequestMapping(method = RequestMethod.GET)
-	public List<PageElement> list() {
-		System.out.println("NEWS");
-		return this.PageElementRepository.findAll();
+	@RequestMapping(value = "/findAll", method = RequestMethod.GET)
+	public ResponseEntity<List<PageElement>> list() {
+		List<PageElement> lstPageElement = this.PageElementRespository.findAll();
+		return new ResponseEntity(lstPageElement, HttpStatus.ACCEPTED);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public PageElement get(@PathVariable("id") String id) {
-		return this.PageElementRepository.findOne(id);
+	public ResponseEntity<List<PageElement>> get(@RequestParam("id") String id) {
+		PageElement testsuite = this.PageElementRespository.findOne(id);
+		return new ResponseEntity(testsuite, HttpStatus.ACCEPTED);
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public PageElement update(@PathVariable("id") long id, @RequestBody @Valid PageElement PageElement) {
-		return PageElementRepository.save(PageElement);
+	@RequestMapping(value = "/{id}", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+	public ResponseEntity<PageElement> update(@RequestParam("id") long id,
+			@RequestBody @Valid PageElement PageElement) {
+		PageElement pageElement = PageElementRespository.save(PageElement);
+		return new ResponseEntity<PageElement>(pageElement, HttpStatus.CREATED);
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Boolean> delete(@PathVariable("id") String id) {
-		this.PageElementRepository.delete(id);
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json", consumes = "application/json")
+	public ResponseEntity<Boolean> delete(@RequestParam("id") String id) {
+		this.PageElementRespository.delete(id);
 		return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
 	}
+
 }
