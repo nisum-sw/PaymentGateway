@@ -26,32 +26,32 @@ public class PageElementController {
 		this.PageElementRespository = PageElementRespository;
 	}
 
-	@RequestMapping(value = "/save", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+	@RequestMapping(method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
 	public ResponseEntity<PageElement> create(@RequestBody PageElement PageElement) {
 		PageElement pageElement = PageElementRespository.save(PageElement);
 		return new ResponseEntity<PageElement>(pageElement, HttpStatus.CREATED);
 	}
 
-	@RequestMapping(value = "/findAll", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<PageElement>> list() {
 		List<PageElement> lstPageElement = this.PageElementRespository.findAll();
 		return new ResponseEntity(lstPageElement, HttpStatus.ACCEPTED);
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<PageElement>> get(@RequestParam("id") String id) {
 		PageElement testsuite = this.PageElementRespository.findOne(id);
 		return new ResponseEntity(testsuite, HttpStatus.ACCEPTED);
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+	@RequestMapping(method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
 	public ResponseEntity<PageElement> update(@RequestParam("id") long id,
 			@RequestBody @Valid PageElement PageElement) {
 		PageElement pageElement = PageElementRespository.save(PageElement);
 		return new ResponseEntity<PageElement>(pageElement, HttpStatus.CREATED);
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json", consumes = "application/json")
+	@RequestMapping(method = RequestMethod.DELETE)
 	public ResponseEntity<Boolean> delete(@RequestParam("id") String id) {
 		this.PageElementRespository.delete(id);
 		return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);

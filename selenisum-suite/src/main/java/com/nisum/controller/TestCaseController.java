@@ -26,31 +26,31 @@ public class TestCaseController {
 		this.testSuiteRespository = testSuiteRespository;
 	}
 
-	@RequestMapping(value = "/save", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+	@RequestMapping(method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
 	public ResponseEntity<TestCase> create(@RequestBody TestCase TestCase) {
 		TestCase testCase = testSuiteRespository.save(TestCase);
 		return new ResponseEntity<TestCase>(testCase, HttpStatus.CREATED);
 	}
 
-	@RequestMapping(value = "/findAll", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<TestCase>> list() {
 		List<TestCase> lstTestCase = this.testSuiteRespository.findAll();
 		return new ResponseEntity(lstTestCase, HttpStatus.ACCEPTED);
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<TestCase>> get(@RequestParam("id") String id) {
 		TestCase testsuite = this.testSuiteRespository.findOne(id);
 		return new ResponseEntity(testsuite, HttpStatus.ACCEPTED);
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+	@RequestMapping(method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
 	public ResponseEntity<TestCase> update(@RequestParam("id") long id, @RequestBody @Valid TestCase TestCase) {
 		TestCase testCase = testSuiteRespository.save(TestCase);
 		return new ResponseEntity<TestCase>(testCase, HttpStatus.CREATED);
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json", consumes = "application/json")
+	@RequestMapping(method = RequestMethod.DELETE)
 	public ResponseEntity<Boolean> delete(@RequestParam("id") String id) {
 		this.testSuiteRespository.delete(id);
 		return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);

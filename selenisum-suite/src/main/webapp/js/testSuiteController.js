@@ -105,7 +105,7 @@ app.controller('testSuiteCtrl', [ '$scope', '$http', '$window', '$location',
 				console.log(JSON.stringify(testSuite));
 				$http({
 					url : "./testsuites/" +testSuite.testSuiteId,
-					method : 'delete',					
+					method : 'DELETE',					
 					headers : {
 						"Content-Type" : "application/json"
 					}
