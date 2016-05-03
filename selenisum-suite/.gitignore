@@ -3,3 +3,4 @@ target/
 webcontent/
 .classpath
 .project
+bin/
