@@ -11,17 +11,20 @@ public class Project {
 
 	private List<TestSuite> testSuite;
 	private String pageURL;
-	private List<String> pageName;
-	private List<String> brwType;
+	private String pageName;
+	private String brwType;
+	private String domainName;
 
 	public Project() {
 	}
 
-	public Project(List<TestSuite> testSuite, String pageURL, List<String> pageName, List<String> brwType) {
+	public Project(String domainName, List<TestSuite> testSuite, String pageURL, String pageName, String brwType) {
 		this.testSuite = testSuite;
 		this.pageURL = pageURL;
 		this.pageName = pageName;
 		this.brwType = brwType;
+		this.domainName = domainName;
+
 	}
 
 	public String getId() {
@@ -48,20 +51,28 @@ public class Project {
 		this.pageURL = pageURL;
 	}
 
-	public List<String> getPageName() {
+	public String getPageName() {
 		return pageName;
 	}
 
-	public void setPageName(List<String> pageName) {
+	public void setPageName(String pageName) {
 		this.pageName = pageName;
 	}
 
-	public List<String> getBrwType() {
+	public String getBrwType() {
 		return brwType;
 	}
 
-	public void setBrwType(List<String> brwType) {
+	public void setBrwType(String brwType) {
 		this.brwType = brwType;
+	}
+
+	public String getDomainName() {
+		return domainName;
+	}
+
+	public void setDomainName(String domainName) {
+		this.domainName = domainName;
 	}
 
 }

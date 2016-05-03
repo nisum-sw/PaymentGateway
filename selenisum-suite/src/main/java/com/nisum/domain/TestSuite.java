@@ -9,9 +9,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "TestSuite")
 public class TestSuite {
 
-	
-	
-	
 	@Id
 	private String testSuiteId;
 	private String testSuiteName;

@@ -1,14 +1,10 @@
 package com.nisum.domain;
 
-import java.util.List;
-
 import org.springframework.data.annotation.Id;
 
 public class PageElement {
 
 	@Id
-	private String id;
-
 	private String pageElementId;
 	private String pageElementName;
 	private String pageElementDesc;
@@ -16,8 +12,7 @@ public class PageElement {
 	public PageElement() {
 	}
 
-	public PageElement(String pageElementId, String pageElementName,
-			String pageElementDesc) {
+	public PageElement(String pageElementId, String pageElementName, String pageElementDesc) {
 		this.pageElementId = pageElementId;
 		this.pageElementName = pageElementName;
 		this.pageElementDesc = pageElementDesc;

@@ -29,35 +29,33 @@ public class ProjectController {
 		this.projectRepository = projectRepository;
 	}
 
-	@RequestMapping(value = "/save", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+	@RequestMapping(method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
 	public ResponseEntity<Project> create(@RequestBody Project Project) {
 		Project project = projectRepository.save(Project);
 		return new ResponseEntity<Project>(project, HttpStatus.CREATED);
 	}
 
-	@RequestMapping(value = "/findAll", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<Project>> list() {
 		List<Project> lstProject = this.projectRepository.findAll();
 		return new ResponseEntity(lstProject, HttpStatus.ACCEPTED);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<List<Project>> get(@RequestParam("id") String id) {
+	public ResponseEntity<List<Project>> get(@PathVariable("id") String id) {
 		Project project = this.projectRepository.findOne(id);
 		return new ResponseEntity(project, HttpStatus.ACCEPTED);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
-	public ResponseEntity<Project> update(@RequestParam("id") long id, @RequestBody @Valid Project Project) {
+	public ResponseEntity<Project> update(@PathVariable("id") long id, @RequestBody Project Project) {
 		Project project = projectRepository.save(Project);
 		return new ResponseEntity<Project>(project, HttpStatus.CREATED);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Boolean> delete(@RequestParam("id") String id) {
+	public ResponseEntity<Boolean> delete(@PathVariable("id") String id) {
 		this.projectRepository.delete(id);
 		return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
 	}
-
-
 }
