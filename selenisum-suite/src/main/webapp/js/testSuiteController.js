@@ -109,7 +109,7 @@ app.controller('testSuiteCtrl', [ '$scope', '$http', '$window', '$location',
 			$scope.deleteTestSuite = function(testSuite){
 				console.log(JSON.stringify(testSuite));
 				$http({
-					url : "./testsuites/delete",
+					url : "./testsuites",
 					method : 'DELETE',	
 					dataType : 'json',
 					params : {"id":testSuite.testSuiteId},
