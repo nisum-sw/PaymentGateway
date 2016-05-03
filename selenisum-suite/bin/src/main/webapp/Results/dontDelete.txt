@@ -1,1 +1,0 @@
-Non empty folder doesnt get deployed in server, thats why created this file. 
