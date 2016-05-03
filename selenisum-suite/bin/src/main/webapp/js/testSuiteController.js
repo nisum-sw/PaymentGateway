@@ -4,9 +4,6 @@ var app = angular.module('nAutomationApp');
 
 app.controller('testSuiteCtrl', [ '$scope', '$http', '$window', '$location',
 		function($scope, $http, $window, $location) {
-	
-			$scope.testCases = [];
-
 			var counter = 0;
 			$scope.testsuiteelemnt = [ {
 				'id' : 'counter',

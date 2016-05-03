@@ -1,0 +1,101 @@
+
+<head>
+<link rel="stylesheet" type="text/css" href="css/custom.css">
+</head>
+            <div ng-form="executionForm">
+              <!-- <input type="text" name="emailSubject" class="input-xxlarge" ng-model="campaign.info.emailSubject" placeholder="Execute Tests" required/>
+              <span ng-show="subjectForm.emailSubject.$dirty && subjectForm.emailSubject.$error.required" class="help-inline">
+                Required
+              </span> -->
+              
+              
+              
+			  <div id=row22 class="btn-group" >
+				<label id="pageLabel">Domain</label> 
+				<select ng-model="selectedDomain" id="pagedropdown" ng-change="DropDownDomains()">
+					<option ng-repeat="name in domains">{{name}}
+				</select>
+			  </div> 
+			  
+			  <br/>
+			  	
+			<div id=row22 class="btn-group" >
+				<label id="pageLabel">Browser Type</label> 
+				<select ng-model="selectedBrowser" id="pagedropdown" ng-change="DropDownBrowsers()">
+					<option ng-repeat="name in browsers">{{name}}
+				</select> 
+			 </div> 
+			  
+					  
+			  <br/>	  		  
+			  		
+			 <div id=row11 class="btn-group" >
+				<label id="pageLabel">PageName</label> 
+				<select ng-model="selectedPage" id="pagedropdown" ng-change="DropDownChnaged()">
+					<option ng-repeat="name in pagenames">{{name}}
+				</select> 
+			  </div></br>
+			  
+ 		<div id=row0 style="margin-top: 10px">
+            <label id="pageLabel">Test Suite : </label>
+				<select ng-model="selectedSuite" ng-change="changeSuite(selectedSuite)">
+		        	<option ng-repeat="suite in testSuits">{{suite}}</option>
+		        </select>
+			</div>
+			  
+			  
+		<div id=row01 style="margin-top: 10px">
+            <label id="pageLabel">Test Cases : </label>
+				<select ng-model="selectedCase">
+		        	<option ng-repeat="case in testCases">{{case.test_case}}</option>
+		        </select>
+			</div>
+
+            <div ng-form="inputForm" style="margin-top: 10px">
+ 
+			
+			 <div id="elementDiv" style="margin-top: 30px">
+				<label id="pageelementLabel">PageElement</label> <select multiple
+					ng-multiple="true" ng:model="elementmodel"
+					ng-options="element.name for element in elements"  >
+				</select> 
+			</div>
+	
+	    
+			<div  ng-repeat="newelement in elementmodel">
+            		{{newelement}} <input type="text"   ng-model="newelement.userinput"  />
+                    <br/>
+            </div>
+
+            </div>
+                 <div id=row1 class="btn-group" >
+				<label id="pageLabel">PageName</label> 
+				<select ng-model="selectedPage" id="pagedropdown" ng-change="DropDownChnaged()">
+					<option ng-repeat="name in pagenames">{{name}}
+				</select> <span style="margin-left: auto;"><b>You selected:</b>
+					{{selectedPage}}</span>
+			  </div></br>
+			  
+			  <div id=row2 class="btn-group" >
+				<label id="pageLabel">Domain</label> 
+				<select ng-model="selectedDomain" id="pagedropdown" ng-change="DropDownDomains()">
+					<option ng-repeat="name in domains">{{name}}
+				</select> <span style="margin-left: auto;"><b>You selected:</b>
+					{{selectedDomain}}</span>
+			  </div> 
+			
+			<!--  <div id="elementDiv" style="margin-top: 30px">
+				<label id="pageelementLabel">Domain</label> <select multiple
+					ng-multiple="true" ng:model="domainmodel"
+					ng-options="domain.name for domain in domains">
+				</select> <span style="margin-left: auto;"><b>You selected:</b>
+					{{domainmodel}}</span>
+			</div> -->
+			
+			<div style="margin-top: 30px;">
+				<label id=expectedlabel>ExpectedResult
+				 <input type="text" name="expectedresult" required="required" placeholder="ExpectedResult" />
+			</div>
+			
+             <button class="btn btn-success">Execute</button>
+            </div>
