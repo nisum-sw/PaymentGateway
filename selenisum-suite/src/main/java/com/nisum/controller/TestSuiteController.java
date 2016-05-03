@@ -50,11 +50,9 @@ public class TestSuiteController {
 		return new ResponseEntity<TestSuite>(testsuite, HttpStatus.CREATED);
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json", consumes = "application/json")
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Boolean> delete(@RequestParam("id") String id) {
 		this.testsuiteRepository.delete(id);
 		return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
 	}
-
-
 }
