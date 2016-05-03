@@ -56,7 +56,7 @@ app.controller('testSuiteCtrl', [ '$scope', '$http', '$window', '$location',
 			$scope.saveTestSuite = function() {
 					
 				$http({
-					url : "./testsuites",
+					url : "./testsuites/save",
 					dataType : 'json',
 					method : 'POST',
 					data : $scope.testSuite,
@@ -67,6 +67,11 @@ app.controller('testSuiteCtrl', [ '$scope', '$http', '$window', '$location',
 					 $scope.successTextAlert = "Test Suite Saved Successfully !";
 					    $scope.showSuccessAlert = true;
 					$scope.getTestSuites();
+					$scope.testSuite = {
+							testSuiteName : "",
+							testCases : []
+					};
+					$scope.hideTxtBox = false;
 				}).error(function(error) {
 					$scope.error = error;
 				});
@@ -76,7 +81,7 @@ app.controller('testSuiteCtrl', [ '$scope', '$http', '$window', '$location',
 			$scope.getTestSuites = function() {
 				
 				$http({
-					url : "./testsuites",
+					url : "./testsuites/findAll",
 					method : 'GET',
 					headers : {
 						"Content-Type" : "application/json"
@@ -104,8 +109,10 @@ app.controller('testSuiteCtrl', [ '$scope', '$http', '$window', '$location',
 			$scope.deleteTestSuite = function(testSuite){
 				console.log(JSON.stringify(testSuite));
 				$http({
-					url : "./testsuites/" +testSuite.testSuiteId,
-					method : 'DELETE',					
+					url : "./testsuites/delete",
+					method : 'DELETE',	
+					dataType : 'json',
+					params : {"id":testSuite.testSuiteId},
 					headers : {
 						"Content-Type" : "application/json"
 					}
