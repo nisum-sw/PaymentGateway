@@ -14,6 +14,15 @@ public class TestCase {
 	private List<TestStep> testSteps;
 	private List<PageElement> pageElement;
 	private Long time;
+	private String expectedResult;
+
+	public String getExpectedResult() {
+		return expectedResult;
+	}
+
+	public void setExpectedResult(String expectedResult) {
+		this.expectedResult = expectedResult;
+	}
 
 	public Long getTime() {
 		return time;
