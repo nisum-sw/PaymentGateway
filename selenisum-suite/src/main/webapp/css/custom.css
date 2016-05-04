@@ -1,3 +1,8 @@
+  
+.element1 {display:inline-block;margin-right:10px; width:10%; } 
+.element2 {display:inline-block; width:20%;}
+
+
 .align-domain-label {
 	padding-right: 52px;
 	padding-bottom: 13px
@@ -113,7 +118,7 @@ button.close {
 	padding-left: 25px;
 }
 
-<!-- Report Tab start-->
+/* Report Tab start*/
 
 
 .boldLabel {
@@ -162,9 +167,9 @@ button.close {
           transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 
-<!-- Report Tab End-->
+/* Report Tab End*/
 
-<!-- Test Suite Tab Start -->
+/* Test Suite Tab Start */
 /* Glyph, by Harry Roberts */
 
 hr.style-one {
@@ -186,7 +191,7 @@ th {
     cursor:pointer;
 }
 
-<!-- Test Suite Tab End -->
+/* Test Suite Tab End */
   
 
 </style>

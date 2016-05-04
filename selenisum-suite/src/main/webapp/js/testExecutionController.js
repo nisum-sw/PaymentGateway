@@ -56,12 +56,8 @@ app.controller('testExecutionCtrl',
 			
 			
 			$scope.executeTest = function() {
-				//alert(url.name);
-				var path = $location.absUrl().substr(0,
-						$location.absUrl().lastIndexOf("/"))
-
-				//$scope.selectedPage=$scope.selectedPage;
-				$http.post(path + '/executeTest',
+				console.log('Executing Test with input url ' + $scope.domainName);
+				$http.post('./executeTest',
 						encodeURIComponent($scope.domainName)).success(
 						function(data, status) {
 							//alert("i am" + status);
@@ -69,13 +65,11 @@ app.controller('testExecutionCtrl',
 							$scope.report = data;
 							$scope.reportHref = data;
 						}).error(function(data, status) {
-					alert(status);
+				
 					alert("failure message: " + JSON.stringify(data));
 				});
 
-				$scope.newWindow = function(reportHref) {
-					$window.open(reportHref);
-				};
+				
 			};
 
 });
