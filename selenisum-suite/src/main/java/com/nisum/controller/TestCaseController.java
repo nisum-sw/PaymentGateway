@@ -7,10 +7,10 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nisum.domain.TestCase;
@@ -39,19 +39,19 @@ public class TestCaseController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<List<TestCase>> get(@PathVariable("id") String id) {
+	public ResponseEntity<List<TestCase>> get(@RequestParam("id") String id) {
 		TestCase testsuite = this.testCaseRepository.findOne(id);
 		return new ResponseEntity(testsuite, HttpStatus.ACCEPTED);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
-	public ResponseEntity<TestCase> update(@PathVariable("id") long id, @RequestBody @Valid TestCase TestCase) {
+	public ResponseEntity<TestCase> update(@RequestParam("id") long id, @RequestBody @Valid TestCase TestCase) {
 		TestCase testCase = testCaseRepository.save(TestCase);
 		return new ResponseEntity<TestCase>(testCase, HttpStatus.CREATED);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Boolean> delete(@PathVariable("id") String id) {
+	public ResponseEntity<Boolean> delete(@RequestParam("id") String id) {
 		this.testCaseRepository.delete(id);
 		return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
 	}
