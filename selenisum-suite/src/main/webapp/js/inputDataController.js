@@ -5,10 +5,14 @@ var app = angular.module('nAutomationApp');
 app.controller('inputDataCtrl',
 		function($scope, $window, $location, $http) {
 			$scope.pagenames = [ "login", "checkout", "payment" ];
-			$scope.DropDownChnaged = function() {
-				$scope.selectedPage = $scope.pagenames;
-			};
+			$scope.domains = [ "safeway", "Walmart", "Gap", "Target" ];
+			$scope.browsers = [ "Chrome", "Firefox", "Safari", "Explorer" ];
 
+			$scope.testSuits = [];
+			$scope.testSuitsPerm = [];
+			$scope.testCases = [];
+
+			
 			$scope.elements = [ {
 				"name" : "userTxt"
 			}, {
@@ -19,10 +23,42 @@ app.controller('inputDataCtrl',
 				"name" : "resetBtn"
 			} ];
 
-			$scope.testSuits = [];
-			$scope.testSuitsPerm = [];
-			$scope.testCases = [];
+			
+			$scope.DropDownChnaged = function() {
+				$scope.selectedPage = $scope.pagenames;
+			};
+			
+			$scope.testcase;
+			
+			$scope.changeCase = function(selectedCase) {
+	
+				var tcase = {
+						"testCaseName":selectedCase,
+						"testCaseDesc": "fooCaseDecription"
+				} ;
+								
+				console.log ( " test line 45 " + $scope.project.testSuite[0] );
+				
+				if(!$scope.project.testSuite[0].testCases) {
+					$scope.project.testSuite[0].testCases = [];
+				}
 
+				$scope.project.testSuite[0].testCases.push(tcase);			
+				
+			};
+			
+			$scope.changeSuite = function(selectedSuite) {				
+
+				var t = {
+						"testSuiteName":selectedSuite,
+						"testCases": $scope.testcase
+				} ;
+				
+				
+				$scope.project.testSuite.push(t);
+				$scope.testCases = $scope.testSuitsPerm[selectedSuite];
+			};
+			
 			var path = $location.absUrl().substr(0,
 					$location.absUrl().lastIndexOf("/"));
 			$http.get(path + '/getTestScenario?input=abc').success(
@@ -36,10 +72,6 @@ app.controller('inputDataCtrl',
 						});
 					}).error(function(data, status) {
 			});
-
-			$scope.domains = [ "safeway", "Walmart", "Gap", "Target" ];
-
-			$scope.browsers = [ "Chrome", "Firefox", "Safari", "Explorer" ];
 
 			$scope.dropDownChnaged = function() {
 				//alert(url.name);
@@ -61,47 +93,85 @@ app.controller('inputDataCtrl',
 				});
 			};
 
-			$scope.project = {};
+			/*
+			$scope.project = {  
+					 testSuite : [ 
+					               { 
+					            	 testSuiteId:"", 
+					            	 testSuiteName:"", 
+					            	 testSuiteDesc:"",
+					            	 testCases:[
+					            	              {
+					            	            	  testCaseId:"",
+					            	            	  testCaseName:"",
+					            	            	  testCaseDesc:"",
+					            	            	  testSteps:[
+					            	            	               {
+					            	            	            	   "testStepId": "",
+					            	            	            	   "testStepName":"",
+					            	            	            	   "expected":"",
+					            	            	            	   "actual":"",
+					            	            	            	   "status":""                                                                                                                                        
+					            	            	               	}
+					            	            	               ], 
+		                                pageElement:[
+		                                               {
+		                                            	   pageElementId:"",
+		                                            	   pageElementName:"",
+		                                            	   pageElementDesc:""
+		                                               }
+		                                               ]                                  
+					            	              }
+					            	             ]	
+					               }
+					             ],     
+		   pageURL: "",
+		   pageName :  "",
+		   brwType : "",
+		   domainName : ""    
+		};
+			
+			*/
+			
+            $scope.project = {
+            		pageURL:"testingpageurl123",
+            		testSuite:[]
+                    };
 
 			$scope.postHttpJSON = function() {
 
-				var postObject = {
-					"testSuite" : [ {
-						"testSuiteId" : "testSuiteId",
-						"testSuiteName" : "testSuiteName",
-						"testSuiteDesc" : "testSuiteDesc",
-						"testCaseList" : [ {
-							"testCaseId" : "testCaseId",
-							"testCaseName" : "testCaseName",
-							"testCaseDesc" : "testCaseDesc",
-							"pageElement" : [ {
-								"pageElementId" : "pageElementId",
-								"pageElementName" : "pageElementName",
-								"pageElementDesc" : "pageElementDesc"
-							} ]
-						} ]
-					} ],
-					"pageURL" : "MongoDBangu is no sql database",
-					"pageName" : [ "mpn1", "database1", "NoSQL1" ],
-					"brwType" : [ "mpn12", "database12", "NoSQL12" ]
-				};
+                console.log('postHttpJSON $scope.project = '+JSON.stringify($scope.project));
 
-				var path = $location.absUrl().substr(0,
-						$location.absUrl().lastIndexOf("/")) +"/projects/";
-				
+                $http.post('projects/', $scope.project )
+                .success(function (data, status, headers)
+                {
+                 console.log('Success'+JSON.stringify(data));
+                })
+                .error(function (data, status, headers)
+                {
+                 console.log('Failure');
+                });
+                
+/*				
 				$http({
-					url : path,
+					url : "projects",
 					dataType : 'json',
 					method : 'POST',
-					data : postObject,
+					data : $scope.postObject,
 					headers : {
 						"Content-Type" : "application/json"
 					}
 				}).success(function(response) {
 					$scope.response = response;
+                    console.log('Success'+JSON.stringify(response));
 				}).error(function(error) {
 					$scope.error = error;
+					
+                    console.log('Failure');
 				});
+				
+				*/
+                
 			};
 
 			$scope.getAllProjectsHttpJSONByName = function() {
