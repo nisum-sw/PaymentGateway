@@ -5,29 +5,21 @@
 
 <div id=row22 class="btn-group">
 	<label id="pageLabel" class="align-domain-label">Domain</label> <select
-		ng-model="project.domainName" id="pagedropdown"
-		ng-change="DropDownDomains()">
+		ng-model="selectedDName" id="pagedropdown"
+		ng-change="DropDownDomains(selectedDName)">
 		<option ng-repeat="name in domains">{{name}}
 	</select>
 </div>
 
 <br />
 
-<div id=row22 class="btn-group">
-	<label id="pageLabel" class="align-browser-label">Browser Type</label>
-	<select ng-model="project.brwType" id="pagedropdown"
-		ng-change="DropDownBrowsers()">
-		<option ng-repeat="name in browsers">{{name}}
-	</select>
-</div>
-
 
 <br />
 
 <div id=row11 class="btn-group">
-	<label id="pageLabel" class="align-pagename-label">PageName</label> <select
-		ng-model="project.pageName" id="pagedropdown"
-		ng-change="DropDownChnaged()">
+	<label id="pageLabel" class="align-pagename-label">PageName123</label> <select
+		ng-model="selectedPageName" id="pagedropdown"
+		ng-change="dropDownChanged(selectedPageName)">
 		<option ng-repeat="name in pagenames">{{name}}
 	</select>
 </div>

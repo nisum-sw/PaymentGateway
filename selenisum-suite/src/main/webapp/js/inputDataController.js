@@ -4,13 +4,17 @@ var app = angular.module('nAutomationApp');
 
 app.controller('inputDataCtrl',
 		function($scope, $window, $location, $http) {
-			$scope.pagenames = [ "login", "checkout", "payment" ];
-			$scope.domains = [ "safeway", "Walmart", "Gap", "Target" ];
+			$scope.pagenames = [ "ShopStores/OSSO-Login.page", "login", "checkout", "payment" ];
+			$scope.domains = [ "www.safeway.com", "Walmart", "Gap", "Target" ];
 			$scope.browsers = [ "Chrome", "Firefox", "Safari", "Explorer" ];
 
 			$scope.testSuits = [];
 			$scope.testSuitsPerm = [];
 			$scope.testCases = [];
+			$scope.selectedFileExtension ="html";
+			$scope.selectedDName;
+			
+            $scope.elements = [];
 
 			
 			$scope.elements = [ {
@@ -24,10 +28,32 @@ app.controller('inputDataCtrl',
 			} ];
 
 			
-			$scope.DropDownChnaged = function() {
-				$scope.selectedPage = $scope.pagenames;
+			$scope.DropDownDomains= function(selectedDName) {
+				
+				$scope.selectedDName = selectedDName;
 			};
 			
+			
+		    $scope.dropDownChanged = function (selectedPageName) {
+		        $scope.selectedPageName = selectedPageName;
+		        //var valData = $scope.selectedDName + $scope.selectedPageName + "." + $scope.selectedFileExtension;
+		        var valData = $scope.selectedDName +  "/" + $scope.selectedPageName;
+
+		        console.log("may 4th valData encodeURIComponent(valData)= " + encodeURIComponent(valData));
+		 		        
+		        
+		        $http.get('./getElements?input='+
+		                encodeURIComponent(valData)).success(function(data, status) {
+		                  //alert("i am" + status);
+
+		                  $scope.elements = data;
+		                })
+		                .error(function(data, status) {
+		                  alert(status);
+		                  alert( "failure message: " + JSON.stringify(data));
+		                });
+		        };
+		        
 			$scope.testcase;
 			
 			$scope.changeCase = function(selectedCase) {
