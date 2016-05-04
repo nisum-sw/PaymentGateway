@@ -9,27 +9,41 @@ app.controller('testExecutionCtrl',
 			};
 
 			
-			$scope.testSuits = [];
+			$scope.testSuites = {};
 			$scope.testSuitsPerm = [];
 			$scope.testCases = [];
-
-			var path = $location.absUrl().substr(0,
-					$location.absUrl().lastIndexOf("/"));
-			$http.get(path + '/getTestScenario?input=abc').success(
+			$scope.projects = [];
+			$scope.project = {
+					selectedSuite :"",
+					selectedCase :"",
+			};
+			
+			$http.get('./projects').success(
 					function(data, status) {
-						
-						$scope.testSuitsPerm = data;
-						var tSuites = Object.keys(data);
-						$scope.testSuits.push("Please Select");
-						tSuites.forEach(function(suite) {
-							$scope.testSuits.push(suite);
-						});
+						$scope.projects = data;
+						createTestSuiteObject(data);
+					//	console.log(JSON.stringify($scope.projects));
 					}).error(function(data, status) {
 			});
 
+			function createTestSuiteObject(data){
+				
+				data.forEach(function(project){
+					if($scope.testSuites[project.testSuite[0].testSuiteName]){
+						$scope.testSuites[project.testSuite[0].testSuiteName].push(project.testSuite[0].testCases[0].testCaseName);
+					}else {
+						$scope.testSuites[project.testSuite[0].testSuiteName] = [];
+						$scope.testSuites[project.testSuite[0].testSuiteName].push(project.testSuite[0].testCases[0].testCaseName);
+					}
+					
+				});
+				console.log(JSON.stringify($scope.testSuites));
+			}
 			
-			$scope.changeSuite = function(selectedSuite) {
-				$scope.testCases = $scope.testSuitsPerm[selectedSuite];
+			$scope.changeSuite = function(suiteSeleted) {
+				console.log(suiteSeleted);
+				$scope.testCases = $scope.testSuites[suiteSeleted.testSuite[0].testSuiteName];
+				console.log($scope.testCases);
 			};
 
 			
@@ -37,7 +51,7 @@ app.controller('testExecutionCtrl',
 
 			$scope.browsers = [ "Chrome", "Firefox", "Safari", "Explorer" ];
 
-						$scope.project = {};
+						
 
 			
 			

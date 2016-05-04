@@ -56,7 +56,7 @@ app.controller('testSuiteCtrl', [ '$scope', '$http', '$window', '$location',
 			$scope.saveTestSuite = function() {
 					
 				$http({
-					url : "./testsuites/save",
+					url : "./testsuites",
 					dataType : 'json',
 					method : 'POST',
 					data : $scope.testSuite,
@@ -81,7 +81,7 @@ app.controller('testSuiteCtrl', [ '$scope', '$http', '$window', '$location',
 			$scope.getTestSuites = function() {
 				
 				$http({
-					url : "./testsuites/findAll",
+					url : "./testsuites",
 					method : 'GET',
 					headers : {
 						"Content-Type" : "application/json"
@@ -109,7 +109,7 @@ app.controller('testSuiteCtrl', [ '$scope', '$http', '$window', '$location',
 			$scope.deleteTestSuite = function(testSuite){
 				console.log(JSON.stringify(testSuite));
 				$http({
-					url : "./testsuites",
+					url : "./testsuites/"+testSuite.testSuiteId,
 					method : 'DELETE',	
 					dataType : 'json',
 					params : {"id":testSuite.testSuiteId},

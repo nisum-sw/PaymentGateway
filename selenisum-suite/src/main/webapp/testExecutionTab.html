@@ -1,25 +1,52 @@
 
 <head>
 <link rel="stylesheet" type="text/css" href="css/custom.css">
+<style type="text/css">
+.element1 {display:inline-block;margin-right:10px; width:10%; } 
+.element2 {display:inline-block; width:20%; } 
+</style>
 </head>
-            <div ng-form="executionForm">
-            
+            <div ng-form="executionForm" >
               
- 		<div id=row0 style="margin-top: 10px">
-            <label id="pageLabel">Test Suite : </label>
-				<select ng-model="selectedSuite" ng-change="changeSuite(selectedSuite)">
-		        	<option ng-repeat="suite in testSuits">{{suite}}</option>
+              
+			  <div id=row1 class="form-group" >
+				<label id="pageLabel" class="element1" >Domain</label> 
+				<select ng-model="selectedDomain" id="pagedropdown" ng-change="DropDownDomains()" class="element2" >
+					<option ng-repeat="name in domains">{{name}}
+				</select>
+			  </div> 
+			  
+			<div id=row2 class="form-group" >
+				<label id="pageLabel" class="element1" >Browser Type</label> 
+				<select ng-model="selectedBrowser" id="pagedropdown" ng-change="DropDownBrowsers()" class="element2" >
+					<option ng-repeat="name in browsers">{{name}}
+				</select> 
+			 </div> 
+			  
+			 <div id=row3 class="form-group" >
+				<label id="pageLabel" class="element1" >PageName</label> 
+				<select ng-model="selectedPage" id="pagedropdown" ng-change="DropDownChnaged()" class="element2" >
+					<option ng-repeat="name in pagenames">{{name}}
+				</select> 
+			  </div>
+			  
+ 		<div id=row4 class="form-group">
+             <label id="pageLabel" class="element1" >Test Suite  </label>
+				
+		        <select  ng-model="selectedSuite" ng-change="changeSuite(selectedSuite)" 
+     				data-ng-options="item as item.testSuite[0].testSuiteName for item in projects" class="element2" >
+    					<option value="">Select Test Suite</option>
+					</select>
+		        
+			</div>
+			  
+		<div id=row5 class="form-group">
+             <label id="pageLabel" class="element1" >Test Cases : </label> 
+				<select ng-model="project.selectedCase" class="element2" >
+		        	<option ng-repeat="case in testCases">{{case}}</option>
 		        </select>
 			</div>
 
-
-		<div id=row01 style="margin-top: 10px">
-			<label id="pageLabel">Test Cases : </label> 
-			<select
-				ng-model="selectedCase">
-				<option ng-repeat="case in testCases">{{case.test_case}}</option>
-			</select>
-		</div>
-
-	  <button class="btn btn-success">Execute</button>
-            
+			
+             <button class="btn btn-success element1" >Execute</button>
+            </div>
