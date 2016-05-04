@@ -7,15 +7,15 @@ public class PageElement {
 	@Id
 	private String pageElementId;
 	private String pageElementName;
-	private String pageElementDesc;
+	private String pageElementValue;
 
 	public PageElement() {
 	}
 
-	public PageElement(String pageElementId, String pageElementName, String pageElementDesc) {
+	public PageElement(String pageElementId, String pageElementName, String pageElementValue) {
 		this.pageElementId = pageElementId;
 		this.pageElementName = pageElementName;
-		this.pageElementDesc = pageElementDesc;
+		this.pageElementValue = pageElementValue;
 	}
 
 	public String getPageElementId() {
@@ -35,11 +35,11 @@ public class PageElement {
 	}
 
 	public String getPageElementDesc() {
-		return pageElementDesc;
+		return pageElementValue;
 	}
 
 	public void setPageElementDesc(String pageElementDesc) {
-		this.pageElementDesc = pageElementDesc;
+		this.pageElementValue = pageElementValue;
 	}
 
 }
