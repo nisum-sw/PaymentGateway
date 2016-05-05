@@ -32,7 +32,7 @@
 	<select 
 		ng-model="selectedTestSuiteName" id="testsuitedropdown"
 		ng-change="changeSuite(selectedTestSuiteName)" class="element2">
-		<option ng-repeat="suite in testSuites">{{suite}}</option>
+		<option ng-repeat="suite in inputTestSuites">{{suite.testSuiteName}}</option>
 	</select>
 </div>
 
@@ -41,7 +41,7 @@
 	<label id="pageLabel" class="element1">Test Cases </label>
 	<select ng-model="selectedCase" 
 	ng-change="changeCase(selectedCase)" class="element2">
-		<option ng-repeat="case in testCases">{{case.test_case}}</option>
+		<option ng-repeat="case in testCases">{{case.testCaseName}}</option>
 	</select>
 </div>
 

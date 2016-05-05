@@ -59,9 +59,19 @@ app.controller('inputDataCtrl',
 			
 			$scope.changeSuite = function(suiteSeleted) {
 
-				console.log(suiteSeleted);
+	//			console.log(suiteSeleted);
 				$scope.testCases = $scope.testSuites[suiteSeleted];
-				console.log($scope.testCases);
+//				console.log($scope.testCases);
+				$scope.inputTestSuites.forEach(function(testSuite){
+		//			console.log(testSuite.testSuiteName);
+					if(testSuite.testSuiteName == suiteSeleted){
+						console.log(11);
+						$scope.testCases = testSuite.testCases;
+						console.log(testSuite.testCases);
+						return;
+					}
+					
+				});
 			};
 
 			
@@ -97,7 +107,7 @@ app.controller('inputDataCtrl',
 			$scope.testcase;
 			
 			$scope.changeCase = function(selectedCase) {
-	
+	/*
 				var tcase = {
 						"testCaseName":selectedCase,
 						"testCaseDesc": "fooCaseDecription"
@@ -110,10 +120,10 @@ app.controller('inputDataCtrl',
 				}
 
 				$scope.project.testSuite[0].testCases.push(tcase);			
-				
+		*/		
 			};
 			
-			$scope.changeSuite = function(selectedSuite) {				
+			/*$scope.changeSuite = function(selectedSuite) {				
 
 				var t = {
 						"testSuiteName":selectedSuite,
@@ -124,7 +134,7 @@ app.controller('inputDataCtrl',
 				$scope.project.testSuite.push(t);
 				$scope.testCases = $scope.testSuitsPerm[selectedSuite];
 			};
-			
+*/			
 			var path = $location.absUrl().substr(0,
 					$location.absUrl().lastIndexOf("/"));
 
