@@ -14,6 +14,7 @@ public class Project {
 	private String pageName;
 	private String brwType;
 	private String domainName;
+	
 
 	public Project() {
 	}
@@ -68,11 +69,35 @@ public class Project {
 	}
 
 	public String getDomainName() {
+		if (domainName == null) {
+			domainName = "undefined";
+		}
+		this.domainName = getFilteredDomainName(domainName);
 		return domainName;
 	}
 
 	public void setDomainName(String domainName) {
+		if (domainName == null) {
+			domainName = "www.undefined.com";
+		}
 		this.domainName = domainName;
+		this.domainName = setAppendedDomainName(domainName);
+	}
+
+	public String setAppendedDomainName(String domainName) {
+		this.domainName = domainName;
+		StringBuilder sb = new StringBuilder();
+		sb.append("www.").append(domainName).append(".com");
+		String strDmnName = sb.toString();
+		return strDmnName;
+	}
+
+	public String getFilteredDomainName(String domainName) {
+		this.domainName = domainName;
+		int i = domainName.indexOf('.');
+		String strBefore = domainName.substring(domainName.indexOf('.') + 1);
+		String strAfter = (String) strBefore.subSequence(0, strBefore.indexOf('.'));
+		return strAfter;
 	}
 
 }
