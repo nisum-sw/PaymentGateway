@@ -15,3 +15,8 @@ Dependencies : </br>
 i.e For Get and POST :
  e.g.http://localhost:<port Number>/selenisum-suite/projects/
 
+Swagger frame work has been implemented .To access all the services use the follwoing link 
+
+http://localhost:8080/selenisum-suite/swagger-ui.html
+
+
