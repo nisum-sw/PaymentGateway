@@ -50,6 +50,11 @@
 		<constructor-arg name="databaseName" value="sel1" />
 	</bean>
 
+    <context:property-placeholder location="classpath:configuration/swagger.properties" />
+
+    <!-- Configuration Bean -->
+     <bean id="documentationConfig" class="com.mangofactory.swagger.configuration.DocumentationConfig"/>
+ 
 
 </beans>
 
