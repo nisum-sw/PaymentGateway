@@ -32,7 +32,7 @@ app.controller('inputDataCtrl',
 			$http.get('./testsuites').success(
 					function(data, status) {
 						$scope.inputTestSuites = data;
-						alert("getting input");
+					//	alert("getting input");
 						
 						createTestSuiteObject(data);
 					    console.log(JSON.stringify($scope.inputTestSuites));
@@ -42,7 +42,7 @@ app.controller('inputDataCtrl',
 			function createTestSuiteObject(data){
 				
 				data.forEach(function(testSuite){
-					alert(testSuite);
+					//alert(testSuite);
 					if($scope.testSuites[testSuite.testSuiteName]){
 
 						$scope.testSuites[testSuite.testSuiteName].push(testSuite.testCases);
@@ -83,7 +83,7 @@ app.controller('inputDataCtrl',
 			
 			
 		    $scope.dropDownChanged = function (selectedPageName) {
-			alert("latest");
+		    	//alert("latest");
 		        $scope.selectedPageName = selectedPageName;
 		        //var valData = $scope.selectedDName + $scope.selectedPageName + "." + $scope.selectedFileExtension;
 		        var valData = $scope.selectedDName +  "/" + $scope.selectedPageName;
@@ -99,8 +99,8 @@ app.controller('inputDataCtrl',
 		                  $scope.elements = data;
 		                })
 		                .error(function(data, status) {
-		                  alert(status);
-		                  alert( "failure message: " + JSON.stringify(data));
+		                  //alert(status);
+		                 // alert( "failure message: " + JSON.stringify(data));
 		                });
 		        };
 		        
