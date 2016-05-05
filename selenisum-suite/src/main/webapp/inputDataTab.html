@@ -16,7 +16,8 @@
 <br />
 
 <div id=row3 class="form-control;">
-	<label id="pageLabel" class="element1">PageName</label> <select
+	<label id="pageLabel" class="element1">PageName </label> 
+	<select
 		ng-model="selectedPageName" id="pagedropdown"
 		ng-change="dropDownChanged(selectedPageName)" class="element2">
 		<option ng-repeat="name in pagenames">{{name}}
@@ -24,11 +25,14 @@
 </div>
 </br>
 
+
 <div id=row4 style="margin-top: 10px" class="form-control;">
 	<label id="pageLabel" class="element1">Test Suite
-	</label> <select ng-model="selectedTestSuiteName" 
+	</label> 
+	<select 
+		ng-model="selectedTestSuiteName" id="testsuitedropdown"
 		ng-change="changeSuite(selectedTestSuiteName)" class="element2">
-		<option ng-repeat="suite in testSuits">{{suite}}</option>
+		<option ng-repeat="suite in testSuites">{{suite}}</option>
 	</select>
 </div>
 

@@ -5,28 +5,66 @@ var app = angular.module('nAutomationApp');
 app.controller('inputDataCtrl',
 		function($scope, $window, $location, $http) {
 			$scope.pagenames = [ "ShopStores/OSSO-Login.page", "login", "checkout", "payment" ];
-			$scope.domains = [ "www.safeway.com", "Walmart", "Gap", "Target" ];
+			$scope.domains = [ "http://www.safeway.com", "Walmart", "Gap", "Target" ];
 			$scope.browsers = [ "Chrome", "Firefox", "Safari", "Explorer" ];
 
-			$scope.testSuits = [];
-			$scope.testSuitsPerm = [];
-			$scope.testCases = [];
+			
+            $scope.project = {
+            		pageURL:"testingpageurl123",
+            		testSuite:[]
+                    };
+            
 			$scope.selectedFileExtension ="html";
 			$scope.selectedDName;
 			
             $scope.elements = [];
 
+			$scope.saveTestSuites = [];			
 			
-			$scope.elements = [ {
-				"name" : "userTxt"
-			}, {
-				"name" : "passTxt"
-			}, {
-				"name" : "subBtn"
-			}, {
-				"name" : "resetBtn"
-			} ];
+			console.log(JSON.stringify($scope.saveTestSuites));
+		
+			$scope.testSuites = {};
+			$scope.testSuitsPerm = [];
+			$scope.testCases = [];
+			$scope.inputTestSuites = [];
 
+	
+			$http.get('./testsuites').success(
+					function(data, status) {
+						$scope.inputTestSuites = data;
+						alert("getting input");
+						
+						createTestSuiteObject(data);
+					    console.log(JSON.stringify($scope.inputTestSuites));
+					}).error(function(data, status) {
+			});
+
+			function createTestSuiteObject(data){
+				
+				data.forEach(function(testSuite){
+					alert(testSuite);
+					if($scope.testSuites[testSuite.testSuiteName]){
+
+						$scope.testSuites[testSuite.testSuiteName].push(testSuite.testCases);
+					}else {
+						
+						$scope.testSuites[testSuite.testSuiteName] = [];
+						$scope.testSuites[testSuite.testSuiteName].push(testSuite);
+						
+					}
+					
+				});
+				
+			}
+			
+			$scope.changeSuite = function(suiteSeleted) {
+
+				console.log(suiteSeleted);
+				$scope.testCases = $scope.testSuites[suiteSeleted];
+				console.log($scope.testCases);
+			};
+
+			
 			
 			$scope.DropDownDomains= function(selectedDName) {
 				
@@ -35,10 +73,12 @@ app.controller('inputDataCtrl',
 			
 			
 		    $scope.dropDownChanged = function (selectedPageName) {
+			alert("latest");
 		        $scope.selectedPageName = selectedPageName;
 		        //var valData = $scope.selectedDName + $scope.selectedPageName + "." + $scope.selectedFileExtension;
 		        var valData = $scope.selectedDName +  "/" + $scope.selectedPageName;
 
+		       // var valData1 ="http://www.safeway.com/ShopStores/OSSO-Login.page";
 		        console.log("may 4th valData encodeURIComponent(valData)= " + encodeURIComponent(valData));
 		 		        
 		        
@@ -87,17 +127,6 @@ app.controller('inputDataCtrl',
 			
 			var path = $location.absUrl().substr(0,
 					$location.absUrl().lastIndexOf("/"));
-			$http.get(path + '/getTestScenario?input=abc').success(
-					function(data, status) {
-						
-						$scope.testSuitsPerm = data;
-						var tSuites = Object.keys(data);
-						$scope.testSuits.push("Please Select");
-						tSuites.forEach(function(suite) {
-							$scope.testSuits.push(suite);
-						});
-					}).error(function(data, status) {
-			});
 
 			$scope.dropDownChnaged = function() {
 				//alert(url.name);
@@ -158,11 +187,7 @@ app.controller('inputDataCtrl',
 		};
 			
 			*/
-			
-            $scope.project = {
-            		pageURL:"testingpageurl123",
-            		testSuite:[]
-                    };
+
 
 			$scope.postHttpJSON = function() {
 

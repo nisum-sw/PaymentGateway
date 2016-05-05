@@ -29,13 +29,14 @@ app.controller('testExecutionCtrl',
 			function createTestSuiteObject(data){
 				
 				data.forEach(function(project){
+				  if(project.testSuite){
 					if($scope.testSuites[project.testSuite[0].testSuiteName]){
 						$scope.testSuites[project.testSuite[0].testSuiteName].push(project.testSuite[0].testCases[0].testCaseName);
 					}else {
 						$scope.testSuites[project.testSuite[0].testSuiteName] = [];
 						$scope.testSuites[project.testSuite[0].testSuiteName].push(project.testSuite[0].testCases[0].testCaseName);
 					}
-					
+					}
 				});
 				console.log(JSON.stringify($scope.testSuites));
 			}
