@@ -55,9 +55,9 @@
 		</select>
 	</div>
 
-
 	<div ng-repeat="newelement in project.elementmodel">
-		{{newelement}} <input type="text" ng-model="newelement.userinput" />
+				<label id="pageelementLabel" class="element1">{{newelement.name }}</label>
+		<input type="text" ng-model="newelement.userinput" class="element2" />
 		<br />
 	</div>
 
