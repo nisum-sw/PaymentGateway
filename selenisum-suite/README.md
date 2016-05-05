@@ -17,6 +17,8 @@ i.e For Get and POST :
 
 Swagger frame work has been implemented .To access all the services use the follwoing link 
 
+http://localhost:8080/selenisum-suite/api-docs.json
+ and for UI use below
 http://localhost:8080/selenisum-suite/swagger-ui.html
 
 
