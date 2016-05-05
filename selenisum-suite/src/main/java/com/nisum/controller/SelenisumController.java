@@ -25,10 +25,14 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.mongodb.util.JSON;
+import com.nisum.domain.PageElement;
 import com.nisum.domain.Report;
 import com.nisum.service.WebDriverService;
 import com.nisum.util.TestScenarios;
 import com.thoughtworks.selenium.webdriven.commands.Type;
+import com.wordnik.swagger.annotations.ApiOperation;
+import com.wordnik.swagger.annotations.ApiParam;
 
 @Controller
 public class SelenisumController {
@@ -39,36 +43,39 @@ public class SelenisumController {
 	@Autowired
 	private WebDriverService driverScript;
 
+	@ApiOperation(value = "Service brings all the Pageelemnts and tag names")
 	@RequestMapping(value = "/getElements", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public ResponseEntity<String> getElements(@RequestParam("input") String input) {
+	public ResponseEntity<List<PageElement>> getElements(@ApiParam(value = "input") 
+											@RequestParam("input") String input) {
 		input = URLDecoder.decode(input);
 		WebDriver browser = new FirefoxDriver();
 		browser.get(input);
 
 		List<WebElement> link = browser.findElements(By.xpath("//*[@id]"));
 
-		List<String> lst = new ArrayList<String>();
-		JsonArray jArray = new JsonArray();
+		List<PageElement> pageElements = new ArrayList<PageElement>();
 		for (WebElement ele : link) {
-			lst.add(ele.getAttribute("id"));
-			JsonObject jObj = new JsonObject();
-			jObj.addProperty("name", ele.getAttribute("id"));
-			jArray.add(jObj);
+			PageElement element = new PageElement();
+			element.setPageElementId(ele.getAttribute("id"));
+			element.setPageElementType(ele.getTagName());
+			pageElements.add(element);
 		}
 
-		return new ResponseEntity<String>(jArray.toString(), HttpStatus.OK);
+		return new ResponseEntity<List<PageElement>>(pageElements, HttpStatus.OK);
 	}
 
+	@ApiOperation(value = "Service brings all the Test Scenarios")
 	@RequestMapping(value = "/getTestScenario", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public ResponseEntity<String> getTestScenario(@RequestParam("input") String input) throws Exception {
+	public ResponseEntity<String> getTestScenario(@ApiParam(value = "input")  @RequestParam("input") String input) throws Exception {
 		return new ResponseEntity<String>(TestScenarios.getTestSuite(), HttpStatus.OK);
 	}
 
+	@ApiOperation(value = "Service execuites the Tests")
 	@RequestMapping(value = "/executeTest", method = RequestMethod.POST, produces = "application/text")
 	@ResponseBody
-	public ResponseEntity<String> executeTest(@RequestBody String input) {
+	public ResponseEntity<String> executeTest(@ApiParam(value = "input") @RequestBody String input) {
 		String report = "No Report Generated";
 		input = URLDecoder.decode(input);
 		try {
@@ -88,9 +95,10 @@ public class SelenisumController {
 		return new ResponseEntity<String>(report, HttpStatus.OK);
 	}
 
+	@ApiOperation(value = "Service brings executed test reports")
 	@RequestMapping(value = "/report", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public ResponseEntity<List<Report>> getReports(@RequestParam("input") String input) throws Exception {
+	public ResponseEntity<List<Report>> getReports(@ApiParam(value = "input")  @RequestParam("input") String input) throws Exception {
 		Iterable<Report> reportItr = driverScript.getReports();
 		List<Report> reports = new ArrayList<Report>();
 		reportItr.forEach(report -> reports.add(report));

@@ -14,17 +14,10 @@
      	http://www.springframework.org/schema/data/mongo
       	http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd">
 
-
-
 	<context:component-scan base-package="com.nisum.controller" />
 	<context:component-scan base-package="com.nisum.service" />
 	<context:component-scan base-package="com.nisum.domain" />
-	<context:component-scan base-package="com.nisum.services.controller" />
-	<context:component-scan base-package="com.nisum.services.config" />
-	<context:component-scan base-package="com.nisum.services.dto" />
-
 	<mongo:repositories base-package="com.nisum.repositories" />
-	<mongo:repositories base-package="com.nisum.services.repository" />
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -50,6 +43,12 @@
 		<constructor-arg name="databaseName" value="sel1" />
 	</bean>
 
+	<context:property-placeholder
+		location="classpath:configuration/swagger.properties" />
+
+	<!-- Configuration Bean -->
+	<bean id="documentationConfig"
+		class="com.mangofactory.swagger.configuration.DocumentationConfig" />
 
 </beans>
 

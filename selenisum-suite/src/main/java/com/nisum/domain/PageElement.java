@@ -8,16 +8,16 @@ public class PageElement {
 	private String pageElementId;
 	private String pageElementName;
 	private String pageElementValue;
+	private String pageElementType;
 
-	public PageElement() {
+	public void setPageElementType(String pageElementType) {
+		this.pageElementType = pageElementType;
 	}
 
-	public PageElement(String pageElementId, String pageElementName, String pageElementValue) {
-		this.pageElementId = pageElementId;
-		this.pageElementName = pageElementName;
-		this.pageElementValue = pageElementValue;
+	public String getPageElementType() {
+		return pageElementType;
 	}
-
+	
 	public String getPageElementId() {
 		return pageElementId;
 	}

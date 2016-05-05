@@ -103,6 +103,13 @@
 			<artifactId>validation-api</artifactId>
 			<version>1.0.0.GA</version>
 		</dependency>
+		
+		 <dependency>
+			<groupId>com.mangofactory</groupId>
+			<artifactId>swagger-springmvc</artifactId>
+			<version>0.6.6</version>
+		</dependency>
+        
 
 	</dependencies>
 	<build>

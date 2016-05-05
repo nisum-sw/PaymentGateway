@@ -95,7 +95,6 @@ app.controller('inputDataCtrl',
 		        $http.get('./getElements?input='+
 		                encodeURIComponent(valData)).success(function(data, status) {
 		                  //alert("i am" + status);
-
 		                  $scope.elements = data;
 		                })
 		                .error(function(data, status) {
