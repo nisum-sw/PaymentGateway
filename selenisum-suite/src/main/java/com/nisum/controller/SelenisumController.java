@@ -25,6 +25,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.mongodb.util.JSON;
+import com.nisum.domain.PageElement;
 import com.nisum.domain.Report;
 import com.nisum.service.WebDriverService;
 import com.nisum.util.TestScenarios;
@@ -41,23 +43,22 @@ public class SelenisumController {
 
 	@RequestMapping(value = "/getElements", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public ResponseEntity<String> getElements(@RequestParam("input") String input) {
+	public ResponseEntity<List<PageElement>> getElements(@RequestParam("input") String input) {
 		input = URLDecoder.decode(input);
 		WebDriver browser = new FirefoxDriver();
 		browser.get(input);
 
 		List<WebElement> link = browser.findElements(By.xpath("//*[@id]"));
 
-		List<String> lst = new ArrayList<String>();
-		JsonArray jArray = new JsonArray();
+		List<PageElement> pageElements = new ArrayList<PageElement>();
 		for (WebElement ele : link) {
-			lst.add(ele.getAttribute("id"));
-			JsonObject jObj = new JsonObject();
-			jObj.addProperty("name", ele.getAttribute("id"));
-			jArray.add(jObj);
+			PageElement element = new PageElement();
+			element.setPageElementId(ele.getAttribute("id"));
+			element.setPageElementType(ele.getTagName());
+			pageElements.add(element);
 		}
 
-		return new ResponseEntity<String>(jArray.toString(), HttpStatus.OK);
+		return new ResponseEntity<List<PageElement>>(pageElements, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/getTestScenario", method = RequestMethod.GET, produces = "application/json")

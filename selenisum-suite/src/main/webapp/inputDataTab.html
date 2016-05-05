@@ -51,7 +51,7 @@
 	<div>
 		<label id="pageelementLabel" class="element1">Page Element</label>
 		<select multiple ng-multiple="true" ng:model="project.elementmodel"
-			ng-options="element.name for element in elements" class="element2">
+			ng-options="element.pageElementType  +' --> '+ element.pageElementId  for element in elements" class="element2">
 		</select>
 	</div>
 
