@@ -9,57 +9,78 @@ app.controller('testExecutionCtrl',
 			};
 
 			
-			$scope.testSuites = {};
-			$scope.testSuitsPerm = [];
+			$scope.testSuiteMap = {};
 			$scope.testCases = [];
 			$scope.projects = [];
-			$scope.project = {
-					selectedSuite :"",
-					selectedCase :"",
-			};
+			$scope.project = {};
 			
 			$http.get('./projects').success(
 					function(data, status) {
 						$scope.projects = data;
 						createTestSuiteObject(data);
-					//	console.log(JSON.stringify($scope.projects));
+						console.log('data ' + JSON.stringify(data));
 					}).error(function(data, status) {
 			});
 
 			function createTestSuiteObject(data){
+				//
 				
 				data.forEach(function(project){
 				  if(project.testSuite){
-					if($scope.testSuites[project.testSuite[0].testSuiteName]){
-						$scope.testSuites[project.testSuite[0].testSuiteName].push(project.testSuite[0].testCases[0].testCaseName);
-					}else {
-						$scope.testSuites[project.testSuite[0].testSuiteName] = [];
-						$scope.testSuites[project.testSuite[0].testSuiteName].push(project.testSuite[0].testCases[0].testCaseName);
-					}
+					  var suiteStr = project.testSuite[0].testSuiteName ;
+					  var caseStr =project.testSuite[0].testCases[0].testCaseName ;
+					  if($scope.testSuiteMap[suiteStr]){
+						  var testCaseMap = $scope.testSuiteMap[suiteStr];
+						  testCaseMap[caseStr] = project.testSuite[0].testCases[0].testCaseName;
+					  }else {
+						  var testCaseMap = {};
+						  testCaseMap[caseStr]= project.testSuite[0].testCases[0].testCaseName;
+						  $scope.testSuiteMap[suiteStr] = testCaseMap;
+					  }
 					}
 				});
-				console.log(JSON.stringify($scope.testSuites));
+				
+				
+				
 			}
 			
 			$scope.changeSuite = function(suiteSeleted) {
 				console.log(suiteSeleted);
-				$scope.testCases = $scope.testSuites[suiteSeleted.testSuite[0].testSuiteName];
+				$scope.testCases = $scope.testSuiteMap[suiteSeleted];
 				console.log($scope.testCases);
+				
+				$scope.project.testSuite = [{
+								'testSuiteName' : suiteSeleted
+							}];
 			};
-
 			
 			$scope.domains = [ "safeway", "Walmart", "Gap", "Target" ];
 
 			$scope.browsers = [ "Chrome", "Firefox", "Safari", "Explorer" ];
-
-						
-
 			
+			$scope.selectedTestCases=[];
+			
+			$scope.changeCase = function(caseSelected) {
+				var testCase = $scope.project.testSuite[0];
+				testCase['testCases'] =[];
+				
+				caseSelected.forEach(function(cases){
+					testCase['testCases'].push({
+						'testCaseName' : cases
+					});
+				});
+				
+				console.log($scope.testCases);
+			};
+
 			
 			$scope.executeTest = function() {
-				console.log('Executing Test with input url ' + $scope.domainName);
-				$http.post('./executeTest',
-						encodeURIComponent($scope.domainName)).success(
+				var testCases =[];
+				console.log('$scope.selectedTestCases ' + $scope.selectedTestCases);
+				
+				
+				console.log('Executing Test with input url ' + JSON.stringify($scope.project));
+				$http.post('./executeTest', $scope.project).success(
 						function(data, status) {
 							//alert("i am" + status);
 							
