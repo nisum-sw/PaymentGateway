@@ -26,7 +26,7 @@ app.controller('testExecutionCtrl',
 				//
 				
 				data.forEach(function(project){
-				  if(project.testSuite){
+				  if(project.testSuite && project.testSuite[0]){
 					  var suiteStr = project.testSuite[0].testSuiteName ;
 					  var caseStr =project.testSuite[0].testCases[0].testCaseName ;
 					  if($scope.testSuiteMap[suiteStr]){
