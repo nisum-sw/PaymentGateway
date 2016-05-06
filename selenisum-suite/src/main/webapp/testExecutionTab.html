@@ -7,38 +7,35 @@
               
 			  <div id=row1 class="form-group" >
 				<label id="pageLabel" class="element1" >Domain</label> 
-				<select ng-model="selectedDomain" id="pagedropdown" ng-change="DropDownDomains()" class="element2" >
+				<select ng-model="project.domainName" id="pagedropdown" ng-change="DropDownDomains()" class="element2" >
 					<option ng-repeat="name in domains">{{name}}
 				</select>
 			  </div> 
 			  
 			<div id=row2 class="form-group" >
 				<label id="pageLabel" class="element1" >Browser Type</label> 
-				<select ng-model="selectedBrowser" id="pagedropdown" ng-change="DropDownBrowsers()" class="element2" >
+				<select ng-model="project.brwType" id="pagedropdown" ng-change="DropDownBrowsers()" class="element2" >
 					<option ng-repeat="name in browsers">{{name}}
 				</select> 
 			 </div> 
 			  
-			 <div id=row3 class="form-group" >
-				<label id="pageLabel" class="element1" >PageName</label> 
-				<select ng-model="selectedPage" id="pagedropdown" ng-change="DropDownChnaged()" class="element2" >
-					<option ng-repeat="name in pagenames">{{name}}
-				</select> 
-			  </div>
+			 
 			  
  		<div id=row4 class="form-group">
              <label id="pageLabel" class="element1" >Test Suite  </label>
 				
-		        <select  ng-model="selectedSuite" ng-change="changeSuite(selectedSuite)" 
-     				data-ng-options="item as item.testSuite[0].testSuiteName for item in projects" class="element2" >
-    					<option value="">Select Test Suite</option>
-					</select>
+		        <select  ng-model="selectedTestSuite" ng-change="changeSuite(selectedTestSuite)" class="element2" >
+		        <option value="">--- Test Suites ---</option>
+    				<option ng-repeat="(key, value) in testSuiteMap">{{key}}</option>
+				</select>
+					
 		        
 			</div>
 			  
 		<div id=row5 class="form-group">
              <label id="pageLabel" class="element1" >Test Cases : </label> 
-				<select ng-model="project.selectedCase" class="element2" >
+				<select ng-model="selectedTestCases" class="element2" multiple ng-change="changeCase(selectedTestCases)" >
+				
 		        	<option ng-repeat="case in testCases">{{case}}</option>
 		        </select>
 			</div>
