@@ -58,6 +58,9 @@ app.controller('inputDataCtrl',
 			}
 			
 			$scope.changeSuite = function(suiteSeleted) {
+				$scope.selectedTestSuiteName =suiteSeleted;
+				
+				
 
 	//			console.log(suiteSeleted);
 				$scope.testCases = $scope.testSuites[suiteSeleted];
@@ -106,6 +109,7 @@ app.controller('inputDataCtrl',
 			$scope.testcase;
 			
 			$scope.changeCase = function(selectedCase) {
+				$scope.selectedCase =selectedCase;
 	/*
 				var tcase = {
 						"testCaseName":selectedCase,
@@ -197,19 +201,60 @@ app.controller('inputDataCtrl',
 			
 			*/
 
-
+			$scope.selectedTestSuiteName ={};
+			$scope.selectedCase ={};
+			$scope.selectPageElement =[];
 			$scope.postHttpJSON = function() {
-
+				$scope.changePageElement= function(selectPageElement){
+					$scope.selectPageElement =selectPageElement;
+				};
+				
+				var pageElement =[];
+				console.log('postHttpJSON selectPageElement = '+JSON.stringify($scope.selectPageElement));
+				
+				  
+				
+				if($scope.selectPageElement){
+					$scope.selectPageElement.forEach(function(pg){
+						
+						console.log(' document.querySelector(pg.pageElementId) : '+ document.querySelector(pg.pageElementId));
+						var queryResult = $document[0].getElementById(pg.pageElementId);
+						  
+						if(queryResult)
+						pageElement.push({
+				        	 
+				        	 'pageElementId' : pg.pageElementId,
+				        	 'pageElementValue' : queryResult.value(),
+				        	 'pageElementType' : $scope.pageElementType,
+				       		
+				           });	
+					});
+					
+				}
+				//var y =document.querySelector('#id')
+			    //angular.element(count).html(y);
+				var ts= {
+						'testSuiteName': $scope.selectedTestSuiteName,
+						'testCases':[
+						           {
+						        	 'testCaseName' : $scope.selectedCase,
+						        	 'pageElement' : pageElement
+						           }]
+						
+				};
+				$scope.project.testSuite.push(ts);
                 console.log('postHttpJSON $scope.project = '+JSON.stringify($scope.project));
 
                 $http.post('projects/', $scope.project )
                 .success(function (data, status, headers)
                 {
                  console.log('Success'+JSON.stringify(data));
+                 $scope.project.testSuite = [];
                 })
                 .error(function (data, status, headers)
                 {
                  console.log('Failure');
+                 $scope.project.testSuite = [];
                 });
                 
 /*				

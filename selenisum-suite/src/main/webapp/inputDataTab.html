@@ -50,14 +50,16 @@
 
 	<div>
 		<label id="pageelementLabel" class="element1">Page Element</label>
-		<select multiple ng-multiple="true" ng:model="project.elementmodel"
-			ng-options="element.pageElementType  +' --> '+ element.pageElementId  for element in elements" class="element2">
+		<select multiple ng-multiple="true" ng:model="selectPageElement" 
+			ng-options="element.pageElementType  +' --> '+ element.pageElementId  for element in elements" class="element2" 
+			ng-change="changePageElement(selectPageElement)">
 		</select>
 	</div>
 
 
-	<div ng-repeat="newelement in project.elementmodel">
-		{{newelement}} <input type="text" ng-model="newelement.userinput" />
+	<div ng-repeat="newelement in selectPageElement">
+	<label id="pageelementLabel" class="element1">{{newelement.pageElementId}}</label>
+		 <input type="text" ng-model="pageElementId" id ={{newelement.pageElementId}} class="element2" />
 		<br />
 	</div>
 
