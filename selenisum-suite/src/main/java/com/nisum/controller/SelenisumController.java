@@ -27,6 +27,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mongodb.util.JSON;
 import com.nisum.domain.PageElement;
+import com.nisum.domain.Project;
 import com.nisum.domain.Report;
 import com.nisum.service.WebDriverService;
 import com.nisum.util.TestScenarios;
@@ -73,26 +74,21 @@ public class SelenisumController {
 	}
 
 	@ApiOperation(value = "Service execuites the Tests")
-	@RequestMapping(value = "/executeTest", method = RequestMethod.POST, produces = "application/text")
+	@RequestMapping(value = "/executeTest", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
 	@ResponseBody
-	public ResponseEntity<String> executeTest(@ApiParam(value = "input") @RequestBody String input) {
+	public ResponseEntity<Project> executeTest(@ApiParam(value = "input") @RequestBody Project project) {
 		String report = "No Report Generated";
-		input = URLDecoder.decode(input);
+		System.out.println(project);
 		try {
 			String reportPath = context.getRealPath("");
 
 			report = driverScript.main(reportPath + "Results");
 
-			// String pathArr[] = report.split("Results");
-			// ("../../resources/DriverFiles/ProjectDriver.xlsx");
-			// report= context.getContextPath()+"/Results"+ pathArr[1];
-			// System.out.println(pathArr[1]);
-
 		} catch (Throwable e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return new ResponseEntity<String>(report, HttpStatus.OK);
+		return new ResponseEntity<Project>(project, HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "Service brings executed test reports")
