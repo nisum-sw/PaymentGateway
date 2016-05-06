@@ -3,7 +3,7 @@
 var app = angular.module('nAutomationApp');
 
 app.controller('inputDataCtrl',
-		function($scope, $window, $location, $http) {
+		function($scope, $window, $location, $http,$document) {
 			$scope.pagenames = [ "ShopStores/OSSO-Login.page", "login", "checkout", "payment" ];
 			$scope.domains = [ "http://www.safeway.com", "Walmart", "Gap", "Target" ];
 			$scope.browsers = [ "Chrome", "Firefox", "Safari", "Explorer" ];
@@ -204,10 +204,13 @@ app.controller('inputDataCtrl',
 			$scope.selectedTestSuiteName ={};
 			$scope.selectedCase ={};
 			$scope.selectPageElement =[];
+			$scope.changePageElement= function(selectPageElement){
+				console.log('selectPageElement = '+JSON.stringify(selectPageElement));
+				$scope.selectPageElement =selectPageElement;
+			};
+			
+			
 			$scope.postHttpJSON = function() {
-				$scope.changePageElement= function(selectPageElement){
-					$scope.selectPageElement =selectPageElement;
-				};
 				
 				var pageElement =[];
 				console.log('postHttpJSON selectPageElement = '+JSON.stringify($scope.selectPageElement));
@@ -224,7 +227,7 @@ app.controller('inputDataCtrl',
 						pageElement.push({
 				        	 
 				        	 'pageElementId' : pg.pageElementId,
-				        	 'pageElementValue' : queryResult.value(),
+				        	 'pageElementValue' : queryResult.value,
 				        	 'pageElementType' : $scope.pageElementType,
 				       		
 				           });	
