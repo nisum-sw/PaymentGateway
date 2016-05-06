@@ -82,6 +82,9 @@ app.controller('inputDataCtrl',
 			$scope.DropDownDomains= function(selectedDName) {
 				
 				$scope.selectedDName = selectedDName;
+				$scope.project.domainName = selectedDName;
+				
+				alert($scope.project.domainName);
 			};
 			
 			
