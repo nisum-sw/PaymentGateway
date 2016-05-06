@@ -75,8 +75,10 @@ public class HtmlResult {
 
 	public void WriteTCTime(String ResFilePath,long tctime) throws Throwable
 	{
-		TestSuite testSuite = report.getTestSuites().get(report.getTestSuites().size() - 1); 
-		testSuite.getTestCases().get(testSuite.getTestCases().size() - 1).setTime(tctime);
+		TestSuite testSuite = report.getTestSuites().get(report.getTestSuites().size() - 1);
+		if(testSuite.getTestCases().size() >0 ){
+			testSuite.getTestCases().get(testSuite.getTestCases().size() - 1).setTime(tctime);
+		}
 	}
 	
 	public void writeTestSuiteTime(long tsTime) throws Throwable

@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriver.Window;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
@@ -32,7 +33,9 @@ public class Generic_Functions {
 		switch (vKeyword)
 		{
 		case "Fn_LaunchApp":
-			Fn_LaunchApp();
+			
+			boolean retVal = Fn_LaunchApp();
+			writeLaunchAppinReport(retVal,hr);
 			break;
 		case "Fn_Wait":
 			Fn_Wait();
@@ -86,13 +89,6 @@ public class Generic_Functions {
 			System.out.println("Wrong Keyword");
 		}
 	}
-	public  void Fn_LaunchApp()
-	{
-		driverScript.driver.get(driverScript.vProjectUrl);
-		driverScript.driver.manage().window().maximize();
-		System.out.println(driverScript.vProjectUrl);
-		//WebDriverService.driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-	}
 	
 	public  void Fn_Wait()
 	{
@@ -113,6 +109,32 @@ public class Generic_Functions {
 			hr.fgInsertResult(driverScript.ResFilePath, "Fn_VerifyTitle", "Title should be :"+vExp, "Title not matched :"+actTitle, "FAIL");
 		}
 	}
+	
+	public  boolean Fn_LaunchApp()
+	{
+		boolean retVal = false;
+		driverScript.driver.get(driverScript.vProjectUrl);
+		Window window = driverScript.driver.manage().window();
+		if(window != null){
+			window.maximize();
+			retVal = true;
+		}
+		return retVal;
+		//WebDriverService.driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+	}
+	
+	public  void writeLaunchAppinReport(boolean isLaunched,HtmlResult hr) throws Throwable
+	{
+		if(isLaunched){
+			hr.fgInsertResult(driverScript.ResFilePath, "Fn_LaunchApp", "Browser Should be launched",
+					"Brower launched successfully", "PASS");
+		}else{
+			hr.fgInsertResult(driverScript.ResFilePath, "Fn_LaunchApp", "Browser Should be launched",
+					"Brower Not launched ", "FAIL");
+		}
+	}
+	
+	
 	
 	public  void Fn_ObjectExist(int vObjCnt,HtmlResult hr) throws Throwable
 	{
