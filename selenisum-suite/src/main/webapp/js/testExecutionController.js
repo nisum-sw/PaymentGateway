@@ -88,7 +88,6 @@ app.controller('testExecutionCtrl',
 							$scope.reportHref = data;
 						}).error(function(data, status) {
 				
-					alert("failure message: " + JSON.stringify(data));
 				});
 
 				

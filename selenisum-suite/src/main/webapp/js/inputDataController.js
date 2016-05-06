@@ -84,7 +84,6 @@ app.controller('inputDataCtrl',
 				$scope.selectedDName = selectedDName;
 				$scope.project.domainName = selectedDName;
 				
-				alert($scope.project.domainName);
 			};
 			
 			

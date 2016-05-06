@@ -90,7 +90,6 @@ app.controller('testSuiteCtrl', [ '$scope', '$http', '$window', '$location',
 					console.log(JSON.stringify(response));
 					$scope.savedTestSuites = response;
 				}).error(function(error) {
-					alert(2);
 					$scope.error = error;
 				});
 			};
@@ -122,7 +121,6 @@ app.controller('testSuiteCtrl', [ '$scope', '$http', '$window', '$location',
 					console.log(JSON.stringify(response));
 					$scope.getTestSuites();
 				}).error(function(error) {
-					alert(2);
 					$scope.error = error;
 				});
 				
