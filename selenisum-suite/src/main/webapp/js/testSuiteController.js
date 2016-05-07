@@ -4,6 +4,8 @@ var app = angular.module('nAutomationApp');
 
 app.controller('testSuiteCtrl', [ '$scope', '$http', '$window', '$location',
 		function($scope, $http, $window, $location) {
+	
+			$scope.pagenames = [ "ShopStores/OSSO-Login.page", "login", "checkout", "payment" ];
 			
 			$scope.testSuite = {
 					testSuiteName : "",
@@ -43,10 +45,22 @@ app.controller('testSuiteCtrl', [ '$scope', '$http', '$window', '$location',
 			$scope.addNewTestCase = function($event) {
 				
 				$scope.testSuite.testCases.push({
-					'testCaseName' : $scope.newTestCaseName
-					
+					'testCaseName' : $scope.newTestCaseName,
+					'pageName' : $scope.selectedPageName
 				});
 				$scope.newTestCaseName = "";
+				$scope.selectedPageName = "";
+				validatePageName();
+			}
+			
+			$scope.validatePageName = function() {
+				if(($scope.selectedPageName === undefined || $scope.selectedPageName === "")) {
+					return true;
+				}
+				if($scope.newTestCaseName==='') {
+					return true;
+				}
+				return false;
 			}
 
 			$scope.removeTestCase = function(index, testCase) {

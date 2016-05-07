@@ -15,6 +15,15 @@ public class TestCase {
 	private List<PageElement> pageElement;
 	private Long time;
 	private String expectedResult;
+	private String pageName;
+	
+	public String getPageName() {
+		return pageName;
+	}
+
+	public void setPageName(String pageName) {
+		this.pageName = pageName;
+	}
 
 	public String getExpectedResult() {
 		return expectedResult;

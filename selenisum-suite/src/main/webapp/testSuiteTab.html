@@ -13,22 +13,31 @@
 				ng-show="hideTxtBox"><sup>*</sup></span>
 		</div>
 		</br>
-		</br>
+		<hr/>
+		
 		<div>
 			<label>Enter new test case name:</label></br> <input class="form-control"
 				ng-readonly="!hideTxtBox" ng-model="newTestCaseName" />
-			<button class="btn btn-success" ng-disabled="!hideTxtBox"
+		</div>
+		</br>
+		<div id="pagenames" >
+			<label id="pageLabel">Page Name: </label> </br>
+			<select class="form-control" ng-disabled="!hideTxtBox"
+				ng-model="selectedPageName" id="pagedropdown"
+				ng-change="dropDownChanged(selectedPageName)" >
+				<option ng-repeat="name in pagenames">{{name}}</option>
+			</select>
+			<button class="btn btn-success" ng-disabled="!hideTxtBox || validatePageName()"
 				ng-click="addNewTestCase()">+ Test Case</button>
 		</div>
 		</br>
 		</br>
 		<div>
 			<span ng-show="hideTxtBox"> <pre>
-					<i>Note: <sup>*</sup> denotes that the Test Suite name is read-only. 
+<i>Note: <sup>*</sup> denotes that the Test Suite name is read-only. 
 Please double click on it to edit the Test Suite name.</i>
 				</pre></span>
 		</div>
-
 	</div>
 	<div class="alert alert-success" ng-show="showSuccessAlert" style="float: right; padding-right: 10px;margin-right:10px; margin-hight:10px;">{{successTextAlert}}</div>
 	<div id="right" style="float: left; padding-right: 20px;">
@@ -37,7 +46,7 @@ Please double click on it to edit the Test Suite name.</i>
 		<ol class="unstyled">
 			<li
 				ng-class="{ 'alert-warning': hideTxtBox, 'alert-danger': !hideTxtBox }"
-				style="padding: 5px;" ng-repeat="testCase in testSuite.testCases"><span>{{testCase.testCaseName}}</span>
+				style="padding: 5px;" ng-repeat="testCase in testSuite.testCases"><span>{{testCase.testCaseName}} ({{testCase.pageName}})</span>
 				<button ng-disabled="!hideTxtBox" class="close"
 					ng-click="removeTestCase($index,testCase.name)" role="alert"
 					type="button">
@@ -75,7 +84,7 @@ Please double click on it to edit the Test Suite name.</i>
                 						<span class="glyphicon sort-icon" ng-show="sortKey=='testSuiteName'" 
                 						ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
             					</th>
-                                    <th>Test Cases</th>
+                                    <th>Test Cases (Page name)</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
                                     
@@ -86,7 +95,7 @@ Please double click on it to edit the Test Suite name.</i>
                                     <td style="width: 60%;">{{testSuite.testSuiteName}}</td>
                                     <td style="width: 30%;"><ui>
 										<div ng-repeat="testCase in testSuite.testCases">
-										<li>{{testCase.testCaseName}}
+										<li>{{testCase.testCaseName}} ({{testCase.pageName}})
 										</li>
 										</div></ui>
                                     </td>
