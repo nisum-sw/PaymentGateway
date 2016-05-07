@@ -201,3 +201,10 @@ th {
 	margin-left: 0px;
     margin-top: 2px;
 }
+.button-allignment{
+	padding-bottom: 30px
+}
+.search-report-style{
+	height: 37px !important;
+    width: 350px;
+}

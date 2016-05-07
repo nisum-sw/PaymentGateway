@@ -93,16 +93,19 @@ Please double click on it to edit the Test Suite name.</i>
                             <tbody>
                                 <tr dir-paginate="testSuite in savedTestSuites  |orderBy:sortKey:reverse |filter:search | itemsPerPage:5">
                                     <td style="width: 40%;">{{testSuite.testSuiteName}}</td>
-                                    <td style="width: 20%;"><ui>
+                                    <td style="width: 20%;">
+                                    <ui>
 										<div ng-repeat="testCase in testSuite.testCases">
-										<li>{{testCase.testCaseName}}
-										</li>
-										</div></ui>
+											<li>{{testCase.testCaseName}}
+										
+										</div>
                                     </td>
-                                    <td style="width: 10%;"><ui>
+                                    <td style="width: 10%;">
 										<div ng-repeat="testCase in testSuite.testCases">
 										 {{testCase.pageName}}
-										</div></ui>
+										</div>
+										</li>
+										</ui>
                                     </td>
                                     <td style="width: 10%;"><button class="btn btn-primary" 
 										ng-click="editTestSuite(testSuite)">Edit</button>

@@ -7,7 +7,8 @@ app.controller('testSuiteCtrl', [ '$scope', '$http', '$window', '$location',
 		$scope.pagenames = [ "ShopStores/OSSO-Login.page", "login", "checkout", "payment" ];
 			$scope.testSuite = {
 					testSuiteName : "",
-					testCases : []
+					testCases : [],
+					pageName :""
 			};
 			
 
@@ -81,7 +82,8 @@ app.controller('testSuiteCtrl', [ '$scope', '$http', '$window', '$location',
 					$scope.getTestSuites();
 					$scope.testSuite = {
 							testSuiteName : "",
-							testCases : []
+							testCases : [],
+							pageName :""
 					};
 					$scope.hideTxtBox = false;
 				}).error(function(error) {
