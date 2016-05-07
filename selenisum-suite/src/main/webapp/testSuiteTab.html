@@ -3,35 +3,35 @@
 
 <div ng-controller="testSuiteCtrl">
 	<div id="left" style="float: left; width: 560px;">
+	
+	<div id="pagenames" >
+			<label id="pageLabel">Page Name: </label> 
+			<select class="form-control" 
+				ng-model="selectedPageName" id="pagedropdown"
+				ng-change="dropDownChanged(selectedPageName)" >
+				<option ng-repeat="name in pagenames">{{name}}</option>
+			</select>
+			
+		</div>
 		<div id="testSuiteContainer">
 			<label>New Test Suite:</label> <input
-				ng-class="{'alert-success' : hideTxtBox}" class="form-control"
+				ng-class="{'alert-success' : hideTxtBox}" class="form-control suite-align"
 				type="text" id="newSuiteName" ng-readonly="hideTxtBox"
 				ng-dblclick="setSuiteName()" ng-model="testSuite.testSuiteName"
 				ng-blur="makeSuiteNameStatic()"
 				ng-keyup="$event.keyCode == 13 && makeSuiteNameStatic()" /> <span
 				ng-show="hideTxtBox"><sup>*</sup></span>
 		</div>
-		</br>
 		<hr/>
 		
 		<div>
-			<label>Enter new test case name:</label></br> <input class="form-control"
+			<label> New Test Case :</label> <input class="form-control testcase-style"
 				ng-readonly="!hideTxtBox" ng-model="newTestCaseName" />
-		</div>
-		</br>
-		<div id="pagenames" >
-			<label id="pageLabel">Page Name: </label> </br>
-			<select class="form-control" ng-disabled="!hideTxtBox"
-				ng-model="selectedPageName" id="pagedropdown"
-				ng-change="dropDownChanged(selectedPageName)" >
-				<option ng-repeat="name in pagenames">{{name}}</option>
-			</select>
-			<button class="btn btn-success" ng-disabled="!hideTxtBox || validatePageName()"
+				<button class="btn btn-success" ng-disabled="!hideTxtBox"
 				ng-click="addNewTestCase()">+ Test Case</button>
 		</div>
-		</br>
-		</br>
+		
+		
 		<div>
 			<span ng-show="hideTxtBox"> <pre>
 <i>Note: <sup>*</sup> denotes that the Test Suite name is read-only. 
@@ -42,7 +42,7 @@ Please double click on it to edit the Test Suite name.</i>
 	<div class="alert alert-success" ng-show="showSuccessAlert" style="float: right; padding-right: 10px;margin-right:10px; margin-hight:10px;">{{successTextAlert}}</div>
 	<div id="right" style="float: left; padding-right: 20px;">
 	
-		<label ng-show="hideTxtBox" class="btn btn-info" >{{testSuite.testSuiteName}}</label>
+		<label ng-show="hideTxtBox" class="btn btn-info" >{{testSuite.testSuiteName}} </label>
 		<ol class="unstyled">
 			<li
 				ng-class="{ 'alert-warning': hideTxtBox, 'alert-danger': !hideTxtBox }"
@@ -53,8 +53,7 @@ Please double click on it to edit the Test Suite name.</i>
 					<span aria-hidden="true">×</span> <span class="sr-only">Close</span>
 				</button></li>
 			<div style="float: left;" ng-hide="!testSuite.testCases.length">
-				<button class="btn btn-primary" 
-					ng-click="saveTestSuite()">Save</button>
+				<button class="btn btn-primary" ng-click="saveTestSuite()">Save</button>
 			</div>
 
 		</ol>
@@ -80,11 +79,12 @@ Please double click on it to edit the Test Suite name.</i>
                         <table class="table table-striped table-hover">
                             <thead>
                                 <tr>
-                                    <th ng-click="sort('testSuiteName')"><u>Test Suite Name</u>
+                                    <th ng-click="sort('testSuiteName')">Test Suite Name
                 						<span class="glyphicon sort-icon" ng-show="sortKey=='testSuiteName'" 
                 						ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
             					</th>
-                                    <th>Test Cases (Page name)</th>
+                                    <th>Test Cases</th>
+                                    <th>Page Name</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
                                     
@@ -92,11 +92,16 @@ Please double click on it to edit the Test Suite name.</i>
                             </thead>
                             <tbody>
                                 <tr dir-paginate="testSuite in savedTestSuites  |orderBy:sortKey:reverse |filter:search | itemsPerPage:5">
-                                    <td style="width: 60%;">{{testSuite.testSuiteName}}</td>
-                                    <td style="width: 30%;"><ui>
+                                    <td style="width: 40%;">{{testSuite.testSuiteName}}</td>
+                                    <td style="width: 20%;"><ui>
 										<div ng-repeat="testCase in testSuite.testCases">
-										<li>{{testCase.testCaseName}} ({{testCase.pageName}})
+										<li>{{testCase.testCaseName}}
 										</li>
+										</div></ui>
+                                    </td>
+                                    <td style="width: 10%;"><ui>
+										<div ng-repeat="testCase in testSuite.testCases">
+										 {{testCase.pageName}}
 										</div></ui>
                                     </td>
                                     <td style="width: 10%;"><button class="btn btn-primary" 

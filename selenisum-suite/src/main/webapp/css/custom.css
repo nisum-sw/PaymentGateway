@@ -91,7 +91,6 @@ input, select {
 	margin-left: 74px;
 }
 
-<style>
 sup {
 	font-size: 100%;
 }
@@ -105,6 +104,8 @@ pre {
 	width: 300px !important;
 	display: inline;
 	font-size: 12px;
+	margin-top: 32px;
+	margin-left:22px;
 }
 ul {
 	list-style: outside none none;
@@ -174,7 +175,7 @@ button.close {
 
 hr.style-one {
     border: 10;
-    height: 5px;
+    height: 1px;
     
     background-image: linear-gradient(to right, #ccc, #333, #ccc);
     
@@ -193,5 +194,10 @@ th {
 
 /* Test Suite Tab End */
   
-
-</style>
+.suite-align {
+	margin-left: 3px !important;
+}
+.testcase-style{
+	margin-left: 0px;
+    margin-top: 2px;
+}
