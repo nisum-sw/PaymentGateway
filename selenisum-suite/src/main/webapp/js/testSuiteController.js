@@ -41,6 +41,16 @@ app.controller('testSuiteCtrl', [ '$scope', '$http', '$window', '$location',
 				//$event.preventDefault();
 			}
 
+			$scope.validatePageName = function() {
+				if(($scope.selectedPageName === undefined || $scope.selectedPageName === "")) {
+						return true;
+						}
+				if($scope.newTestCaseName==='') {
+						return true;
+					}
+					return false;
+			}
+			
 			$scope.addNewTestCase = function($event) {
 				
 				$scope.testSuite.testCases.push({
@@ -49,18 +59,10 @@ app.controller('testSuiteCtrl', [ '$scope', '$http', '$window', '$location',
 				});
 				$scope.newTestCaseName = "";
 				$scope.selectedPageName = "";
-				 validatePageName();
+				$scope.validatePageName();
 			}
 			
-			$scope.validatePageName = function() {
-				if(($scope.selectedPageName === undefined || $scope.selectedPageName === "")) {
-						return true;
-						}
-				if($scope.newTestCaseName==='') {
-						return true;
-					}
-						return false;
-				  	}
+			
 
 			$scope.removeTestCase = function(index, testCase) {
 				$scope.testSuite.testCases.splice(index, 1);
@@ -108,7 +110,7 @@ app.controller('testSuiteCtrl', [ '$scope', '$http', '$window', '$location',
 				});
 			};
 			$scope.getTestSuites();
-			console.log(JSON.stringify($scope.saveTestSuites));
+			//console.log(JSON.stringify($scope.saveTestSuites));
 			
 			$scope.sort = function(keyname){
 		        $scope.sortKey = keyname;   //set the sortKey to the param passed
@@ -139,7 +141,10 @@ app.controller('testSuiteCtrl', [ '$scope', '$http', '$window', '$location',
 				});
 				
 			};
-			
+		
+	$scope.buildTestSuite = function(){
+		$scope.getTestSuites();
+		};
 			
 		} ]);
 })();

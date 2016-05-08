@@ -53,11 +53,13 @@ input, select {
 	background: aliceblue;
 	color: #fff;
 	text-shadow: none;
+	float:left;
 }
 
 .tab-content {
-	padding-top: 23px;
-	padding-left: 40px;
+	padding-top: 50px;
+	padding-left: 10px;
+	
 }
 
 .form-control {
@@ -82,7 +84,7 @@ input, select {
 	padding-left: 322px;
 	font-family: cursive;
 	font-size: 32px;
-	margin-top: 34px;
+	margin-top: 20px;
 }
 
 .nisum-log-style {
@@ -207,4 +209,20 @@ th {
 .search-report-style{
 	height: 37px !important;
     width: 350px;
+}
+
+#wrapper {
+    width: 100%;
+    /* border: 1px solid lightblue; */
+    overflow: hidden; /* add this to contain floated children */
+}
+#first {
+    width: 60%;
+    float:left; /* add this */
+    /* border: 1px solid lightblue; */
+}
+#second {
+	margin-right: 20px;
+    /* border: 1px solid lightblue; */
+     overflow: hidden; /* if you don't want #second to wrap below #first */
 }

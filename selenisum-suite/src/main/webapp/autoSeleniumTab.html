@@ -32,23 +32,32 @@
 
 		<div class="custom-border">
 			<form name="campaignForm" class="form-horizontal" novalidate>
-				<uib-tabset> <uib-tab heading="Add Tests">
-				<div ng-controller="testSuiteCtrl">
+				<uib-tabset> 
+
+				<div class="nav nav-tabs" ng-controller="testSuiteCtrl">
+					<uib-tab heading="Add Tests" select="buildTestSuite()">
 					<div ng-include="'testSuiteTab.html'"></div>
+					</uib-tab>
 				</div>
-				</uib-tab> <uib-tab heading="Input Data">
-				<div ng-controller="inputDataCtrl">
+
+				<div ng-controller="inputDataCtrl" class="nav nav-tabs" >
+				 <uib-tab heading="Input Data" select="buildInputData()">
 					<div ng-include="'inputDataTab.html'"></div>
+				</uib-tab> 
 				</div>
-				</uib-tab> <uib-tab heading="Test Execution">
-				<div ng-controller="testExecutionCtrl">
+
+				<div ng-controller="testExecutionCtrl" class="nav nav-tabs" >
+				<uib-tab heading="Test Execution" select="buildTestExecution()">
 					<div ng-include="'testExecutionTab.html'"></div>
+				</uib-tab> 
 				</div>
-				</uib-tab> <uib-tab heading="Execution Report">
-				<div ng-controller="reportCtrl">
+
+				<div ng-controller="reportCtrl" class="nav nav-tabs" >
+				<uib-tab heading="Execution Report" select="buildExecutionReport()">
 					<div ng-include="'reportTab.html'"></div>
+				</uib-tab> 
 				</div>
-				</uib-tab> </uib-tabset>
+			</uib-tabset>
 			</form>
 		</div>
 	</div>

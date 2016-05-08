@@ -14,14 +14,6 @@ app.controller('testExecutionCtrl',
 			$scope.projects = [];
 			$scope.project = {};
 			
-			$http.get('./projects').success(
-					function(data, status) {
-						$scope.projects = data;
-						createTestSuiteObject(data);
-						console.log('data ' + JSON.stringify(data));
-					}).error(function(data, status) {
-			});
-
 			function createTestSuiteObject(data){
 				//
 				
@@ -92,7 +84,20 @@ app.controller('testExecutionCtrl',
 
 				
 			};
+			
+	$scope.buildTestExecution = function(){
+		$http.get('./projects').success(
+				function(data, status) {
+					$scope.projects = data;
+					createTestSuiteObject(data);
+					console.log('data ' + JSON.stringify(data));
+				}).error(function(data, status) {
+		});
+
+	};
 
 });
+
+
 
 })();

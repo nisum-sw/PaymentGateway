@@ -4,15 +4,7 @@ var app = angular.module('nAutomationApp');
 app.controller('reportCtrl',
 		function($scope, $window, $location, $http) {
 			
-	var path = $location.absUrl().substr(0,
-			$location.absUrl().lastIndexOf("/"));
 			$scope.reports = [];
-			$http.get(path + "/report?input=s").success(function(data, status) {
-				$scope.reports = data;
-			}).error(function(data, status) {
-				console.log("failure message: " + JSON.stringify(data));
-			});
-
 			$scope.sortType = 'name'; // set the default sort type
 			$scope.sortReverse = false; // set the default sort order
 			$scope.searchReport = ''; // set the default search/filter term
@@ -83,7 +75,20 @@ app.controller('reportCtrl',
 
 				return '';
 			}
+			
+			$scope.buildExecutionReport = function(){
 
+				$http.get("./report?input=s").success(function(data, status) {
+					$scope.reports = data;
+				}).error(function(data, status) {
+					console.log("failure message: " + JSON.stringify(data));
+				});
+
+			};
+			
+			
+			
+			
 		});
 
 function parseDate(date) {

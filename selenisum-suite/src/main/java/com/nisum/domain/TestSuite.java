@@ -13,6 +13,8 @@ public class TestSuite {
 	private String testSuiteId;
 	private String testSuiteName;
 	private String testSuiteDesc;
+	private String pageName;
+	
 	private List<TestCase> testCases;
 	private Long time;
 
@@ -59,4 +61,13 @@ public class TestSuite {
 	public void setTestCases(List<TestCase> testCases) {
 		this.testCases = testCases;
 	}
+	
+	public String getPageName() {
+		return pageName;
+	}
+
+	public void setPageName(String pageName) {
+		this.pageName = pageName;
+	}
+
 }

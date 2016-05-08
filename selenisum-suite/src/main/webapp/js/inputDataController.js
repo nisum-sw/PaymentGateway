@@ -29,16 +29,7 @@ app.controller('inputDataCtrl',
 			$scope.inputTestSuites = [];
 
 	
-			$http.get('./testsuites').success(
-					function(data, status) {
-						$scope.inputTestSuites = data;
-					//	alert("getting input");
-						
-						createTestSuiteObject(data);
-					    console.log(JSON.stringify($scope.inputTestSuites));
-					}).error(function(data, status) {
-			});
-
+			
 			function createTestSuiteObject(data){
 				
 				data.forEach(function(testSuite){
@@ -147,12 +138,9 @@ app.controller('inputDataCtrl',
 				//alert(url.name);
 				var valData = $scope.selectedDName + $scope.selectedPageName
 						+ "." + $scope.selectedFileExtension;
-				var path = $location.absUrl().substr(0,
-						$location.absUrl().lastIndexOf("/"));
-
+				
 				//$scope.selectedPage=$scope.selectedPage;
-				$http.get(
-						path + '/getElements?input='
+				$http.get('./getElements?input='
 								+ encodeURIComponent(valData)).success(
 						function(data, status) {
 							//alert("i am" + status);
@@ -348,6 +336,19 @@ app.controller('inputDataCtrl',
 				});
 			};
 
+			$scope.buildInputData = function(){
+				$http.get('./testsuites').success(
+						function(data, status) {
+							$scope.inputTestSuites = data;
+						//	alert("getting input");
+							
+							createTestSuiteObject(data);
+						    console.log(JSON.stringify($scope.inputTestSuites));
+						}).error(function(data, status) {
+				});
+
+			};			
+			
 });
 
 

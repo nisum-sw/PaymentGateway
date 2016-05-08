@@ -2,9 +2,9 @@
 <link rel="stylesheet" type="text/css" href="css/custom.css">
 
 <div ng-controller="testSuiteCtrl">
-	<div id="left" style="float: left; width: 560px;">
 	
-	<div id="pagenames" >
+	<div id="wrapper">
+	<div id="first" >
 			<label id="pageLabel">Page Name: </label> 
 			<select class="form-control" 
 				ng-model="selectedPageName" id="pagedropdown"
@@ -12,7 +12,7 @@
 				<option ng-repeat="name in pagenames">{{name}}</option>
 			</select>
 			
-		</div>
+		
 		<div id="testSuiteContainer">
 			<label>New Test Suite:</label> <input
 				ng-class="{'alert-success' : hideTxtBox}" class="form-control suite-align"
@@ -38,9 +38,11 @@
 Please double click on it to edit the Test Suite name.</i>
 				</pre></span>
 		</div>
-	</div>
-	<div class="alert alert-success" ng-show="showSuccessAlert" style="float: right; padding-right: 10px;margin-right:10px; margin-hight:10px;">{{successTextAlert}}</div>
-	<div id="right" style="float: left; padding-right: 20px;">
+		</div>
+	
+	<div id="second">
+	<div class="alert alert-success" ng-show="showSuccessAlert" style="padding-right: 10px;margin-right:10px; margin-hight:10px;">{{successTextAlert}}</div>
+	<div id="right" >
 	
 		<label ng-show="hideTxtBox" class="btn btn-info" >{{testSuite.testSuiteName}} </label>
 		<ol class="unstyled">
@@ -59,12 +61,12 @@ Please double click on it to edit the Test Suite name.</i>
 		</ol>
 	</div>
 
-	<div style="visibility: hidden; float: left;">
+	<div style="visibility: hidden;">
 		<button class="btn btn-danger" ng-disabled="true"
 			ng-click="alert('coming soon')">Save</button>
 	</div>
-
-
+</div>
+</div>
 <div class="bs-component" style="float: left; width: 100%;">
 <hr class="style-one"  >
     <div class="row">
@@ -119,4 +121,3 @@ Please double click on it to edit the Test Suite name.</i>
                          <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true" > </dir-pagination-controls> 
                     </div>
 
-</div>
