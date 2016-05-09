@@ -70,6 +70,7 @@ app.controller('testSuiteCtrl', [ '$scope', '$http', '$window', '$location',
 
 			$scope.saveTestSuite = function() {
 					
+				console.log(JSON.stringify($scope.testSuite));
 				$http({
 					url : "./testsuites",
 					dataType : 'json',
