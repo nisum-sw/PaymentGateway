@@ -8,7 +8,8 @@
 			<label id="pageLabel">Page Name: </label> 
 			<select class="form-control" 
 				ng-model="selectedPageName" id="pagedropdown"
-				ng-change="dropDownChanged(selectedPageName)" >
+				ng-change="selectPageName()" 
+				ng-disabled="disablePageName">
 				<option ng-repeat="name in pagenames">{{name}}</option>
 			</select>
 			
@@ -16,7 +17,7 @@
 		<div id="testSuiteContainer">
 			<label>New Test Suite:</label> <input
 				ng-class="{'alert-success' : hideTxtBox}" class="form-control suite-align"
-				type="text" id="newSuiteName" ng-readonly="hideTxtBox"
+				type="text" id="newSuiteName" ng-readonly="hideTxtBox || !disablePageName"
 				ng-dblclick="setSuiteName()" ng-model="testSuite.testSuiteName"
 				ng-blur="makeSuiteNameStatic()"
 				ng-keyup="$event.keyCode == 13 && makeSuiteNameStatic()" /> <span
@@ -44,11 +45,11 @@ Please double click on it to edit the Test Suite name.</i>
 	<div class="alert alert-success" ng-show="showSuccessAlert" style="padding-right: 10px;margin-right:10px; margin-hight:10px;">{{successTextAlert}}</div>
 	<div id="right" >
 	
-		<label ng-show="hideTxtBox" class="btn btn-info" >{{testSuite.testSuiteName}} </label>
+		<label ng-show="hideTxtBox" class="btn btn-info" >{{testSuite.testSuiteName}} ({{selectedPageName}})</label>
 		<ol class="unstyled">
 			<li
 				ng-class="{ 'alert-warning': hideTxtBox, 'alert-danger': !hideTxtBox }"
-				style="padding: 5px;" ng-repeat="testCase in testSuite.testCases"><span>{{testCase.testCaseName}} ({{testCase.pageName}})</span>
+				style="padding: 5px;" ng-repeat="testCase in testSuite.testCases"><span>{{testCase.testCaseName}}</span>
 				<button ng-disabled="!hideTxtBox" class="close"
 					ng-click="removeTestCase($index,testCase.name)" role="alert"
 					type="button">

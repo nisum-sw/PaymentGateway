@@ -4,6 +4,7 @@ var app = angular.module('nAutomationApp');
 
 app.controller('testSuiteCtrl', [ '$scope', '$http', '$window', '$location',
 		function($scope, $http, $window, $location) {
+		$scope.disablePageName = false;
 		$scope.pagenames = [ "ShopStores/OSSO-Login.page", "login", "checkout", "payment" ];
 			$scope.testSuite = {
 					testSuiteName : "",
@@ -36,15 +37,28 @@ app.controller('testSuiteCtrl', [ '$scope', '$http', '$window', '$location',
 				//$event.preventDefault();
 			}
 
-			$scope.makeSuiteNameStatic = function($event) {
-				$scope.hideTxtBox = true;
+			$scope.makeSuiteNameStatic = function() {
+				if(($scope.testSuite.testSuiteName === undefined || $scope.testSuite.testSuiteName === "")) {
+					$scope.hideTxtBox = false;
+				} else {
+					$scope.hideTxtBox = true;
+				}
 				//$event.preventDefault();
+			}
+			
+			$scope.selectPageName = function() {
+				$scope.disablePageName = true;
+			}
+			
+			$scope.resetSelectPageName = function() {
+				$scope.selectedPageName = "";
+				$scope.disablePageName = false;
 			}
 
 			$scope.validatePageName = function() {
 				if(($scope.selectedPageName === undefined || $scope.selectedPageName === "")) {
 						return true;
-						}
+				}
 				if($scope.newTestCaseName==='') {
 						return true;
 					}
@@ -58,7 +72,6 @@ app.controller('testSuiteCtrl', [ '$scope', '$http', '$window', '$location',
 					 'pageName' : $scope.selectedPageName
 				});
 				$scope.newTestCaseName = "";
-				$scope.selectedPageName = "";
 				$scope.validatePageName();
 			}
 			
@@ -69,6 +82,8 @@ app.controller('testSuiteCtrl', [ '$scope', '$http', '$window', '$location',
 			}
 
 			$scope.saveTestSuite = function() {
+				
+				$scope.resetSelectPageName();
 					
 				console.log(JSON.stringify($scope.testSuite));
 				$http({
