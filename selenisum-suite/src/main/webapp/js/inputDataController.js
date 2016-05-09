@@ -4,10 +4,12 @@ var app = angular.module('nAutomationApp');
 
 app.controller('inputDataCtrl',
 		function($scope, $window, $location, $http,$document) {
-			$scope.pagenames = [ "ShopStores/OSSO-Login.page", "login", "checkout", "payment" ];
-			$scope.domains = [ "http://www.safeway.com", "Walmart", "Gap", "Target" ];
-			$scope.browsers = [ "Chrome", "Firefox", "Safari", "Explorer" ];
+	
+			$scope.pagenames = [ "login", "checkout", "payment" ];
+			$scope.domains = [ "Safeway", "Walmart", "Gap", "Target" ];
 
+
+			$scope.browsers = [ "Chrome", "Firefox", "Safari", "Explorer" ];
 			
             $scope.project = {
             		pageURL:"testingpageurl123",
@@ -68,17 +70,37 @@ app.controller('inputDataCtrl',
 				});
 			};
 
-			
+				
 			
 			$scope.DropDownDomains= function(selectedDName) {
 				
-				$scope.selectedDName = selectedDName;
-				$scope.project.domainName = selectedDName;
-				
-			};
+				switch (selectedDName) {
+		          case selectedDName:
+		            $scope.project.domainName =  "http://www.safeway.com";
+					$scope.selectedDName =  "http://www.safeway.com";
+		            break;
+
+		          default:
+		            alert("Selected Domain not supported yet");
+		            break;
+
+		          }
+			  };
 			
 			
 		    $scope.dropDownChanged = function (selectedPageName) {
+				
+				switch (selectedPageName) {
+		          case "login":
+			        $scope.selectedPageName = "ShopStores/OSSO-Login.page";
+		            break;
+
+		          default:
+		            alert("Selected Page Name not supported yet");
+		            break;
+
+		        }
+				
 		    	//alert("latest");
 		        $scope.selectedPageName = selectedPageName;
 		        //var valData = $scope.selectedDName + $scope.selectedPageName + "." + $scope.selectedFileExtension;
