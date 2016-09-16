@@ -1,5 +1,6 @@
 package com.nisum.service;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.text.DateFormat;
@@ -7,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,7 +59,12 @@ public class WebDriverService {
         	{
         		
         		
-        		driver=new FirefoxDriver();
+        		//driver=new FirefoxDriver();
+        		File file = new File("chromedriver");
+        		System.setProperty("webdriver.chrome.driver", file.getAbsolutePath() );
+        		driver = new ChromeDriver();
+        		
+        		
         		vProjectName=xr.getCellData("Projects", "ProjectName", i);
         		vProjectUrl=xr.getCellData("Projects", "ProjectUrl", i);
         		vModuleFiles=xr.getCellData("Projects", "ModuleFiles", i);

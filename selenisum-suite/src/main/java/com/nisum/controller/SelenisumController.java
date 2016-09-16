@@ -1,5 +1,6 @@
 package com.nisum.controller;
 
+import java.io.File;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,7 @@ import javax.servlet.ServletContext;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -50,7 +52,14 @@ public class SelenisumController {
 	public ResponseEntity<List<PageElement>> getElements(@ApiParam(value = "input") 
 											@RequestParam("input") String input) {
 		input = URLDecoder.decode(input);
-		WebDriver browser = new FirefoxDriver();
+//		WebDriver browser = new FirefoxDriver();
+		
+
+		
+		File file = new File("chromedriver");
+		System.setProperty("webdriver.chrome.driver", file.getAbsolutePath() );
+		WebDriver browser = new ChromeDriver();
+		
 		browser.get(input);
 
 		List<WebElement> link = browser.findElements(By.xpath("//*[@id]"));
