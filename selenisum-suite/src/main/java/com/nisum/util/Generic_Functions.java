@@ -1,16 +1,17 @@
 package com.nisum.util;
 
 import java.io.FileInputStream;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver.Window;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.Select;
 
 import com.nisum.service.WebDriverService;
 
@@ -85,9 +86,69 @@ public class Generic_Functions {
 			vObjCnt=ObjectExist(ObjString);
 			 Fn_MouseMove(vObjAct,vObjCnt,hr);	
 			break;
+		case "Fn_QuitApp":
+			Fn_QuitApp();
+			break;
+		case "Fn_DeleteCookies":
+			Fn_DeleteCookies();
+			break;
+		case "Fn_ActionKeyboard":
+			Fn_ActionKeyboard();
+			break;
+			
+		case "Fn_SwitchToWindow":			
+			vExp=xtd.getCellData(vModuleName, "Expected", m);			
+			Fn_SwitchToWindow(vExp,hr);	
+			break;
 		default:
-			System.out.println("Wrong Keyword");
+			System.out.println("Wrong Keyword = " + vKeyword);
 		}
+	}
+	
+	public  void Fn_SwitchToWindow(String vExp,HtmlResult hr) throws Throwable
+	{			
+	try {	
+		Set<String> wind=driverScript.driver.getWindowHandles();
+		Iterator<String> iter=wind.iterator();
+		String secondwind=iter.next();				
+		///this script is used for window handler
+		driverScript.driver.switchTo().window(secondwind);		
+		if(driverScript.driver.getTitle().trim().equalsIgnoreCase(vExp))	
+		{			
+			System.out.println("Pass");
+			hr.fgInsertResult(driverScript.ResFilePath, "Verify Window", "Expected", "Actual", "PASS");
+		}
+		else
+		{
+			System.out.println("Fail");
+			hr.fgInsertResult(driverScript.ResFilePath, "Verify Window", "Expected", "Actual", "FAIL");
+		}
+		   
+	    }
+	   catch(Throwable t)
+	    {
+				System.out.println(t.getMessage());
+				
+		}	
+			
+}
+	public  void Fn_DeleteCookies()
+	{
+		driverScript.driver.manage().deleteAllCookies();
+	}
+	
+	
+	public  void Fn_QuitApp()
+	{
+		driverScript.driver.quit();
+	}
+	
+	
+	public  void Fn_ActionKeyboard()
+	{
+		Actions action = new Actions(driverScript.driver);
+		action.sendKeys(Keys.ESCAPE);
+
 	}
 	
 	public  void Fn_Wait()
